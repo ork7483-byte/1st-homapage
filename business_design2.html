@@ -1,0 +1,657 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>십분의일 | 프리미엄 웹사이트 솔루션</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Urbanist:wght@700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" as="style" crossorigin
+        href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <link rel="stylesheet" href="style_mobile_menu.css">
+    <link rel="stylesheet" href="footer.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#00E5F9',
+                        dark: '#050505',
+                        'dark-card': '#0A0A0A',
+                    },
+                    fontFamily: {
+                        sans: ['Pretendard Variable', 'Pretendard', 'sans-serif'],
+                        serif: ['Times New Roman', 'serif'],
+                    },
+                    animation: {
+                        'fade-up': 'fadeUp 0.8s cubic-bezier(0.2, 1, 0.3, 1) forwards',
+                    },
+                    keyframes: {
+                        fadeUp: {
+                            'from': { opacity: '0', transform: 'translateY(20px)' },
+                            'to': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html,
+        body {
+            background-color: #000;
+            color: white;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+            width: 100%;
+        }
+
+
+
+        @keyframes customFadeInOnly {
+            0% {
+                opacity: 0;
+                transform: none;
+            }
+
+            100% {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        @keyframes smoothFadeUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-right {
+            animation: customFadeInOnly 0.1s ease-out forwards !important;
+            opacity: 0;
+        }
+
+        .animate-fade-up {
+            animation: smoothFadeUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+            opacity: 0;
+        }
+
+        @media (max-width: 768px) {
+
+            header .animate-fade-right,
+            header .animate-fade-up {
+                animation: none !important;
+                opacity: 1 !important;
+                transform: none !important;
+                transition: none !important;
+            }
+        }
+
+        /* Business Design V2 Specialized Layout */
+        .v2-section {
+            width: 100%;
+            background-color: #fff;
+            color: #000;
+        }
+
+        /* Section Specific Paddings (Desktop) */
+        .v2-section-01 {
+            padding: 120px 10px 80px 10px;
+        }
+
+        .v2-section-02 {
+            padding: 80px 10px 120px 10px;
+        }
+
+        /* Fixed Centered Container */
+        .v2-container {
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Child Container with Side Margins */
+        .v2-child {
+            margin-left: 25px;
+            margin-right: 25px;
+        }
+
+        /* Label Row */
+        .v2-step1 {
+            margin-bottom: 8px;
+        }
+
+        .v2-label {
+            display: inline-block;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            line-height: 18px;
+            color: #00E5F9;
+            text-transform: uppercase;
+        }
+
+        /* Text Block Row (50:50) */
+        .v2-step2 {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            margin-bottom: 40px;
+        }
+
+        .v2-title-box {
+            flex: 1;
+        }
+
+        .v2-title-box h3 {
+            font-size: 48px;
+            font-weight: 700;
+            line-height: 62px;
+            color: #111;
+            word-break: keep-all;
+            letter-spacing: -0.02em;
+        }
+
+        .v2-desc-box {
+            flex: 1;
+        }
+
+        .v2-desc-box p {
+            font-size: 18px;
+            font-weight: 500;
+            line-height: 27px;
+            color: #111;
+            word-break: keep-all;
+        }
+
+        /* Image Row */
+        .v2-step3 {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            /* Center the image wrap */
+        }
+
+        .v2-image-wrap {
+            width: 100%;
+            /* Full width within margins */
+            height: 400px;
+            /* Panoramic height (reduced significantly) */
+            border-radius: 20px;
+            overflow: hidden;
+            background-color: #f5f5f5;
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .v2-image-wrap:hover {
+            transform: translateY(-8px);
+        }
+
+        .v2-image-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* Ensures image isn't squashed */
+            object-position: center;
+            display: block;
+            transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .v2-image-wrap:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Mobile adjustment for panoramic height */
+        @media (max-width: 1024px) {
+            .v2-image-wrap {
+                height: 250px;
+                /* Balanced height for mobile */
+                border-radius: 12px;
+            }
+        }
+
+        /* Mobile Specific Updates (User request: stack, 60px padding, center alignment) */
+        @media (max-width: 1024px) {
+
+            .v2-section-01 {
+                padding: 60px 0 40px 0 !important;
+            }
+
+            .v2-section-02 {
+                padding: 40px 0 60px 0 !important;
+                margin-top: -1px;
+                /* Removes hairline gap between white sections */
+            }
+
+            .v2-child {
+                margin-left: 10px;
+                /* Slightly reduced for better full-width feel on small screens */
+                margin-right: 10px;
+                text-align: center;
+                /* Center alignment for all text */
+            }
+
+            .v2-label {
+                text-align: center;
+                display: block;
+                font-size: 15px;
+                /* Reduced for mobile */
+                line-height: 15px;
+            }
+
+            .v2-step2 {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .v2-title-box,
+            .v2-desc-box {
+                width: 100%;
+            }
+
+            .v2-title-box h3 {
+                font-size: 28px;
+                font-weight: 700;
+                line-height: 36px;
+                color: #111;
+            }
+
+            .v2-desc-box p {
+                font-size: 16px;
+                font-weight: 500;
+                line-height: 24px;
+                color: #111;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 1. Header (PRESERVED) -->
+    <header id="main-header" class="fixed w-full z-50 transition-all duration-300 px-[10px] md:px-0">
+        <div
+            class="w-auto mx-[10.25px] md:w-full md:mx-auto md:px-[70px] flex justify-between items-center h-[64px] md:h-[92px] relative">
+            <!-- Logo: Stylized 1/10 Serif -->
+            <a href="index.html" class="group relative flex items-center animate-fade-right my-[20px] pr-[20px]"
+                style="animation-delay: 0s; animation-fill-mode: both;">
+                <span
+                    class="font-serif text-3xl text-white italic tracking-tighter leading-none flex items-center h-full">
+                    1<span class="text-white/30 mx-0.5">/</span>10
+                </span>
+            </a>
+
+            <!-- Mobile Menu (visible on mobile only) -->
+            <div class="flex md:hidden items-center gap-3 animate-fade-up transform -translate-x-[75px] h-[64px]"
+                style="animation-delay: 0.1s; animation-fill-mode: both;">
+                <!-- Mobile CTA Button -->
+                <a href="contact.html"
+                    class="bg-primary text-white text-[13px] leading-none font-bold px-[14px] py-[8px] rounded-full hover:bg-primary/90 transition-all whitespace-nowrap h-[34px] flex items-center justify-center">
+                    3초안에 문의하기
+                </a>
+                <!-- Hamburger Menu Icon -->
+                <button id="mobile-menu-toggle" class="text-white focus:outline-none flex items-center justify-center">
+                    <svg class="w-[24px] h-[24px]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Nav + CTA -->
+            <nav class="hidden md:flex items-center h-[92px]">
+                <!-- Dropdown 1: 회사소개 -->
+                <div class="group relative h-[92px] flex items-center animate-fade-up px-[12px]"
+                    style="animation-delay: 0.12s; animation-fill-mode: both;">
+                    <a href="greeting.html"
+                        class="nav-link group text-[17px] font-sans font-medium text-white hover:text-primary inline-flex items-center">
+                        <div class="relative overflow-hidden mr-[10px]" style="height: 24px !important;">
+                            <div class="flex flex-col transition-transform duration-300 group-hover:-translate-y-6">
+                                <span class="flex items-center" style="height: 24px !important;">회사소개</span>
+                                <span class="flex items-center text-primary"
+                                    style="height: 24px !important;">회사소개</span>
+                            </div>
+                        </div>
+                    </a>
+                    <div
+                        class="absolute top-full left-1/2 -translate-x-1/2 w-40 bg-white rounded-lg shadow-2xl overflow-hidden invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all duration-200 border-t-[3px] border-primary translate-y-2 group-hover:translate-y-0">
+                        <ul class="py-2 text-black text-[14px] font-medium">
+                            <li><a href="greeting.html"
+                                    class="block px-5 py-2 hover:bg-gray-50 hover:text-primary transition-colors duration-300">인사말</a>
+                            </li>
+                            <li><a href="history.html"
+                                    class="block px-5 py-2 hover:bg-gray-50 hover:text-primary transition-colors duration-300">연혁</a>
+                            </li>
+                            <li><a href="location.html"
+                                    class="block px-5 py-2 hover:bg-gray-50 hover:text-primary transition-colors duration-300">오시는
+                                    길</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Dropdown 2: 사업분야 -->
+                <div class="group relative h-[92px] flex items-center animate-fade-up px-[12px]"
+                    style="animation-delay: 0.24s; animation-fill-mode: both;">
+                    <a href="#"
+                        class="nav-link group text-[17px] font-sans font-medium text-white hover:text-primary inline-flex items-center">
+                        <div class="relative overflow-hidden mr-[10px]" style="height: 24px !important;">
+                            <div class="flex flex-col transition-transform duration-300 group-hover:-translate-y-6">
+                                <span class="flex items-center" style="height: 24px !important;">사업분야</span>
+                                <span class="flex items-center text-primary"
+                                    style="height: 24px !important;">사업분야</span>
+                            </div>
+                        </div>
+                    </a>
+                    <div
+                        class="absolute top-full left-1/2 -translate-x-1/2 w-44 bg-white rounded-lg shadow-2xl overflow-hidden invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all duration-200 border-t-[3px] border-primary translate-y-2 group-hover:translate-y-0">
+                        <ul class="py-2 text-black text-[14px] font-medium">
+                            <li><a href="business_design1.html"
+                                    class="block px-5 py-2 hover:bg-gray-50 hover:text-primary transition-colors duration-300">사업분야
+                                    디자인 1</a></li>
+                            <li><a href="business_design2.html"
+                                    class="block px-5 py-2 hover:bg-gray-50 hover:text-primary transition-colors duration-300">사업분야
+                                    디자인 2</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Dropdown 3: 제품소개 -->
+                <div class="group relative h-[92px] flex items-center animate-fade-up px-[12px]"
+                    style="animation-delay: 0.36s; animation-fill-mode: both;">
+                    <a href="#"
+                        class="nav-link group text-[17px] font-sans font-medium text-white hover:text-primary inline-flex items-center">
+                        <div class="relative overflow-hidden mr-[10px]" style="height: 24px !important;">
+                            <div class="flex flex-col transition-transform duration-300 group-hover:-translate-y-6">
+                                <span class="flex items-center" style="height: 24px !important;">제품소개</span>
+                                <span class="flex items-center text-primary"
+                                    style="height: 24px !important;">제품소개</span>
+                            </div>
+                        </div>
+                    </a>
+                    <div
+                        class="absolute top-full left-1/2 -translate-x-1/2 w-40 bg-white rounded-lg shadow-2xl overflow-hidden invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all duration-200 border-t-[3px] border-primary translate-y-2 group-hover:translate-y-0">
+                        <ul class="py-2 text-black text-[14px] font-medium">
+                            <li><a href="products.html"
+                                    class="block px-5 py-2 hover:bg-gray-50 hover:text-primary transition-colors duration-300">제품소개</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Dropdown 4: 고객지원 -->
+                <div class="group relative h-[92px] flex items-center animate-fade-up px-[12px]"
+                    style="animation-delay: 0.48s; animation-fill-mode: both;">
+                    <a href="notice.html"
+                        class="nav-link group text-[17px] font-sans font-medium text-white hover:text-primary inline-flex items-center">
+                        <div class="relative overflow-hidden mr-[10px]" style="height: 24px !important;">
+                            <div class="flex flex-col transition-transform duration-300 group-hover:-translate-y-6">
+                                <span class="flex items-center" style="height: 24px !important;">고객지원</span>
+                                <span class="flex items-center text-primary"
+                                    style="height: 24px !important;">고객지원</span>
+                            </div>
+                        </div>
+                    </a>
+                    <div
+                        class="absolute top-full left-1/2 -translate-x-1/2 w-40 bg-white rounded-lg shadow-2xl overflow-hidden invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all duration-200 border-t-[3px] border-primary translate-y-2 group-hover:translate-y-0">
+                        <ul class="py-2 text-black text-[14px] font-medium">
+                            <li><a href="notice.html"
+                                    class="block px-5 py-2 hover:bg-gray-50 hover:text-primary transition-colors duration-300">공지사항</a>
+                            </li>
+                            <li><a href="news.html"
+                                    class="block px-5 py-2 hover:bg-gray-50 hover:text-primary transition-colors duration-300">뉴스</a>
+                            </li>
+                            <li><a href="faq.html"
+                                    class="block px-5 py-2 hover:bg-gray-50 hover:text-primary transition-colors duration-300">자주묻는질문</a>
+                            </li>
+                            <li><a href="contact.html"
+                                    class="block px-5 py-2 hover:bg-gray-50 hover:text-primary transition-colors duration-300">문의하기</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- CTA Button with Rolling Text Animation -->
+                <div class="h-[92px] flex items-center ml-[25px]">
+                    <a href="contact.html"
+                        class="group relative overflow-hidden bg-primary px-[26px] py-[14px] border border-white/10 rounded-full text-[16px] font-sans font-bold transition-all hover:scale-105 animate-fade-up flex items-center justify-center"
+                        style="animation-delay: 0.6s; animation-fill-mode: both;">
+                        <div class="relative overflow-hidden" style="height: 16px !important;">
+                            <span
+                                class="block flex items-center transition-transform duration-300 group-hover:-translate-y-full text-white text-center w-full leading-[16px]"
+                                style="height: 16px !important;">3초만에
+                                문의하기</span>
+                            <span
+                                class="absolute inset-0 flex items-center justify-center transition-transform duration-300 translate-y-full group-hover:translate-y-0 text-white font-bold w-full leading-[16px]"
+                                style="height: 16px !important;">3초만에
+                                문의하기</span>
+                        </div>
+                    </a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Mobile Menu Panel -->
+    <div id="mobile-menu"
+        class="fixed top-0 right-0 h-full w-full max-w-[430px] bg-white z-[60] transform translate-x-full transition-transform duration-300 md:hidden shadow-[-10px_0_30px_rgba(0,0,0,0.1)]">
+        <div class="flex flex-col h-full py-[10px]">
+            <!-- Panel Header: Logo & Close Button -->
+            <div class="flex justify-between items-center mb-[10px] px-[10px] h-14">
+                <!-- Black Logo for White Background -->
+                <a href="index.html"
+                    class="font-serif text-3xl text-black italic tracking-tighter ml-[5px] leading-none flex items-center h-full">
+                    1<span class="text-black/30 mx-0.5">/</span>10
+                </a>
+                <button id="mobile-menu-close"
+                    class="text-black focus:outline-none p-2 -mr-[2px] h-full flex items-center">
+                    <svg class="w-[24px] h-[24px]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Menu Items -->
+            <nav class="flex flex-col text-black text-[16px] font-bold overflow-y-auto scrollbar-hide">
+                <!-- 1. 회사소개 -->
+                <div class="mobile-menu-item-group border-b border-gray-100">
+                    <div class="flex justify-between items-center py-[15px] cursor-pointer mobile-menu-trigger">
+                        <span class="text-[16px]">회사소개</span>
+                        <span
+                            class="text-gray-300 text-xl font-light transition-all duration-300 menu-icon w-6 h-6 flex items-center justify-center">+</span>
+                    </div>
+                    <div class="mobile-submenu hidden flex flex-col">
+                        <a href="greeting.html">인사말</a>
+                        <a href="history.html">연혁</a>
+                        <a href="location.html">오시는 길</a>
+                    </div>
+                </div>
+
+                <!-- 2. 사업분야 -->
+                <div class="mobile-menu-item-group border-b border-gray-100">
+                    <div class="flex justify-between items-center py-[15px] cursor-pointer mobile-menu-trigger">
+                        <span class="text-[16px]">사업분야</span>
+                        <span
+                            class="text-gray-300 text-xl font-light transition-all duration-300 menu-icon w-6 h-6 flex items-center justify-center">+</span>
+                    </div>
+                    <div class="mobile-submenu hidden flex flex-col">
+                        <a href="business_design1.html">사업분야 디자인 1</a>
+                        <a href="business_design2.html">사업분야 디자인 2</a>
+                    </div>
+                </div>
+
+                <!-- 2. 제품소개 -->
+                <div class="mobile-menu-item-group border-b border-gray-100">
+                    <div class="flex justify-between items-center py-[15px] cursor-pointer mobile-menu-trigger">
+                        <span class="text-[16px]">제품소개</span>
+                        <span
+                            class="text-gray-300 text-xl font-light transition-all duration-300 menu-icon w-6 h-6 flex items-center justify-center">+</span>
+                    </div>
+                    <div class="mobile-submenu hidden flex flex-col">
+                        <a href="products.html">제품소개</a>
+                    </div>
+                </div>
+
+                <!-- 4. 고객지원 -->
+                <div class="mobile-menu-item-group border-b border-gray-100">
+                    <div class="flex justify-between items-center py-[15px] cursor-pointer mobile-menu-trigger">
+                        <span class="text-[16px]">고객지원</span>
+                        <span
+                            class="text-gray-300 text-xl font-light transition-all duration-300 menu-icon w-6 h-6 flex items-center justify-center">+</span>
+                    </div>
+                    <div class="mobile-submenu hidden flex flex-col">
+                        <a href="notice.html">공지사항</a>
+                        <a href="news.html">뉴스</a>
+                        <a href="faq.html">자주묻는질문</a>
+                        <a href="contact.html">문의하기</a>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Bottom CTA Button -->
+            <div class="mt-auto pb-4 px-4">
+                <a href="contact.html"
+                    class="w-full bg-primary text-white text-[16px] font-bold py-4 rounded-full flex items-center justify-center shadow-lg shadow-primary/20 transition-all active:scale-95">
+                    3초안에 문의하기
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sub Visual Section -->
+    <section class="relative w-full h-[340px] flex flex-col justify-center overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img src="sub_visual_bg_final.png" alt="Sub Visual Background" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-black/50"></div>
+        </div>
+        <div class="relative z-10 container mx-auto px-[20px] md:px-[70px] pt-[92px]">
+            <div class="text-white flex flex-col items-center text-center">
+                <span
+                    class="block text-[#E6E6E6] font-sans font-bold text-[15px] md:text-[18px] leading-[18px] mb-2 animate-fade-right">
+                    Business
+                </span>
+                <h2 class="text-[32px] md:text-[48px] leading-[1.2] md:leading-[62px] font-sans font-bold text-white mb-4 md:mb-6 animate-fade-up"
+                    style="animation-delay: 0.1s;">
+                    사업분야
+                </h2>
+                <div class="flex items-center justify-center gap-2 font-sans font-semibold text-[15px] md:text-[16px] leading-[16px] text-[#CFCFCF] animate-fade-up"
+                    style="animation-delay: 0.2s;">
+                    <span>홈</span>
+                    <span>·</span>
+                    <span>사업분야</span>
+                    <span>·</span>
+                    <span>사업분야 디자인2</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content Area -->
+    <main class="w-full">
+        <!-- Section 1 -->
+        <section class="v2-section v2-section-01">
+            <div class="v2-container">
+                <div class="v2-child">
+                    <!-- 1단: Label -->
+                    <div class="v2-step1">
+                        <span class="v2-label">SERVICE 01</span>
+                    </div>
+                    <!-- 2단: Text Block (50:50) -->
+                    <div class="v2-step2">
+                        <div class="v2-title-box">
+                            <h3>프리미엄 홈페이지 템플릿 제작</h3>
+                        </div>
+                        <div class="v2-desc-box">
+                            <p>십분의일은 트랜디하고 세련된 홈페이지 템플릿을 제작합니다. 실제 300만원에 제작된 홈페이지들을 30만원 템플릿으로 만들었습니다. 300만원 홈페이지를 10분의
+                                1 가격에 드립니다. 충분히 살펴보신 후 구매하세요. 직접 디자인 수정을 하셔도 좋고, 수정이 어려우시면 커스터마이징으로 진행할 수 있습니다. 더 다양하고
+                                트랜디한 디자인의 템플릿들이 많이 있습니다.</p>
+                        </div>
+                    </div>
+                    <!-- 3단: Image Row (Margin-top 40px is handled by Step2 bottom margin) -->
+                    <div class="v2-step3">
+                        <div class="v2-image-wrap">
+                            <img src="business_v2_1.png" alt="Premium Template Service">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2 -->
+        <section class="v2-section v2-section-02">
+            <div class="v2-container">
+                <div class="v2-child">
+                    <!-- 1단: Label -->
+                    <div class="v2-step1">
+                        <span class="v2-label">SERVICE 02</span>
+                    </div>
+                    <!-- 2단: Text Block (50:50) -->
+                    <div class="v2-step2">
+                        <div class="v2-title-box">
+                            <h3>더 많은 아름다운 템플릿들이 준비되어 있습니다.</h3>
+                        </div>
+                        <div class="v2-desc-box">
+                            <p>실제 300만원에 제작된 홈페이지들을 30만원 템플릿으로 만들었습니다. 300만원 홈페이지를 10분의 1 가격에 드립니다. 충분히 살펴보신 후 구매하세요. 직접
+                                디자인 수정을 하셔도 좋고, 수정이 어려우시면 커스터마이징으로 진행할 수 있습니다. 더 다양하고 트랜디한 디자인의 템플릿들이 많이 있습니다.</p>
+                        </div>
+                    </div>
+                    <!-- 3단: Image Row -->
+                    <div class="v2-step3">
+                        <div class="v2-image-wrap">
+                            <img src="business_v2_2.png" alt="More Beautiful Templates">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="new-footer">
+        <div class="max-w-[1280px] w-full mx-auto">
+            <div class="footer-top">
+                <div class="footer-left relative left-0 md:-left-5">
+                    <div class="f-section">
+                        <h4 style="margin-bottom: 0 !important; margin-top: 30px !important;">Address</h4>
+                        <p>서울특별시 00구 00동</p>
+                    </div>
+                    <div class="f-section">
+                        <h4 style="margin-bottom: 0 !important; margin-top: 30px !important;">Contact</h4>
+                        <p>T. 010 1234 1234<br>F. 010 1234 1234</p>
+                    </div>
+                </div>
+
+                <div class="footer-right">
+                    <div class="f-section">
+                        <h4 style="margin-bottom: 0 !important; margin-top: 30px !important;">십분의일</h4>
+                        <p>대표: 안상언<br>사업자등록번호: 000-00-00000<br>주소: 서울특별시 00구 00동</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="relative left-0 md:-left-5">
+                    <a href="#">개인정보처리방침</a>
+                </div>
+                <div>
+                    <span>One-tenth. All rights reserved.</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

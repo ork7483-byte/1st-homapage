@@ -1,0 +1,712 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>십분의일 | 자주 묻는 질문</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" as="style" crossorigin
+        href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <link rel="stylesheet" href="style_mobile_menu.css">
+    <link rel="stylesheet" href="footer.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#00E5F9',
+                        dark: '#050505',
+                        'dark-card': '#0A0A0A',
+                    },
+                    fontFamily: {
+                        sans: ['Pretendard Variable', 'Pretendard', 'sans-serif'],
+                        serif: ['Times New Roman', 'serif'],
+                    },
+                    animation: {
+                        'fade-up': 'fadeUp 0.8s cubic-bezier(0.2, 1, 0.3, 1) forwards',
+                    },
+                    keyframes: {
+                        fadeUp: {
+                            'from': { opacity: '0', transform: 'translateY(20px)' },
+                            'to': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html,
+        body {
+            background-color: #000;
+            color: white;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+            width: 100%;
+        }
+
+
+
+        @keyframes customFadeInOnly {
+            0% {
+                opacity: 0;
+                transform: none;
+            }
+
+            100% {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        @keyframes smoothFadeUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-right {
+            animation: customFadeInOnly 0.1s ease-out forwards !important;
+            opacity: 0;
+        }
+
+        .animate-fade-up {
+            animation: smoothFadeUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+            opacity: 0;
+        }
+
+        @media (max-width: 768px) {
+
+            header .animate-fade-right,
+            header .animate-fade-up {
+                animation: none !important;
+                opacity: 1 !important;
+                transform: none !important;
+                transition: none !important;
+            }
+        }
+
+        /* Header border fix */
+        header {
+            border-bottom: none !important;
+        }
+
+        /* FAQ Page Custom Layout - Matching Notice/News Specifications */
+
+        .p-section {
+            padding-top: 80px;
+            padding-bottom: 80px;
+            padding-left: 10px;
+            padding-right: 10px;
+            background-color: #fff;
+        }
+
+        .p-container {
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .p-child {
+            margin-left: 25px;
+            margin-right: 25px;
+            display: flex;
+            flex-direction: row;
+            gap: 40px;
+        }
+
+        @media (max-width: 1024px) {
+            .p-child {
+                margin-left: 10px !important;
+                margin-right: 10px !important;
+                flex-direction: column;
+                gap: 0;
+            }
+
+            .faq-left-col,
+            .faq-right-col {
+                width: 100% !important;
+            }
+        }
+
+        /* Left Column (40%) */
+        .faq-left-col {
+            width: 40%;
+            flex-shrink: 0;
+        }
+
+        .faq-title {
+            font-family: 'Pretendard', sans-serif;
+            font-size: 48px;
+            font-weight: 700;
+            line-height: 62px;
+            color: rgb(17, 17, 17);
+            margin: 0;
+            padding: 0;
+            margin-bottom: 25px;
+            text-align: left;
+        }
+
+        .faq-subtitle {
+            font-family: 'Pretendard', sans-serif;
+            font-size: 18px;
+            font-weight: 600;
+            line-height: 1;
+            color: rgb(44, 44, 44);
+            margin: 0;
+            padding: 0;
+            margin-bottom: 40px;
+            text-align: left;
+        }
+
+        /* Right Column (60%) */
+        .faq-right-col {
+            width: 60%;
+            flex-grow: 1;
+        }
+
+        .faq-accordion-item {
+            border-bottom: 1px solid #eeeeee;
+        }
+
+        .faq-question {
+            width: 100%;
+            padding: 20px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .faq-question-text {
+            font-family: 'Pretendard', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            line-height: 31px;
+            color: #A0A0A0;
+            /* Initial color from reference */
+            transition: color 0.3s ease;
+            text-align: left;
+            padding-right: 20px;
+            word-break: keep-all;
+        }
+
+        .faq-accordion-item.active .faq-question-text {
+            color: #00E5F9;
+        }
+
+        /* Circular Toggle Icon */
+        .faq-icon-circle {
+            flex-shrink: 0;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: 1px solid #A0A0A0;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .faq-accordion-item.active .faq-icon-circle {
+            border-color: #00E5F9;
+        }
+
+        .faq-icon-circle::before,
+        .faq-icon-circle::after {
+            content: '';
+            position: absolute;
+            background-color: #A0A0A0;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.3s ease;
+        }
+
+        /* Horizontal bar */
+        .faq-icon-circle::before {
+            width: 12px;
+            height: 1.5px;
+        }
+
+        /* Vertical bar (plus) */
+        .faq-icon-circle::after {
+            width: 1.5px;
+            height: 12px;
+            opacity: 1;
+        }
+
+        .faq-accordion-item.active .faq-icon-circle::before {
+            background-color: #00E5F9;
+        }
+
+        .faq-accordion-item.active .faq-icon-circle::after {
+            opacity: 0;
+            /* Hide vertical bar for minus effect */
+            background-color: #00E5F9;
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .faq-answer-inner {
+            padding: 0 0 20px 0;
+            font-family: 'Pretendard', sans-serif;
+            font-size: 18px;
+            font-weight: 500;
+            line-height: 32px;
+            color: rgb(80, 80, 80);
+            word-break: keep-all;
+        }
+
+        @media (max-width: 768px) {
+            .p-section {
+                padding-top: 50px !important;
+                padding-bottom: 50px !important;
+            }
+
+            .faq-title {
+                font-size: 28px;
+                line-height: 36px;
+                font-weight: 700;
+                color: rgb(17, 17, 17);
+            }
+
+            .faq-subtitle {
+                font-size: 18px;
+                line-height: 18px;
+                font-weight: 600;
+                color: rgb(44, 44, 44);
+                margin-bottom: 25px;
+            }
+
+            .faq-question {
+                padding: 14px 0;
+            }
+
+            .faq-question-text {
+                font-size: 20px;
+                line-height: 26px;
+                font-weight: 700;
+            }
+
+            .faq-answer-inner {
+                font-size: 16px;
+                font-weight: 500;
+                line-height: 28px;
+                color: rgb(80, 80, 80);
+                padding-bottom: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 1. Header (PRESERVED) -->
+    <header id="main-header" class="fixed w-full z-50 transition-all duration-300 px-[10px] md:px-0">
+        <div
+            class="w-auto mx-[10.25px] md:w-full md:mx-auto md:px-[70px] flex justify-between items-center h-[64px] md:h-[92px] relative">
+            <!-- Logo: Stylized 1/10 Serif -->
+            <a href="index.html" class="group relative flex items-center animate-fade-right my-[20px] pr-[20px]"
+                style="animation-delay: 0s; animation-fill-mode: both;">
+                <span id="header-logo-text"
+                    class="font-serif text-3xl text-white italic tracking-tighter leading-none flex items-center h-full">
+                    1<span id="header-slash" class="text-white/30 mx-0.5">/</span>10
+                </span>
+            </a>
+
+            <!-- Mobile Menu (visible on mobile only) -->
+            <div class="flex md:hidden items-center gap-3 animate-fade-up transform -translate-x-[75px] h-[64px]"
+                style="animation-delay: 0.1s; animation-fill-mode: both;">
+                <!-- Mobile CTA Button -->
+                <a href="contact.html"
+                    class="bg-primary text-white text-[13px] leading-none font-bold px-[14px] py-[8px] rounded-full hover:bg-primary/90 transition-all whitespace-nowrap h-[34px] flex items-center justify-center">
+                    3초안에 문의하기
+                </a>
+                <!-- Hamburger Menu Icon -->
+                <button id="mobile-menu-toggle" class="text-white focus:outline-none flex items-center justify-center">
+                    <svg class="w-[24px] h-[24px]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Nav + CTA -->
+            <nav class="hidden md:flex items-center h-[92px]">
+                <!-- Dropdown 1: 회사소개 -->
+                <div class="group relative h-[92px] flex items-center animate-fade-up px-[12px]"
+                    style="animation-delay: 0.12s; animation-fill-mode: both;">
+                    <a href="greeting.html"
+                        class="nav-link group text-[17px] font-sans font-medium text-white hover:text-primary inline-flex items-center">
+                        <div class="relative overflow-hidden mr-[10px]" style="height: 24px !important;">
+                            <div class="flex flex-col transition-transform duration-300 group-hover:-translate-y-6">
+                                <span class="flex items-center" style="height: 24px !important;">회사소개</span>
+                                <span class="flex items-center text-primary"
+                                    style="height: 24px !important;">회사소개</span>
+                            </div>
+                        </div>
+                    </a>
+                    <div
+                        class="absolute top-full left-1/2 -translate-x-1/2 w-40 bg-white rounded-lg shadow-2xl overflow-hidden invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all duration-200 border-t-[3px] border-primary translate-y-2 group-hover:translate-y-0">
+                        <ul class="py-2 text-black text-[14px] font-medium">
+                            <li><a href="greeting.html"
+                                    class="block px-5 py-2 hover:bg-gray-50 hover:text-primary transition-colors duration-300">인사말</a>
+                            </li>
+                            <li><a href="history.html"
+                                    class="block px-5 py-2 hover:bg-gray-50 hover:text-primary transition-colors duration-300">연혁</a>
+                            </li>
+                            <li><a href="location.html"
+                                    class="block px-5 py-2 hover:bg-gray-50 hover:text-primary transition-colors duration-300">오시는
+                                    길</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Dropdown 2: 사업분야 -->
+                <div class="group relative h-[92px] flex items-center animate-fade-up px-[12px]"
+                    style="animation-delay: 0.24s; animation-fill-mode: both;">
+                    <a href="#"
+                        class="nav-link group text-[17px] font-sans font-medium text-white hover:text-primary inline-flex items-center">
+                        <div class="relative overflow-hidden mr-[10px]" style="height: 24px !important;">
+                            <div class="flex flex-col transition-transform duration-300 group-hover:-translate-y-6">
+                                <span class="flex items-center" style="height: 24px !important;">사업분야</span>
+                                <span class="flex items-center text-primary"
+                                    style="height: 24px !important;">사업분야</span>
+                            </div>
+                        </div>
+                    </a>
+                    <div
+                        class="absolute top-full left-1/2 -translate-x-1/2 w-44 bg-white rounded-lg shadow-2xl overflow-hidden invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all duration-200 border-t-[3px] border-primary translate-y-2 group-hover:translate-y-0">
+                        <ul class="py-2 text-black text-[14px] font-medium">
+                            <li><a href="business_design1.html"
+                                    class="block px-5 py-2 hover:bg-gray-50 hover:text-primary transition-colors duration-300">사업분야
+                                    디자인 1</a></li>
+                            <li><a href="business_design2.html"
+                                    class="block px-5 py-2 hover:bg-gray-50 hover:text-primary transition-colors duration-300">사업분야
+                                    디자인 2</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Dropdown 3: 제품소개 -->
+                <div class="group relative h-[92px] flex items-center animate-fade-up px-[12px]"
+                    style="animation-delay: 0.36s; animation-fill-mode: both;">
+                    <a href="products.html"
+                        class="nav-link group text-[17px] font-sans font-medium text-white hover:text-primary inline-flex items-center">
+                        <div class="relative overflow-hidden mr-[10px]" style="height: 24px !important;">
+                            <div class="flex flex-col transition-transform duration-300 group-hover:-translate-y-6">
+                                <span class="flex items-center" style="height: 24px !important;">제품소개</span>
+                                <span class="flex items-center text-primary"
+                                    style="height: 24px !important;">제품소개</span>
+                            </div>
+                        </div>
+                    </a>
+                    <div
+                        class="absolute top-full left-1/2 -translate-x-1/2 w-40 bg-white rounded-lg shadow-2xl overflow-hidden invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all duration-200 border-t-[3px] border-primary translate-y-2 group-hover:translate-y-0">
+                        <ul class="py-2 text-black text-[14px] font-medium">
+                            <li><a href="products.html"
+                                    class="block px-5 py-2 hover:bg-gray-50 hover:text-primary transition-colors duration-300">제품소개</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Dropdown 4: 고객지원 -->
+                <div class="group relative h-[92px] flex items-center animate-fade-up px-[12px]"
+                    style="animation-delay: 0.48s; animation-fill-mode: both;">
+                    <a href="notice.html"
+                        class="nav-link group text-[17px] font-sans font-medium text-primary inline-flex items-center">
+                        <div class="relative overflow-hidden mr-[10px]" style="height: 24px !important;">
+                            <div class="flex flex-col transition-transform duration-300 group-hover:-translate-y-6">
+                                <span class="flex items-center" style="height: 24px !important;">고객지원</span>
+                                <span class="flex items-center text-primary"
+                                    style="height: 24px !important;">고객지원</span>
+                            </div>
+                        </div>
+                    </a>
+                    <div
+                        class="absolute top-full left-1/2 -translate-x-1/2 w-40 bg-white rounded-lg shadow-2xl overflow-hidden invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all duration-200 border-t-[3px] border-primary translate-y-2 group-hover:translate-y-0">
+                        <ul class="py-2 text-black text-[14px] font-medium">
+                            <li><a href="notice.html"
+                                    class="block px-5 py-2 hover:bg-gray-50 hover:text-primary transition-colors duration-300">공지사항</a>
+                            </li>
+                            <li><a href="news.html"
+                                    class="block px-5 py-2 hover:bg-gray-50 hover:text-primary transition-colors duration-300">뉴스</a>
+                            </li>
+                            <li><a href="faq.html"
+                                    class="block px-5 py-2 hover:bg-gray-50 hover:text-primary transition-colors duration-300">자주묻는질문</a>
+                            </li>
+                            <li><a href="contact.html"
+                                    class="block px-5 py-2 hover:bg-gray-50 hover:text-primary transition-colors duration-300">문의하기</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- CTA Button with Rolling Text Animation -->
+                <div class="h-[92px] flex items-center ml-[25px]">
+                    <a href="contact.html"
+                        class="group relative overflow-hidden bg-primary px-[26px] py-[14px] border border-white/10 rounded-full text-[16px] font-sans font-bold transition-all hover:scale-105 animate-fade-up flex items-center justify-center"
+                        style="animation-delay: 0.6s; animation-fill-mode: both;">
+                        <div class="relative overflow-hidden" style="height: 16px !important;">
+                            <span
+                                class="block flex items-center transition-transform duration-300 group-hover:-translate-y-full text-white text-center w-full leading-[16px]"
+                                style="height: 16px !important;">3초만에
+                                문의하기</span>
+                            <span
+                                class="absolute inset-0 flex items-center justify-center transition-transform duration-300 translate-y-full group-hover:translate-y-0 text-white font-bold w-full leading-[16px]"
+                                style="height: 16px !important;">3초만에
+                                문의하기</span>
+                        </div>
+                    </a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Mobile Menu Panel -->
+    <div id="mobile-menu"
+        class="fixed top-0 right-0 h-full w-full max-w-[430px] bg-white z-[60] transform translate-x-full transition-transform duration-300 md:hidden shadow-[-10px_0_30px_rgba(0,0,0,0.1)]">
+        <div class="flex flex-col h-full">
+            <!-- Panel Header: Logo & Close Button -->
+            <div class="flex justify-between items-center mx-[10.75px] px-[10px] h-14">
+                <!-- Black Logo for White Background -->
+                <a href="index.html"
+                    class="font-serif text-3xl text-black italic tracking-tighter leading-none flex items-center h-full">
+                    1<span class="text-black/30 mx-0.5">/</span>10
+                </a>
+                <button id="mobile-menu-close"
+                    class="text-black focus:outline-none p-2 -mr-[2px] h-full flex items-center">
+                    <svg class="w-[24px] h-[24px]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Menu Items -->
+            <nav class="flex flex-col text-black text-[16px] font-bold overflow-y-auto scrollbar-hide mx-[10.75px]">
+                <!-- 1. 회사소개 -->
+                <div class="mobile-menu-item-group border-b border-gray-100">
+                    <div class="flex justify-between items-center py-[15px] cursor-pointer mobile-menu-trigger">
+                        <span class="text-[16px]">회사소개</span>
+                        <span
+                            class="text-gray-300 text-xl font-light transition-all duration-300 menu-icon w-10 h-10 flex items-center justify-center p-2 -mr-[2px]">+</span>
+                    </div>
+                    <div class="mobile-submenu hidden flex flex-col pb-[10px]">
+                        <a href="greeting.html">인사말</a>
+                        <a href="history.html">연혁</a>
+                        <a href="location.html">오시는 길</a>
+                    </div>
+                </div>
+
+                <!-- 2. 사업분야 -->
+                <div class="mobile-menu-item-group border-b border-gray-100">
+                    <div class="flex justify-between items-center py-[15px] cursor-pointer mobile-menu-trigger">
+                        <span class="text-[16px]">사업분야</span>
+                        <span
+                            class="text-gray-300 text-xl font-light transition-all duration-300 menu-icon w-10 h-10 flex items-center justify-center p-2 -mr-[2px]">+</span>
+                    </div>
+                    <div class="mobile-submenu hidden flex flex-col pb-[10px]">
+                        <a href="business_design1.html">사업분야 디자인 1</a>
+                        <a href="business_design2.html">사업분야 디자인 2</a>
+                    </div>
+                </div>
+
+                <!-- 3. 제품소개 -->
+                <div class="mobile-menu-item-group border-b border-gray-100">
+                    <div class="flex justify-between items-center py-[15px] cursor-pointer mobile-menu-trigger">
+                        <span class="text-[16px]">제품소개</span>
+                        <span
+                            class="text-gray-300 text-xl font-light transition-all duration-300 menu-icon w-10 h-10 flex items-center justify-center p-2 -mr-[2px]">+</span>
+                    </div>
+                    <div class="mobile-submenu hidden flex flex-col pb-[10px]">
+                        <a href="products.html">제품소개</a>
+                    </div>
+                </div>
+
+                <!-- 4. 고객지원 -->
+                <div class="mobile-menu-item-group border-b border-gray-100">
+                    <div class="flex justify-between items-center py-[15px] cursor-pointer mobile-menu-trigger">
+                        <span class="text-[16px]">고객지원</span>
+                        <span
+                            class="text-gray-300 text-xl font-light transition-all duration-300 menu-icon w-10 h-10 flex items-center justify-center p-2 -mr-[2px]">+</span>
+                    </div>
+                    <div class="mobile-submenu hidden flex flex-col pb-[10px]">
+                        <a href="notice.html">공지사항</a>
+                        <a href="news.html">뉴스</a>
+                        <a href="faq.html">자주묻는질문</a>
+                        <a href="contact.html">문의하기</a>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Bottom CTA Button -->
+            <div class="mt-auto pb-4 px-4">
+                <a href="contact.html"
+                    class="w-full bg-primary text-white text-[16px] font-bold py-4 rounded-full flex items-center justify-center shadow-lg shadow-primary/20 transition-all active:scale-95">
+                    3초안에 문의하기
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sub Visual Section -->
+    <section class="relative w-full h-[340px] flex flex-col justify-center overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img src="sub_visual_bg_final.png" alt="Sub Visual Background" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-black/50"></div>
+        </div>
+        <div class="relative z-10 container mx-auto px-[20px] md:px-[70px] pt-[92px]">
+            <div class="text-white flex flex-col items-center text-center">
+                <span
+                    class="block text-[#E6E6E6] font-sans font-bold text-[15px] md:text-[18px] leading-[18px] mb-2">Support</span>
+                <h2
+                    class="text-[32px] md:text-[48px] leading-[1.2] md:leading-[62px] font-sans font-bold text-white mb-4">
+                    고객지원</h2>
+                <div
+                    class="flex items-center justify-center gap-2 font-sans font-semibold text-[15px] md:text-[16px] leading-[16px] text-[#CFCFCF]">
+                    <span>홈</span><span>·</span><span>고객지원</span><span>·</span><span>자주묻는질문</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content Area -->
+    <main class="p-section">
+        <div class="p-container">
+            <div class="p-child">
+                <!-- Left Column (35%) -->
+                <div class="faq-left-col">
+                    <h3 class="faq-title">자주묻는 질문</h3>
+                    <p class="faq-subtitle">궁금한 점이 있으신가요?</p>
+                </div>
+
+                <!-- Right Column (65%) -->
+                <div class="faq-right-col">
+                    <div class="faq-list">
+                        <!-- FAQ Item 1 (Open by default) -->
+                        <div class="faq-accordion-item active">
+                            <div class="faq-question" onclick="toggleFaq(this)">
+                                <span class="faq-question-text">코딩지식이 전혀 없어도 수정할 수 있나요?</span>
+                                <div class="faq-icon-circle"></div>
+                            </div>
+                            <div class="faq-answer" style="max-height: 500px;">
+                                <div class="faq-answer-inner">
+                                    네, 코딩 지식이 전혀 없는 분들도 손쉽게 문구와 이미지를 수정하실 수 있도록 메뉴얼을 제공하고 있습니다. 메뉴얼에는 영상도 담겨있으니 보시면서 그대로
+                                    따라하시면 됩니다. 지금까지 구매하신 모든 분들이 저에게 따로 질문하지 않고 쉽게 수정하셨습니다.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- FAQ Item 2 -->
+                        <div class="faq-accordion-item">
+                            <div class="faq-question" onclick="toggleFaq(this)">
+                                <span class="faq-question-text">유지보수는 어떻게 되나요?</span>
+                                <div class="faq-icon-circle"></div>
+                            </div>
+                            <div class="faq-answer">
+                                <div class="faq-answer-inner">
+                                    매달 돈을 내는 유지보수는 굳이 안하셔도 됩니다. 가끔 수정이 필요하실 때 저희에게 요청해주시면 처리해 드립니다. 그 외에 홈페이지 제작 후 따로
+                                    들어가는 비용은 없습니다.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- FAQ Item 3 -->
+                        <div class="faq-accordion-item">
+                            <div class="faq-question" onclick="toggleFaq(this)">
+                                <span class="faq-question-text">커스터마이징이 뭔가요?</span>
+                                <div class="faq-icon-circle"></div>
+                            </div>
+                            <div class="faq-answer">
+                                <div class="faq-answer-inner">
+                                    템플릿에 있는 페이지 외에 다른 페이지나 기능을 추가하고 싶을 경우 저희에게 요청하는 것을 말합니다. 템플릿을 기준으로 제작이 되며, 원하시는 페이지와
+                                    기능에 따라 견적은 달라집니다.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="new-footer">
+        <div class="max-w-[1280px] w-full mx-auto">
+            <div class="footer-top">
+                <div class="footer-left relative left-0 md:-left-5">
+                    <div class="f-section">
+                        <h4 style="margin-bottom: 0 !important; margin-top: 30px !important;">Address</h4>
+                        <p>서울특별시 00구 00동</p>
+                    </div>
+                    <div class="f-section">
+                        <h4 style="margin-bottom: 0 !important; margin-top: 30px !important;">Contact</h4>
+                        <p>T. 010 1234 1234<br>F. 010 1234 1234</p>
+                    </div>
+                </div>
+
+                <div class="footer-right">
+                    <div class="f-section">
+                        <h4 style="margin-bottom: 0 !important; margin-top: 30px !important;">십분의일</h4>
+                        <p>대표: 안상언<br>사업자등록번호: 000-00-00000<br>주소: 서울특별시 00구 00동</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="relative left-0 md:-left-5">
+                    <a href="#">개인정보처리방침</a>
+                </div>
+                <div>
+                    <span>One-tenth. All rights reserved.</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        function toggleFaq(el) {
+            const item = el.parentElement;
+            const answer = el.nextElementSibling;
+            const allItems = document.querySelectorAll('.faq-accordion-item');
+
+            // Close other items
+            allItems.forEach(i => {
+                if (i !== item && i.classList.contains('active')) {
+                    i.classList.remove('active');
+                    i.querySelector('.faq-answer').style.maxHeight = null;
+                }
+            });
+
+            // Toggle current item
+            if (item.classList.contains('active')) {
+                item.classList.remove('active');
+                answer.style.maxHeight = null;
+            } else {
+                item.classList.add('active');
+                answer.style.maxHeight = answer.scrollHeight + "px";
+            }
+        }
+    </script>
+</body>
+
+</html>

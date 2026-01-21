@@ -1,0 +1,127 @@
+/* Testimonial Section Adjustments matched to User Request */
+
+.testimonial-slider {
+    padding: 40px 0;
+    width: 100%;
+    position: relative;
+    /* overflow: visible so shadows don't get cut if they extend a bit, 
+       but we need a parent wrapper to clip the far edges if needed.
+       For now, let's try visible to allow full shadow rendering */
+    overflow: visible;
+}
+
+/* Wrapper to clip the very edges of the screen if desired */
+.testimonial-wrapper {
+    overflow: hidden;
+    width: 100%;
+}
+
+.t-card {
+    /* Base State (Inactive) */
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 50px 40px;
+    width: 500px;
+    /* Slightly wider */
+    height: auto;
+    min-height: 400px;
+    flex-shrink: 0;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+
+    /* Animation Props */
+    transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+    opacity: 0.4;
+    transform: scale(0.9);
+    filter: blur(1px);
+    /* Slight blur for depth */
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Active State Styles (Applied via JS class usually, but defining here for reference) */
+.t-card.active {
+    opacity: 1;
+    transform: scale(1.05);
+    /* Pop out */
+    background: rgb(0, 229, 249);
+    /* Fallback */
+    /* Gradient matches the new cyan theme */
+    background: linear-gradient(135deg, rgb(0, 242, 254) 0%, rgb(0, 193, 208) 100%);
+    box-shadow: 0 20px 50px rgba(0, 229, 249, 0.4);
+    /* Colored Glow */
+    filter: blur(0);
+    z-index: 10;
+}
+
+/* Typography specifics for the card */
+.t-msg {
+    font-size: 1.15rem;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    word-break: keep-all;
+    font-weight: 500;
+}
+
+.t-name {
+    display: block;
+    font-size: 1.2rem;
+    font-weight: 800;
+    margin-bottom: 5px;
+}
+
+.t-role {
+    display: block;
+    font-size: 0.9rem;
+    opacity: 0.8;
+    margin-bottom: 15px;
+    font-weight: 400;
+}
+
+.t-stars {
+    font-size: 1.2rem;
+    color: #FFCC00;
+    /* Star color */
+}
+
+/* Navigation Buttons */
+.arrow-btn {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: white;
+    border: none;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: #333;
+}
+
+.arrow-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    background: #fff;
+    /* Keep white */
+    color: rgb(0, 229, 249);
+    /* Color highlight on hover */
+}
+
+.arrow-btn svg {
+    width: 24px;
+    height: 24px;
+}
+
+/* Responsive adjustment */
+@media (max-width: 768px) {
+    .t-card {
+        width: 85vw;
+        /* Mobile width */
+        min-height: 350px;
+    }
+}

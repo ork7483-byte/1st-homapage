@@ -1,0 +1,2756 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>십분의일 | 프리미엄 웹사이트 솔루션</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" as="style" crossorigin
+        href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <link rel="stylesheet" href="style_mobile_menu.css">
+    <link rel="stylesheet" href="style.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#00E5F9',
+                        dark: '#050505',
+                        'dark-card': '#0A0A0A',
+                    },
+                    fontFamily: {
+                        sans: ['Pretendard Variable', 'Pretendard', 'sans-serif'],
+                        serif: ['Times New Roman', 'serif'],
+                    },
+                    animation: {
+                        'marquee': 'marquee 40s linear infinite',
+                        'marquee2': 'marquee2 40s linear infinite',
+                        'marquee-reverse': 'marquee-reverse 40s linear infinite',
+                        'marquee2-reverse': 'marquee2-reverse 40s linear infinite',
+                        'fade-up': 'fadeUp 0.8s cubic-bezier(0.2, 1, 0.3, 1) forwards',
+                    },
+                    keyframes: {
+                        marquee: {
+                            '0%': { transform: 'translateX(0)' },
+                            '100%': { transform: 'translateX(-100%)' },
+                        },
+                        marquee2: {
+                            '0%': { transform: 'translateX(100%)' },
+                            '100%': { transform: 'translateX(0)' },
+                        },
+                        'marquee-reverse': {
+                            '0%': { transform: 'translateX(-100%)' },
+                            '100%': { transform: 'translateX(0)' },
+                        },
+                        'marquee2-reverse': {
+                            '0%': { transform: 'translateX(0)' },
+                            '100%': { transform: 'translateX(100%)' },
+                        },
+                        fadeUp: {
+                            'from': { opacity: '0', transform: 'translateY(20px)' },
+                            'to': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html,
+        body {
+            background-color: #000;
+            color: white;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+            /* Mobile default: Prevent layout shift */
+            width: 100%;
+            position: relative;
+        }
+
+        @media (min-width: 768px) {
+
+            html,
+            body {
+                overflow-x: visible;
+                /* Desktop: Enable sticky positioning */
+            }
+        }
+
+
+
+        .reveal {
+            opacity: 0;
+        }
+
+        .reveal.active {
+            animation: fadeUp 0.8s forwards;
+        }
+
+        /* Scrollbar Hide */
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .text-outline {
+            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.5);
+            color: transparent;
+        }
+    </style>
+
+
+    <style>
+        /* Desktop Animations */
+        @keyframes customFadeInOnly {
+            0% {
+                opacity: 0;
+                transform: none;
+            }
+
+            100% {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        @keyframes smoothFadeUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-right {
+            animation: customFadeInOnly 0.1s ease-out forwards !important;
+            opacity: 0;
+        }
+
+        .animate-fade-up {
+            animation: smoothFadeUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+            opacity: 0;
+        }
+
+        /* Mobile Reset */
+        @media (max-width: 768px) {
+
+            .animate-fade-right,
+            .animate-fade-up {
+                animation: none !important;
+                opacity: 1 !important;
+                transform: none !important;
+                transition: none !important;
+            }
+
+            .animate-marquee,
+            .animate-marquee2,
+            .animate-marquee-reverse,
+            .animate-marquee2-reverse {
+                animation-duration: 20s !important;
+            }
+        }
+    </style>
+    <style>
+        /* Desktop Animations (Global) */
+        @keyframes customFadeInOnly {
+            0% {
+                opacity: 0;
+                transform: none;
+            }
+
+            100% {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        @keyframes smoothFadeUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-right {
+            animation: customFadeInOnly 0.1s ease-out forwards !important;
+            opacity: 0;
+        }
+
+        .animate-fade-up {
+            animation: smoothFadeUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+            opacity: 0;
+        }
+
+        /* Mobile Reset - SPECIFICALLY FOR HEADER ONLY */
+        @media (max-width: 768px) {
+
+            header .animate-fade-right,
+            header .animate-fade-up {
+                animation: none !important;
+                opacity: 1 !important;
+                transform: none !important;
+                transition: none !important;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="footer.css">
+    <style>
+        /* FORCED FIX: Mobile Menu Borders */
+        .mobile-menu-item-group.is-open .mobile-menu-trigger {
+            border-top: none !important;
+            border-bottom: 4px solid var(--primary) !important;
+            /* Thicker vivid line 4px */
+            color: #000 !important;
+            background: #fff !important;
+        }
+
+        /* FORCE FONT SIZE & STYLE 16PX Pretendard */
+        .mobile-menu-trigger,
+        .mobile-submenu a {
+            font-family: 'Pretendard', sans-serif !important;
+            font-weight: 600 !important;
+            font-size: 16px !important;
+            line-height: 16px !important;
+        }
+
+        .mobile-submenu {
+            border-top: none !important;
+            border-bottom: none !important;
+            box-shadow: none !important;
+            background-color: #f7f7f7 !important;
+        }
+
+        .mobile-menu-item-group.is-open {
+            border: none !important;
+            margin: 0 !important;
+            background: transparent !important;
+            /* Let children decide */
+        }
+
+        /* Ensure no bottom border on the group container itself */
+        .mobile-menu-item-group {
+            border-bottom: none !important;
+        }
+    </style>
+</head>
+
+<body class="overflow-x-hidden">
+
+    <!-- 1. Header (PRESERVED) -->
+    <header id="main-header" class="fixed w-full z-50 transition-all duration-300 px-[10px] md:px-0">
+        <div
+            class="w-full mx-[10.25px] md:w-full md:mx-auto md:px-[70px] flex justify-between items-center h-[64px] md:h-[92px] relative">
+            <!-- Logo -->
+            <a href="index.html" class="group relative flex items-center animate-fade-right my-[20px] pr-[20px]"
+                style="animation-delay: 0s; animation-fill-mode: both;">
+                <span
+                    class="font-serif text-3xl text-white italic tracking-tighter leading-none flex items-center h-full">
+                    1<span class="text-white/30 mx-0.5">/</span>10
+                </span>
+            </a>
+
+            <!-- Mobile Menu (visible on mobile only) -->
+            <div class="flex md:hidden items-center gap-3 animate-fade-up h-[64px]"
+                style="animation-delay: 0.1s; animation-fill-mode: both;">
+                <!-- Mobile CTA Button -->
+                <a href="contact.html"
+                    class="bg-primary text-white text-[13px] leading-none font-bold px-[14px] py-[8px] rounded-full hover:bg-primary/90 transition-all whitespace-nowrap h-[34px] flex items-center justify-center">
+                    3초안에 문의하기
+                </a>
+                <!-- Hamburger Menu Icon -->
+                <button id="mobile-menu-toggle" class="text-white focus:outline-none flex items-center justify-center">
+                    <svg class="w-[24px] h-[24px]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Nav + CTA -->
+            <nav class="hidden md:flex items-center h-[92px] ml-auto justify-end">
+                <!-- Dropdown 1: 회사소개 -->
+                <div class="group relative h-[92px] flex items-center animate-fade-up px-[12px]"
+                    style="animation-delay: 0.12s; animation-fill-mode: both;">
+                    <a href="greeting.html"
+                        class="nav-link group text-[17px] font-sans font-medium text-white hover:text-primary inline-flex items-center">
+                        <div class="relative overflow-hidden mr-[10px]" style="height: 24px !important;">
+                            <div class="flex flex-col transition-transform duration-300 group-hover:-translate-y-6">
+                                <span class="flex items-center" style="height: 24px !important;">회사소개</span>
+                                <span class="flex items-center text-primary"
+                                    style="height: 24px !important;">회사소개</span>
+                            </div>
+                        </div>
+                    </a>
+                    <div
+                        class="absolute top-full left-1/2 -translate-x-1/2 w-40 bg-white rounded-lg shadow-2xl overflow-hidden invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all duration-200 border-t-[3px] border-primary translate-y-2 group-hover:translate-y-0">
+                        <ul class="py-2 text-black text-[14px] font-medium">
+                            <li><a href="greeting.html"
+                                    class="block px-5 py-2 hover:bg-gray-50 hover:text-primary transition-colors duration-300">인사말</a>
+                            </li>
+                            <li><a href="history.html"
+                                    class="block px-5 py-2 hover:bg-gray-50 hover:text-primary transition-colors duration-300">연혁</a>
+                            </li>
+                            <li><a href="location.html"
+                                    class="block px-5 py-2 hover:bg-gray-50 hover:text-primary transition-colors duration-300">오시는
+                                    길</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Dropdown 2: 사업분야 -->
+                <div class="group relative h-[92px] flex items-center animate-fade-up px-[12px]"
+                    style="animation-delay: 0.24s; animation-fill-mode: both;">
+                    <a href="#"
+                        class="nav-link group text-[17px] font-sans font-medium text-white hover:text-primary inline-flex items-center">
+                        <div class="relative overflow-hidden mr-[10px]" style="height: 24px !important;">
+                            <div class="flex flex-col transition-transform duration-300 group-hover:-translate-y-6">
+                                <span class="flex items-center" style="height: 24px !important;">사업분야</span>
+                                <span class="flex items-center text-primary"
+                                    style="height: 24px !important;">사업분야</span>
+                            </div>
+                        </div>
+                    </a>
+                    <div
+                        class="absolute top-full left-1/2 -translate-x-1/2 w-44 bg-white rounded-lg shadow-2xl overflow-hidden invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all duration-200 border-t-[3px] border-primary translate-y-2 group-hover:translate-y-0">
+                        <ul class="py-2 text-black text-[14px] font-medium">
+                            <li><a href="business_design1.html"
+                                    class="block px-5 py-2 hover:bg-gray-50 hover:text-primary transition-colors duration-300">사업분야
+                                    디자인 1</a></li>
+                            <li><a href="business_design2.html"
+                                    class="block px-5 py-2 hover:bg-gray-50 hover:text-primary transition-colors duration-300">사업분야
+                                    디자인 2</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Dropdown 3: 제품소개 -->
+                <div class="group relative h-[92px] flex items-center animate-fade-up px-[12px]"
+                    style="animation-delay: 0.36s; animation-fill-mode: both;">
+                    <a href="#"
+                        class="nav-link group text-[17px] font-sans font-medium text-white hover:text-primary inline-flex items-center">
+                        <div class="relative overflow-hidden mr-[10px]" style="height: 24px !important;">
+                            <div class="flex flex-col transition-transform duration-300 group-hover:-translate-y-6">
+                                <span class="flex items-center" style="height: 24px !important;">제품소개</span>
+                                <span class="flex items-center text-primary"
+                                    style="height: 24px !important;">제품소개</span>
+                            </div>
+                        </div>
+                    </a>
+                    <div
+                        class="absolute top-full left-1/2 -translate-x-1/2 w-40 bg-white rounded-lg shadow-2xl overflow-hidden invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all duration-200 border-t-[3px] border-primary translate-y-2 group-hover:translate-y-0">
+                        <ul class="py-2 text-black text-[14px] font-medium">
+                            <li><a href="products.html"
+                                    class="block px-5 py-2 hover:bg-gray-50 hover:text-primary transition-colors duration-300">제품소개</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Dropdown 4: 고객지원 -->
+                <div class="group relative h-[92px] flex items-center animate-fade-up px-[12px]"
+                    style="animation-delay: 0.48s; animation-fill-mode: both;">
+                    <a href="notice.html"
+                        class="nav-link group text-[17px] font-sans font-medium text-white hover:text-primary inline-flex items-center">
+                        <div class="relative overflow-hidden mr-[10px]" style="height: 24px !important;">
+                            <div class="flex flex-col transition-transform duration-300 group-hover:-translate-y-6">
+                                <span class="flex items-center" style="height: 24px !important;">고객지원</span>
+                                <span class="flex items-center text-primary"
+                                    style="height: 24px !important;">고객지원</span>
+                            </div>
+                        </div>
+                    </a>
+                    <div
+                        class="absolute top-full left-1/2 -translate-x-1/2 w-40 bg-white rounded-lg shadow-2xl overflow-hidden invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all duration-200 border-t-[3px] border-primary translate-y-2 group-hover:translate-y-0">
+                        <ul class="py-2 text-black text-[14px] font-medium">
+                            <li><a href="notice.html"
+                                    class="block px-5 py-2 hover:bg-gray-50 hover:text-primary transition-colors duration-300">공지사항</a>
+                            </li>
+                            <li><a href="news.html"
+                                    class="block px-5 py-2 hover:bg-gray-50 hover:text-primary transition-colors duration-300">뉴스</a>
+                            </li>
+                            <li><a href="faq.html"
+                                    class="block px-5 py-2 hover:bg-gray-50 hover:text-primary transition-colors duration-300">자주묻는질문</a>
+                            </li>
+                            <li><a href="contact.html"
+                                    class="block px-5 py-2 hover:bg-gray-50 hover:text-primary transition-colors duration-300">문의하기</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- CTA Button with Rolling Text Animation -->
+                <div class="h-[92px] flex items-center ml-[25px]">
+                    <a href="contact.html"
+                        class="group relative overflow-hidden bg-primary px-[26px] py-[14px] border border-white/10 rounded-full text-[16px] font-sans font-bold transition-all hover:scale-105 animate-fade-up flex items-center justify-center"
+                        style="animation-delay: 0.6s; animation-fill-mode: both;">
+                        <div class="relative overflow-hidden" style="height: 16px !important;">
+                            <span
+                                class="block flex items-center transition-transform duration-300 group-hover:-translate-y-full text-white text-center w-full leading-[16px]"
+                                style="height: 16px !important;">3초만에
+                                문의하기</span>
+                            <span
+                                class="absolute inset-0 flex items-center justify-center transition-transform duration-300 translate-y-full group-hover:translate-y-0 text-white font-bold w-full leading-[16px]"
+                                style="height: 16px !important;">3초만에
+                                문의하기</span>
+                        </div>
+                    </a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Mobile Menu Panel -->
+    <div id="mobile-menu"
+        class="fixed top-0 right-0 h-full w-full max-w-[430px] bg-white z-[60] transform translate-x-full transition-transform duration-300 md:hidden shadow-[-10px_0_30px_rgba(0,0,0,0.1)]">
+        <div class="flex flex-col h-full w-full">
+            <!-- Panel Header: Logo & Close Button -->
+            <div class="flex justify-between items-center w-full px-5 h-16">
+                <!-- Black Logo for White Background -->
+                <a href="index.html"
+                    class="font-serif text-3xl text-black italic tracking-tighter leading-none flex items-center h-full">
+                    1<span class="text-black/30 mx-0.5">/</span>10
+                </a>
+                <button id="mobile-menu-close" class="text-black focus:outline-none p-2 -mr-2 h-full flex items-center">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Menu Items -->
+            <nav class="flex flex-col text-black text-[16px] font-bold overflow-y-auto scrollbar-hide w-full mt-2">
+                <!-- 1. 회사소개 -->
+                <div class="mobile-menu-item-group w-full">
+                    <div class="flex justify-between items-center py-5 cursor-pointer mobile-menu-trigger w-full px-5">
+                        <span class="text-[16px]">회사소개</span>
+                        <span
+                            class="text-gray-300 text-lg font-light transition-all duration-300 menu-icon flex items-center justify-center">+</span>
+                    </div>
+                    <div class="mobile-submenu hidden">
+                        <a href="greeting.html" class="block w-full text-gray-600 hover:text-black">인사말</a>
+                        <a href="history.html" class="block w-full text-gray-600 hover:text-black">연혁</a>
+                        <a href="location.html" class="block w-full text-gray-600 hover:text-black">오시는 길</a>
+                    </div>
+                </div>
+
+                <!-- 2. 사업분야 -->
+                <div class="mobile-menu-item-group w-full">
+                    <div class="flex justify-between items-center py-5 cursor-pointer mobile-menu-trigger w-full px-5">
+                        <span class="text-[16px]">사업분야</span>
+                        <span
+                            class="text-gray-300 text-lg font-light transition-all duration-300 menu-icon flex items-center justify-center">+</span>
+                    </div>
+                    <div class="mobile-submenu hidden">
+                        <a href="business_design1.html" class="block w-full text-gray-600 hover:text-black">사업분야 디자인
+                            1</a>
+                        <a href="business_design2.html" class="block w-full text-gray-600 hover:text-black">사업분야 디자인
+                            2</a>
+                    </div>
+                </div>
+
+                <!-- 3. 제품소개 -->
+                <div class="mobile-menu-item-group w-full">
+                    <div class="flex justify-between items-center py-5 cursor-pointer mobile-menu-trigger w-full px-5">
+                        <span class="text-[16px]">제품소개</span>
+                        <span
+                            class="text-gray-300 text-lg font-light transition-all duration-300 menu-icon flex items-center justify-center">+</span>
+                    </div>
+                    <div class="mobile-submenu hidden">
+                        <a href="products.html" class="block w-full text-gray-600 hover:text-black">제품소개</a>
+                    </div>
+                </div>
+
+                <!-- 4. 고객지원 -->
+                <div class="mobile-menu-item-group w-full">
+                    <div class="flex justify-between items-center py-5 cursor-pointer mobile-menu-trigger w-full px-5">
+                        <span class="text-[16px]">고객지원</span>
+                        <span
+                            class="text-gray-300 text-lg font-light transition-all duration-300 menu-icon flex items-center justify-center">+</span>
+                    </div>
+                    <div class="mobile-submenu hidden">
+                        <a href="notice.html" class="block w-full text-gray-600 hover:text-black">공지사항</a>
+                        <a href="news.html" class="block w-full text-gray-600 hover:text-black">뉴스</a>
+                        <a href="faq.html" class="block w-full text-gray-600 hover:text-black">자주묻는질문</a>
+                        <a href="contact.html" class="block w-full text-gray-600 hover:text-black">문의하기</a>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Bottom CTA Button -->
+            <div class="mt-auto pb-8 px-5 w-full">
+                <a href="contact.html"
+                    class="w-full bg-primary text-white text-[16px] font-bold py-4 rounded-full flex items-center justify-center shadow-lg shadow-primary/20 transition-all active:scale-95 hover:bg-primary/90">
+                    3초안에 문의하기
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. Hero Section (Globe BG + Text) -->
+    <section
+        class="min-h-screen w-full flex flex-col justify-center items-center text-center relative overflow-hidden bg-black">
+        <!-- Globe Background Image -->
+        <div class="absolute inset-0 pointer-events-none z-0 overflow-hidden flex items-end justify-center">
+            <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop"
+                class="w-full h-auto min-h-full object-cover opacity-50 relative translate-y-[15%] transition-all duration-500"
+                alt="Globe Background">
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/80"></div>
+        </div>
+
+        <div class="z-10 relative w-full px-[25px] max-w-[1280px] w-full mx-auto">
+            <!-- Styling for slow spin -->
+            <style>
+                @keyframes spin-slow {
+                    from {
+                        transform: rotate(0deg);
+                    }
+
+                    to {
+                        transform: rotate(360deg);
+                    }
+                }
+
+                .animate-spin-slow {
+                    animation: spin-slow 10s linear infinite;
+                }
+
+                @keyframes draw-path {
+                    from {
+                        stroke-dashoffset: 600;
+                    }
+
+                    to {
+                        stroke-dashoffset: 0;
+                    }
+                }
+
+                .animate-draw-oval {
+                    stroke-dasharray: 600;
+                    stroke-dashoffset: 600;
+                    animation: draw-path 1.2s ease-out forwards 0.8s;
+                }
+
+                /* Underline Drawing Animation */
+                .reveal-draw path {
+                    stroke-dasharray: 400;
+                    stroke-dashoffset: 400;
+                }
+
+                .reveal-draw.active path {
+                    animation: draw-underline 1.5s ease-out forwards;
+                    animation-delay: 0.5s;
+                }
+
+                @keyframes draw-underline {
+                    from {
+                        stroke-dashoffset: 400;
+                    }
+
+                    to {
+                        stroke-dashoffset: 0;
+                    }
+                }
+            </style>
+
+            <h1 class="font-sans font-normal tracking-tighter md:tracking-tight animate-fade-up text-white text-[28px] leading-[36px] md:text-[72px] md:leading-[94px] break-keep"
+                style="animation-delay: 0.1s; animation-fill-mode: backwards;">
+                <span class="block whitespace-nowrap">실제 300만원에 제작된 홈페이지를</span>
+                <span class="block whitespace-nowrap"><span class="relative inline-block"><span
+                            class="relative z-10 whitespace-nowrap">단 30만원</span><!-- Blue Oval SVG --><svg
+                            class="absolute -left-[15%] -top-[20%] w-[130%] h-[140%] text-primary -z-10 pointer-events-none"
+                            viewBox="0 0 200 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path class="animate-draw-oval"
+                                d="M10,40 C10,20 50,5 100,5 C150,5 190,20 190,40 C190,60 150,75 100,75 C50,75 10,60 10,40 Z"
+                                stroke="currentColor" stroke-width="4" stroke-linecap="round" />
+                        </svg></span>에 얻을 수 있다면?</span>
+            </h1>
+
+        </div>
+
+        <!-- SCROLL DOWN Semicircle Arc (Moved to Section Root for True Centering) -->
+        <!-- SCROLL DOWN Semicircle Arc (Moved to Section Root for True Centering) -->
+        <div
+            class="absolute -bottom-[96px] md:-bottom-[114px] left-1/2 -translate-x-1/2 w-[192px] h-[192px] md:w-[228px] md:h-[228px] pointer-events-none select-none z-20">
+            <div class="w-full h-full animate-fade-up" style="animation-delay: 0.8s; animation-fill-mode: backwards;">
+                <div class="w-full h-full animate-spin-slow">
+                    <svg viewBox="0 0 500 500" width="240" height="240" class="w-full h-full">
+                        <defs>
+                            <path id="large-circle"
+                                d="M 250, 250 m -200, 0 a 200,200 0 1,1 400,0 a 200,200 0 1,1 -400,0" />
+                        </defs>
+                        <text font-family="Pretendard" font-size="32" font-weight="500" fill="white" letter-spacing="4">
+                            <textPath href="#large-circle">
+                                SCROLL DOWN • SCROLL DOWN • SCROLL DOWN • SCROLL DOWN •
+                            </textPath>
+                        </text>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Concept Section -->
+    <!-- 3. Concept Section (Restored to exact padding and layout) -->
+    <section class="py-[120px] px-[10px] bg-black text-center relative">
+        <div class="mx-[10px] max-w-[1280px] md:mx-auto">
+            <h2 class="text-[28px] md:text-[56px] md:leading-[73px] font-bold text-white mb-[80px] md:mb-[120px]">
+                어떻게 그게 가능하냐고요?
+            </h2>
+
+            <div>
+                <p class="text-[28px] md:text-[56px] md:leading-[73px] font-bold text-white">
+                    제작된 홈페이지들을
+                </p>
+                <p class="text-[28px] md:text-[56px] md:leading-[73px] font-bold text-white relative inline-block">
+                    <span class="text-primary relative">
+                        템플릿으로
+                        <!-- Cyan Underline SVG (Restored Exact Position) -->
+                        <svg class="absolute left-0 top-[85%] w-full h-[20px] md:h-[30px] text-primary reveal-draw overflow-visible"
+                            viewBox="0 0 200 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M -5 20 Q 45 0 80 20 T 205 10" stroke="currentColor" stroke-width="9"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </span>
+                    만들었기 때문입니다.
+                </p>
+
+                <p
+                    class="text-[16px] md:text-[20px] leading-[1.5] md:leading-[30px] font-medium text-[#A5A5A5] mt-10 md:mt-[50px] break-keep">
+                    템플릿 : 미리 만들어져 있는 홈페이지에 간단한 수정으로 제작하는 방식
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Template Showcase (Rebuilt: Sticky Text + Scrollable Cards) -->
+    <section id="showcase" class="py-[40px] md:py-[120px] bg-[#050505]">
+        <div class="w-full grid grid-cols-1 md:grid-cols-2 gap-0">
+
+            <!-- Left Column: Sticky Text -->
+            <div id="showcase-elevator"
+                class="flex flex-col items-start text-left h-fit relative md:sticky md:top-32 group py-[40px] px-[20px] md:py-0 md:px-0 md:pl-[70px]">
+                <!-- TEMPLATES label (Static) -->
+                <div>
+                    <span
+                        class="font-['Urbanist'] font-bold text-[15px] leading-[15px] md:text-[16px] md:leading-[16px] text-[#AFAFAF] tracking-widest uppercase">Templates</span>
+                </div>
+
+
+                <h2 id="showcase-headline-fixed"
+                    class="text-[28px] md:text-[56px] md:leading-[73px] font-bold text-white break-keep mb-[20px] md:mb-[28px]">
+                    300만원 홈페이지,<br>
+                    <span class="text-primary relative inline-block">1/10 가격<!-- Underline SVG --><svg
+                            class="absolute left-0 top-[85%] w-full h-[20px] md:h-[30px] text-primary reveal-draw overflow-visible"
+                            viewBox="0 0 200 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M -5 20 Q 45 0 80 20 T 205 10" stroke="currentColor" stroke-width="9"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                        </svg></span>에 드립니다.
+                </h2>
+
+
+
+                <a href="#pricing"
+                    class="group relative overflow-hidden inline-block px-[32px] py-[16px] bg-transparent border border-white/60 text-white rounded-full font-medium text-[15px] md:text-[18px] md:leading-[18px] hover:bg-transparent hover:text-primary transition-colors animate-fade-up"
+                    style="animation-delay: 0.3s;">
+                    템플릿 보러가기
+                </a>
+            </div>
+
+            <!-- Right Column: Scrollable Images -->
+            <div class="flex flex-col gap-[40px] md:gap-[60px] px-[20px] md:px-0">
+
+                <!-- Item 1: Template 02 (Business) -->
+                <div class="reveal">
+                    <div id="template02-preview"
+                        class="bg-black rounded-3xl overflow-hidden aspect-[16/10] border border-white/5 mb-6 relative group select-none">
+                        <!-- Background Effects -->
+                        <div class="absolute inset-0 bg-black">
+                            <div class="absolute top-[-30%] left-[-10%] w-[60%] h-[60%] bg-purple-900/30 blur-[80px] rounded-full animate-pulse"
+                                style="animation-duration: 4s;"></div>
+                            <div class="absolute bottom-[-30%] right-[-10%] w-[60%] h-[60%] bg-purple-900/20 blur-[80px] rounded-full animate-pulse"
+                                style="animation-duration: 6s;"></div>
+                        </div>
+
+                        <!-- Content Mockup -->
+                        <div class="relative z-10 w-full h-full flex flex-col justify-between font-sans">
+                            <!-- Header -->
+                            <div class="px-6 py-4 flex justify-between items-center w-full">
+                                <!-- Logo -->
+                                <div id="t2-logo"
+                                    class="text-white font-serif italic text-sm md:text-xl opacity-0 transition-opacity duration-700">
+                                    1/10
+                                </div>
+                                <!-- Nav + CTA -->
+                                <div id="t2-nav"
+                                    class="flex items-center gap-2 md:gap-4 opacity-0 transition-opacity duration-700">
+                                    <div class="hidden md:flex gap-3 text-[10px] text-white/60">
+                                        <span>회사소개</span><span>사업분야</span><span>제품소개</span><span>고객지원</span>
+                                    </div>
+                                    <div
+                                        class="bg-[#6D28D9] text-white text-[8px] md:text-[10px] px-2 md:px-3 py-1 md:py-1.5 rounded-full shadow-[0_0_15px_rgba(109,40,217,0.5)]">
+                                        3초만에 문의하기
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Hero Section (Centered) -->
+                            <div id="t2-hero"
+                                class="flex-1 flex flex-col items-center justify-center text-center px-8 opacity-0 transition-all duration-700 translate-y-2 md:translate-y-4">
+                                <h4 class="text-white font-bold text-[13px] md:text-2xl mb-1.5 md:mb-3 leading-tight">
+                                    성공적인 매출 증대의 시작<br>
+                                    비즈니스를 위한 혁신적인 마케팅 솔루션
+                                </h4>
+                                <p
+                                    class="text-white/40 text-[8px] md:text-xs mb-4 md:mb-6 max-w-[90%] md:max-w-[80%] leading-relaxed">
+                                    [십분의일]은 맞춤형 마케팅 전략으로 귀사의 매출을 극대화합니다.
+                                </p>
+                                <button
+                                    class="bg-[#6D28D9] text-white text-[9px] md:text-[11px] font-bold px-4 md:px-6 py-1.5 md:py-2.5 rounded-full shadow-[0_0_20px_rgba(109,40,217,0.4)] hover:scale-105 transition-transform">
+                                    더 알아보기
+                                </button>
+                            </div>
+
+                            <!-- Stats Section -->
+                            <div id="t2-stats"
+                                class="mx-4 md:mx-10 mb-4 md:mb-10 bg-white/5 backdrop-blur-md rounded-xl md:rounded-2xl border border-white/5 p-2 md:p-4 flex justify-around text-center opacity-0 transition-all duration-700 translate-y-2 md:translate-y-4">
+                                <div>
+                                    <div class="text-white font-bold text-[13px] md:text-xl mb-0.5">
+                                        <span class="t2-counter" data-target="24510">0</span>건
+                                    </div>
+                                    <div class="text-white/40 text-[7px] md:text-[10px]">이용자수</div>
+                                </div>
+                                <div>
+                                    <div class="text-white font-bold text-[13px] md:text-xl mb-0.5">
+                                        <span class="t2-counter" data-target="14975">0</span>건
+                                    </div>
+                                    <div class="text-white/40 text-[7px] md:text-[10px]">계약수</div>
+                                </div>
+                                <div>
+                                    <div class="text-white font-bold text-[13px] md:text-xl mb-0.5">
+                                        <span class="t2-counter" data-target="98">0</span>%
+                                    </div>
+                                    <div class="text-white/40 text-[7px] md:text-[10px]">만족도</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3
+                            class="text-[24px] md:text-[32px] leading-[31px] md:leading-[42px] font-bold text-white mb-[14px] text-left">
+                            2번 템플릿</h3>
+                        <p
+                            class="text-[#CCCCCC] text-[16px] md:text-[18px] leading-[28px] md:leading-[32px] font-medium break-keep text-left">
+                            가장 최근에 만들어진 템플릿입니다. 트랜디 하면서도 깔끔한 디자인을 원하시는 분들에게 추천드리는 템플릿입니다. 과하지 않으면서도 세련된 효과들이
+                            인상적인
+                            홈페이지입니다.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Item 2: Template 08 (Creative/Yellow) -->
+                <div class="reveal">
+                    <div id="template08-preview"
+                        class="bg-white rounded-3xl overflow-hidden aspect-[16/10] border border-white/5 mb-6 relative group select-none font-sans text-black">
+                        <!-- Content Mockup -->
+                        <div class="relative z-10 w-full h-full flex flex-col justify-between">
+                            <!-- Header -->
+                            <div class="px-6 py-4 flex justify-between items-center w-full z-20">
+                                <!-- Logo -->
+                                <div id="t8-logo"
+                                    class="font-serif italic text-xl font-bold opacity-0 transition-opacity duration-700">
+                                    1/10
+                                </div>
+                                <!-- Nav + CTA -->
+                                <div id="t8-nav" class="flex items-center gap-4">
+                                    <div id="t8-menu"
+                                        class="hidden md:flex gap-3 text-[10px] text-gray-500 font-medium">
+                                        <span class="opacity-0 transition-opacity duration-300">회사소개</span>
+                                        <span class="opacity-0 transition-opacity duration-300">사업분야</span>
+                                        <span class="opacity-0 transition-opacity duration-300">제품소개</span>
+                                        <span class="opacity-0 transition-opacity duration-300">고객지원</span>
+                                    </div>
+                                    <div id="t8-cta"
+                                        class="bg-[#FFB800] text-white font-bold text-[10px] px-4 py-1.5 rounded-full shadow-md opacity-0 transition-opacity duration-700">
+                                        3초만에 문의하기
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Hero Section -->
+                            <div class="flex-1 flex px-8 md:px-12 items-center">
+                                <!-- Left Text -->
+                                <div id="t8-left"
+                                    class="w-1/2 flex flex-col items-start z-10 opacity-0 transition-all duration-700 translate-y-8">
+                                    <h4 class="text-2xl md:text-3xl font-black leading-tight mb-6 text-gray-900">
+                                        프리미엄<br>
+                                        홈페이지 템플릿,<br>
+                                        <span class="relative inline-block z-10">
+                                            <span class="relative z-10">십분의일</span>
+                                            <!-- Yellow Oval Highlight -->
+                                            <svg class="absolute left-[-10%] top-[10%] w-[120%] h-[90%] -z-10 text-[#FFB800]/40"
+                                                viewBox="0 0 100 40" fill="currentColor">
+                                                <ellipse cx="50" cy="20" rx="48" ry="18" transform="rotate(-5 50 20)" />
+                                            </svg>
+                                        </span>
+                                    </h4>
+                                    <div class="flex gap-3">
+                                        <button
+                                            class="bg-[#FFB800] text-white text-[11px] font-bold px-5 py-2.5 rounded-full shadow-lg hover:brightness-110 transition-all">
+                                            바로 시작하기
+                                        </button>
+                                        <button
+                                            class="border border-gray-200 text-gray-500 text-[11px] font-bold px-5 py-2.5 rounded-full hover:bg-gray-50 transition-all">
+                                            더 알아보기
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- Right Image -->
+                                <div id="t8-right"
+                                    class="w-1/2 h-[80%] relative opacity-0 -translate-x-12 transition-all duration-700">
+                                    <div
+                                        class="absolute right-0 top-0 w-[90%] h-full rounded-l-3xl overflow-hidden shadow-2xl">
+                                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                                            class="w-full h-full object-cover" alt="Model">
+
+                                        <!-- Floating Glass Card -->
+                                        <div class="absolute bottom-6 left-6 bg-white/70 backdrop-blur-md p-3 rounded-xl shadow-lg flex items-center gap-3 w-48 animate-bounce"
+                                            style="animation-duration: 3s;">
+                                            <div
+                                                class="w-8 h-8 bg-black rounded-full flex items-center justify-center text-white font-serif text-[8px] italic">
+                                                1/10</div>
+                                            <div class="text-[8px] leading-tight text-gray-800">
+                                                <strong>십분의일</strong><br>
+                                                아름다운 디자인을 살펴보세요
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3
+                            class="text-[24px] md:text-[32px] leading-[31px] md:leading-[42px] font-bold text-white mb-[14px] text-left">
+                            8번 템플릿</h3>
+                        <p
+                            class="text-[#CCCCCC] text-[16px] md:text-[18px] leading-[28px] md:leading-[32px] font-medium break-keep text-left">
+                            십분의일 템플릿 중 2번째로 많이 팔린 템플릿입니다. 무난한 디자인 보다는 개성있는 디자인의 홈페이지를 원하시는 분들이 많이 찾으시는
+                            디자인입니다.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Item 3: Template 07 (Simple) -->
+                <div class="reveal">
+                    <div id="template07-preview"
+                        class="bg-gray-900 rounded-3xl overflow-hidden aspect-[16/10] border border-white/5 mb-6 relative group select-none font-sans text-white">
+                        <!-- Background Image -->
+                        <div class="absolute inset-0">
+                            <img src="https://images.unsplash.com/photo-1581094794329-cdac82a6cc88?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80"
+                                class="w-full h-full object-cover opacity-60" alt="Architect Design">
+                            <div class="absolute inset-0 bg-black/30"></div>
+                        </div>
+
+                        <!-- Content Mockup -->
+                        <div class="relative z-10 w-full h-full flex flex-col justify-between">
+                            <!-- Header -->
+                            <div class="px-6 py-4 flex justify-between items-center w-full">
+                                <!-- Logo -->
+                                <div id="t7-logo"
+                                    class="font-serif italic text-sm md:text-xl font-bold opacity-0 transition-opacity duration-700">
+                                    1/10
+                                </div>
+                                <!-- Nav + CTA -->
+                                <div class="flex items-center gap-2 md:gap-4">
+                                    <div id="t7-menu"
+                                        class="hidden md:flex gap-3 text-[10px] text-white/80 font-medium">
+                                        <span class="opacity-0 transition-opacity duration-300">회사소개</span>
+                                        <span class="opacity-0 transition-opacity duration-300">사업분야</span>
+                                        <span class="opacity-0 transition-opacity duration-300">제품소개</span>
+                                        <span class="opacity-0 transition-opacity duration-300">고객지원</span>
+                                    </div>
+                                    <div id="t7-cta"
+                                        class="bg-white text-black font-bold text-[8px] md:text-[10px] px-3 md:px-4 py-1 md:py-1.5 rounded-full shadow-md opacity-0 transition-opacity duration-700">
+                                        3초만에 문의하기
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Center Text -->
+                            <div id="t7-text"
+                                class="flex-1 flex flex-col items-center justify-center text-center opacity-0 transition-all duration-700 translate-y-4 md:translate-y-8">
+                                <h4
+                                    class="text-[16px] md:text-[38px] font-black leading-tight mb-1 md:mb-2 tracking-tight">
+                                    새로움을 추구합니다<br>언제나.
+                                </h4>
+                                <p class="text-white/70 text-[7px] md:text-[10px] font-light tracking-widest uppercase">
+                                    Global Standard Creative
+                                </p>
+                            </div>
+
+                            <!-- Scroll Down Spinner (Semicircle Style) -->
+                            <div id="t7-scroll"
+                                class="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-12 h-12 md:w-24 md:h-24 opacity-0 transition-opacity duration-700 pointer-events-none select-none">
+                                <div class="w-full h-full animate-[spin_10s_linear_infinite]">
+                                    <svg viewBox="0 0 500 500" class="w-full h-full">
+                                        <defs>
+                                            <path id="t7-circle-large"
+                                                d="M 250, 250 m -200, 0 a 200,200 0 1,1 400,0 a 200,200 0 1,1 -400,0" />
+                                        </defs>
+                                        <text font-family="Pretendard" font-size="60" font-weight="bold" fill="white"
+                                            letter-spacing="10">
+                                            <textPath href="#t7-circle-large">
+                                                SCROLL DOWN • SCROLL DOWN •
+                                            </textPath>
+                                        </text>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3
+                            class="text-[24px] md:text-[32px] leading-[31px] md:leading-[42px] font-bold text-white mb-[14px] text-left">
+                            7번 템플릿</h3>
+                        <p
+                            class="text-[#CCCCCC] text-[16px] md:text-[18px] leading-[28px] md:leading-[32px] font-medium break-keep text-left">
+                            십분의일 템플릿 중 가장 많이 팔린 템플릿입니다. 세련되고 트랜디한 느낌을 원하시는 분들이 좋아하시는 디자인입니다. 가장 많이 팔린 만큼
+                            완성도도 가장 높은
+                            템플릿입니다.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Portfolio Grid -->
+    <section id="portfolio" class="py-[80px] md:py-[120px] bg-black">
+        <div class="px-0 md:px-[25px] max-w-[1280px] w-full mx-auto text-left md:text-center">
+
+            <div>
+                <h2
+                    class="text-[28px] leading-[36px] md:text-[56px] font-bold mb-[30px] md:mb-[60px] md:leading-[73px] tracking-wide">
+                    이미 350곳이 넘는 업체에서<br>
+                    <span class="relative inline-block">
+                        <span class="text-primary relative z-10">십분의일 템플릿</span>
+                        <!-- Underline SVG -->
+                        <svg class="absolute left-[-5%] top-[85%] w-[110%] h-[30px] text-primary reveal-draw overflow-visible"
+                            viewBox="0 0 200 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M -5 20 Q 45 0 80 20 T 205 10" stroke="currentColor" stroke-width="9"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </span>
+                    을 사용합니다.
+                </h2>
+            </div>
+        </div>
+
+        <!-- Infinite Scroll Ticker -->
+        <style>
+            @keyframes scroll-left {
+                0% {
+                    transform: translateX(0);
+                }
+
+                100% {
+                    transform: translateX(-50%);
+                }
+            }
+
+            .animate-scroll-left {
+                animation: scroll-left 40s linear infinite;
+            }
+        </style>
+
+        <div class="relative w-full overflow-hidden mb-[40px] md:mb-[50px]">
+            <!-- Track -->
+            <div class="flex gap-8 animate-scroll-left w-max cursor-grab active:cursor-grabbing hover:pause-animation">
+                <!-- Original 8 Items -->
+                <div class="w-64 md:w-80 aspect-[9/14] rounded-xl overflow-hidden transform-gpu shrink-0 group">
+                    <img src="./assets/portfolio/p1.png"
+                        class="w-full h-full object-cover rounded-xl transition-transform duration-300 group-hover:scale-105">
+                </div>
+                <div class="w-64 md:w-80 aspect-[9/14] rounded-xl overflow-hidden transform-gpu shrink-0 group">
+                    <img src="./assets/portfolio/p2.png"
+                        class="w-full h-full object-cover rounded-xl transition-transform duration-300 group-hover:scale-105">
+                </div>
+                <div class="w-64 md:w-80 aspect-[9/14] rounded-xl overflow-hidden transform-gpu shrink-0 group">
+                    <img src="./assets/portfolio/p3.png"
+                        class="w-full h-full object-cover rounded-xl transition-transform duration-300 group-hover:scale-105">
+                </div>
+                <div class="w-64 md:w-80 aspect-[9/14] rounded-xl overflow-hidden transform-gpu shrink-0 group">
+                    <img src="./assets/portfolio/p4.png"
+                        class="w-full h-full object-cover rounded-xl transition-transform duration-300 group-hover:scale-105">
+                </div>
+                <div class="w-64 md:w-80 aspect-[9/14] rounded-xl overflow-hidden transform-gpu shrink-0 group">
+                    <img src="./assets/portfolio/p5.png"
+                        class="w-full h-full object-cover rounded-xl transition-transform duration-300 group-hover:scale-105">
+                </div>
+                <div class="w-64 md:w-80 aspect-[9/14] rounded-xl overflow-hidden transform-gpu shrink-0 group">
+                    <img src="./assets/portfolio/p6.png"
+                        class="w-full h-full object-cover rounded-xl transition-transform duration-300 group-hover:scale-105">
+                </div>
+                <div class="w-64 md:w-80 aspect-[9/14] rounded-xl overflow-hidden transform-gpu shrink-0 group">
+                    <img src="./assets/portfolio/p7.png"
+                        class="w-full h-full object-cover rounded-xl transition-transform duration-300 group-hover:scale-105">
+                </div>
+                <div class="w-64 md:w-80 aspect-[9/14] rounded-xl overflow-hidden transform-gpu shrink-0 group">
+                    <img src="./assets/portfolio/p8.png"
+                        class="w-full h-full object-cover rounded-xl transition-transform duration-300 group-hover:scale-105">
+                </div>
+
+                <!-- Duplicated 8 Items (For Loop) -->
+                <div
+                    class="w-64 md:w-80 aspect-[9/14] rounded-xl overflow-hidden isolation-auto transform-gpu shrink-0 hover:scale-105 transition-transform duration-300">
+                    <img src="./assets/portfolio/p1.png"
+                        class="w-full h-full object-cover rounded-xl transition-transform duration-300 group-hover:scale-105">
+                </div>
+                <div class="w-64 md:w-80 aspect-[9/14] rounded-xl overflow-hidden transform-gpu shrink-0 group">
+                    <img src="./assets/portfolio/p2.png"
+                        class="w-full h-full object-cover rounded-xl transition-transform duration-300 group-hover:scale-105">
+                </div>
+                <div class="w-64 md:w-80 aspect-[9/14] rounded-xl overflow-hidden transform-gpu shrink-0 group">
+                    <img src="./assets/portfolio/p3.png"
+                        class="w-full h-full object-cover rounded-xl transition-transform duration-300 group-hover:scale-105">
+                </div>
+                <div class="w-64 md:w-80 aspect-[9/14] rounded-xl overflow-hidden transform-gpu shrink-0 group">
+                    <img src="./assets/portfolio/p4.png"
+                        class="w-full h-full object-cover rounded-xl transition-transform duration-300 group-hover:scale-105">
+                </div>
+                <div class="w-64 md:w-80 aspect-[9/14] rounded-xl overflow-hidden transform-gpu shrink-0 group">
+                    <img src="./assets/portfolio/p5.png"
+                        class="w-full h-full object-cover rounded-xl transition-transform duration-300 group-hover:scale-105">
+                </div>
+                <div class="w-64 md:w-80 aspect-[9/14] rounded-xl overflow-hidden transform-gpu shrink-0 group">
+                    <img src="./assets/portfolio/p6.png"
+                        class="w-full h-full object-cover rounded-xl transition-transform duration-300 group-hover:scale-105">
+                </div>
+                <div class="w-64 md:w-80 aspect-[9/14] rounded-xl overflow-hidden transform-gpu shrink-0 group">
+                    <img src="./assets/portfolio/p7.png"
+                        class="w-full h-full object-cover rounded-xl transition-transform duration-300 group-hover:scale-105">
+                </div>
+                <div class="w-64 md:w-80 aspect-[9/14] rounded-xl overflow-hidden transform-gpu shrink-0 group">
+                    <img src="./assets/portfolio/p8.png"
+                        class="w-full h-full object-cover rounded-xl transition-transform duration-300 group-hover:scale-105">
+                </div>
+            </div>
+        </div>
+
+        <!-- More Cases Button -->
+        <div class="text-center">
+            <a href="#more-portfolio"
+                class="group relative overflow-hidden inline-flex items-center justify-center w-[200px] h-[60px] bg-gradient-to-r from-[#00C6FF] to-[#0072FF] rounded-full text-white text-[18px] font-bold shadow-lg">
+                <span class="block transition-transform duration-300 group-hover:-translate-y-[150%]">더 많은 사례
+                    보기</span>
+                <span
+                    class="absolute top-0 left-0 w-full h-full flex items-center justify-center transition-transform duration-300 translate-y-full group-hover:translate-y-0">더
+                    많은 사례 보기</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- 6. No-Coding Feature Section -->
+    <section class="pt-[80px] pb-[60px] px-[10px] lg:py-[62px] lg:px-[72px] bg-black overflow-hidden">
+        <div class="max-w-[1280px] w-full mx-auto flex flex-col lg:flex-row items-center gap-0">
+            <!-- Left: Editor Animation Mockup -->
+            <div class="w-full lg:w-1/2 mb-12 lg:mb-0 reveal flex justify-center items-center">
+                <div class="relative rounded-xl overflow-hidden border border-white/10 shadow-2xl bg-gray-900 aspect-[16/10] group select-none w-full"
+                    id="editor-mockup">
+
+                    <!-- 1. Background Image -->
+                    <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=1000&auto=format&fit=crop"
+                        class="absolute inset-0 w-full h-full object-cover opacity-60" alt="Office Background">
+
+                    <!-- 2. Live Text Content -->
+                    <div class="absolute top-1/2 left-8 md:left-12 -translate-y-1/2 z-10 w-3/4">
+                        <h3 class="text-2xl md:text-3xl font-bold text-white leading-tight" id="live-text">
+                            성공적인 비즈니스,<br>
+                            십분의일
+                        </h3>
+
+                        <!-- Selection Box -->
+                        <div id="selection-box"
+                            class="absolute -inset-4 border-2 border-[#f6a000] opacity-0 transition-opacity duration-300 pointer-events-none">
+                            <div class="absolute -top-7 left-0 flex gap-1">
+                                <span class="bg-[#4b7bec] text-white text-[10px] px-2 py-0.5 rounded-t-sm">Row</span>
+                                <span
+                                    class="bg-[#f6a000] text-white text-[10px] px-2 py-0.5 rounded-t-sm">Heading</span>
+                            </div>
+                            <div class="absolute -top-7 right-0 flex gap-1">
+                                <span class="bg-gray-700 text-white text-[10px] px-1 py-0.5 rounded-sm">+</span>
+                                <span class="bg-gray-700 text-white text-[10px] px-1 py-0.5 rounded-sm">x</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 4. Editor Modal -->
+                    <div id="editor-modal"
+                        class="absolute right-[5%] top-1/2 -translate-y-1/2 w-[240px] md:w-[280px] bg-white rounded-lg shadow-2xl overflow-hidden transition-all duration-500 opacity-0 translate-x-10 scale-95 z-40 text-left">
+                        <!-- Header -->
+                        <div class="bg-[#2d5af6] p-2 flex justify-between items-center text-white">
+                            <span class="text-[10px] font-bold">Settings</span>
+                            <div class="flex gap-1.5 opacity-70">
+                                <div class="w-2 h-2 rounded-full bg-white"></div>
+                                <div class="w-2 h-2 rounded-full bg-white"></div>
+                            </div>
+                        </div>
+                        <!-- Body -->
+                        <div class="p-3 space-y-3 bg-gray-50 max-h-[220px] overflow-y-auto">
+                            <div>
+                                <label class="block text-[9px] text-gray-500 font-bold mb-1">Text Editor</label>
+                                <textarea id="editor-input"
+                                    class="w-full border border-[#2d5af6] rounded p-1.5 text-[10px] text-black focus:outline-none resize-none h-12 shadow-sm"
+                                    spellcheck="false">성공적인 비즈니스,</textarea>
+                            </div>
+                        </div>
+                        <!-- Footer -->
+                        <div class="p-2 bg-white border-t border-gray-200 flex justify-end">
+                            <button id="save-btn"
+                                class="bg-[#2d5af6] text-white text-[10px] font-bold px-4 py-1.5 rounded shadow hover:bg-blue-600 transition-colors">
+                                Save
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Animation Script -->
+                    <script>
+                            (function () {
+                                const container = document.getElementById('editor-mockup');
+                                const selectionBox = document.getElementById('selection-box');
+                                const modal = document.getElementById('editor-modal');
+                                const liveText = document.getElementById('live-text');
+                                const editorInput = document.getElementById('editor-input');
+                                const saveBtn = document.getElementById('save-btn');
+
+                                const text1 = "성공적인 비즈니스,<br>십분의일";
+                                const text2 = "성공적인 홈페이지,<br>십분의일";
+
+                                function runAnimation() {
+                                    selectionBox.classList.add('opacity-0');
+                                    modal.classList.add('opacity-0', 'translate-x-10', 'scale-95');
+                                    liveText.innerHTML = text1;
+                                    saveBtn.className = "bg-[#2d5af6] text-white text-[10px] font-bold px-4 py-1.5 rounded shadow transition-colors";
+                                    saveBtn.innerHTML = "Save";
+
+                                    setTimeout(() => selectionBox.classList.remove('opacity-0'), 1000);
+                                    setTimeout(() => modal.classList.remove('opacity-0', 'translate-x-10', 'scale-95'), 2000);
+                                    setTimeout(() => {
+                                        editorInput.value = "성공적인 홈";
+                                        liveText.innerHTML = "성공적인 홈,<br>십분의일";
+                                    }, 3500);
+                                    setTimeout(() => {
+                                        editorInput.value = "성공적인 홈페이지,";
+                                        liveText.innerHTML = text2;
+                                    }, 4000);
+                                    setTimeout(() => {
+                                        saveBtn.className = "bg-[#27ae60] text-white text-[10px] font-bold px-4 py-1.5 rounded shadow scale-105 transition-all text-center";
+                                        saveBtn.innerHTML = "Saved!";
+                                    }, 5000);
+                                    setTimeout(() => {
+                                        modal.classList.add('opacity-0', 'translate-x-10', 'scale-95');
+                                        selectionBox.classList.add('opacity-0');
+                                    }, 6500);
+                                    setTimeout(runAnimation, 8500);
+                                }
+
+                                const observer = new IntersectionObserver((entries) => {
+                                    entries.forEach(entry => {
+                                        if (entry.isIntersecting) {
+                                            runAnimation();
+                                            observer.unobserve(container);
+                                        }
+                                    });
+                                });
+                                observer.observe(container);
+                            })();
+                    </script>
+                </div>
+            </div>
+
+            <!-- Right: Text -->
+            <div class="w-full lg:w-1/2 lg:pl-[51px] text-left reveal mb-[140px] lg:mb-0" style="animation-delay: 0.2s">
+                <h2 class="text-[28px] leading-[36px] md:text-[56px] md:leading-[73px] font-bold mb-[20px]">
+                    누구나 쉽게 수정하는<br>
+                    <span class="text-primary">노-코딩 홈페이지</span>
+                </h2>
+                <p
+                    class="text-[#CCCCCC] text-[15px] leading-[26px] md:text-[20px] md:leading-[35px] font-medium break-keep">
+                    노코딩이란 코딩 없이 수정할 수 있는 홈페이지를 뜻합니다. 개발자의 도움 없이<br class="hidden md:block">
+                    누구나 수정 가능합니다. 여기에 더해 초등학생도 따라할 수 있는 구체적인 <span class="font-bold text-white">수정 매뉴얼</span>을 드립니다.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. Verified Concerns & Refund Promise (Unified Code) -->
+    <section class="pt-[120px] pb-[180px] px-0 bg-black text-center">
+        <div class="max-w-[1280px] mx-[10px] md:mx-[25px] xl:mx-auto">
+
+            <!-- Concerns Text -->
+            <div class="mb-[80px] md:mb-[120px]">
+                <p class="text-[#868686] text-[28px] leading-[42px] md:text-[48px] md:leading-[72px] font-semibold tracking-tight reveal mb-[40px]"
+                    style="animation-delay: 0.1s">"전 홈페이지가 처음인데.."</p>
+                <p class="text-[#868686] text-[28px] leading-[42px] md:text-[48px] md:leading-[72px] font-semibold tracking-tight reveal"
+                    style="animation-delay: 0.3s">"수정이 너무 어려우면 어쩌죠..?"</p>
+            </div>
+
+            <!-- Concerns Headline -->
+            <h2 class="text-[28px] leading-[36px] md:text-[56px] md:leading-[73px] font-bold text-white mb-0 reveal"
+                style="animation-delay: 0.5s">
+                위와 같은 <span class="text-primary">고민</span>을 많이 하십니다.
+            </h2>
+
+            <!-- Vertical Line -->
+            <div class="py-[60px] flex justify-center reveal">
+                <div class="w-[1px] h-[160px] bg-[#505050]"></div>
+            </div>
+
+            <!-- Refund Promise -->
+            <div class="reveal">
+                <h2
+                    class="text-[28px] leading-[36px] md:text-[56px] md:leading-[73px] font-bold text-white mb-[40px] md:mb-[50px]">
+                    그래서 복사 후 7일 내 요청 시<br>
+                    <span class="relative inline-block mt-2">
+                        <span class="text-primary relative z-10">100% 환불</span>
+                        <!-- Hand-drawn style underline -->
+                        <svg class="absolute left-[-5%] bottom-[-10px] w-[110%] h-[20px] text-primary"
+                            viewBox="0 0 100 20" preserveAspectRatio="none" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path d="M5 12 Q 25 18, 50 10 T 95 12" stroke="currentColor" stroke-width="4"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </span>
+                    해 드립니다!
+                </h2>
+                <p class="text-[#A5A5A5] text-[16px] leading-[24px] md:text-[20px] md:leading-[30px] font-medium">
+                    템플릿 환불 제도는 최초입니다.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 8 & 9. Unified Repurchase Review Section -->
+    <section class="py-[80px] md:py-[120px] px-0 bg-black overflow-hidden select-none" id="review-section">
+        <!-- Child Container -->
+        <div class="mx-[10px] relative">
+
+            <!-- Headline -->
+            <div class="mb-[15px] md:mb-[40px] reveal text-left">
+                <h2 class="text-[28px] leading-[36px] md:text-[56px] font-bold md:leading-[73px] font-['Pretendard']">
+                    <span class="text-white block">만족하신 고객님들의</span>
+                    <span class="text-primary block">계속되는 재구매</span>
+                </h2>
+            </div>
+
+            <!-- Carousel Window -->
+            <div class="relative w-full overflow-hidden" id="new-carousel-window">
+                <!-- Track -->
+                <div id="new-carousel-track" class="flex gap-[20px] w-full h-full"
+                    style="cursor: grab; width: max-content;">
+
+                    <!-- Card 1: 000님 (Pink) -->
+                    <div class="new-review-card w-[225px] h-[400px] lg:w-[279px] lg:h-[496px] shrink-0 bg-[#EA949E] rounded-[30px] p-5 md:p-6 flex flex-col justify-between relative font-sans text-sm md:text-base"
+                        data-index="0">
+                        <div class="flex flex-col gap-4">
+                            <!-- Helper Profile -->
+                            <div class="flex gap-3">
+                                <div class="w-10 h-10 md:w-12 md:h-12 rounded-[14px] bg-black shrink-0"></div>
+                                <div class="flex flex-col gap-1.5 max-w-[85%]">
+                                    <span class="text-[12px] md:text-[14px] text-white/80 font-bold">000님</span>
+                                    <div class="bg-white p-3 md:p-4 rounded-r-2xl rounded-bl-2xl shadow-sm text-black">
+                                        안녕하세요 ㅎㅎ</div>
+                                    <div
+                                        class="bg-white p-3 md:p-4 rounded-r-2xl rounded-bl-2xl shadow-sm mt-1 text-black">
+                                        <span class="border-b-2 border-[#FF0000]">노코드 홈페이지 5 로 또 사려는데</span>
+                                    </div>
+                                    <div
+                                        class="bg-white p-3 md:p-4 rounded-r-2xl rounded-bl-2xl shadow-sm mt-1 text-black">
+                                        혹시 서브메뉴 안에 내용 틀은 다 똑같은건가용</div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Owner Reply -->
+                        <div class="flex flex-col items-end gap-1.5 mt-auto">
+                            <div
+                                class="bg-[#FEE500] p-3 md:p-4 rounded-l-2xl rounded-br-2xl shadow-sm text-black font-medium">
+                                넵 똑같습니당!</div>
+                        </div>
+                    </div>
+
+                    <!-- Card 2: 말썽쟁이 네오 (Light Purple) -->
+                    <div class="new-review-card w-[225px] h-[400px] lg:w-[279px] lg:h-[496px] shrink-0 bg-[#9886BF] rounded-[30px] p-5 md:p-6 flex flex-col justify-between relative font-sans text-sm md:text-base"
+                        data-index="1">
+                        <div class="flex flex-col gap-4 overflow-y-auto scrollbar-hide">
+                            <div class="flex gap-3">
+                                <div
+                                    class="w-10 h-10 md:w-12 md:h-12 rounded-[14px] bg-white overflow-hidden shrink-0 sticky top-0">
+                                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Neo" class="w-full h-full"
+                                        alt="Neo">
+                                </div>
+                                <div class="flex flex-col gap-1.5 max-w-[85%]">
+                                    <span class="text-[12px] md:text-[14px] text-white/80 font-bold">말썽쟁이 네오</span>
+                                    <div class="bg-white p-3 md:p-4 rounded-r-2xl rounded-bl-2xl shadow-sm text-black">
+                                        근데 최종컨펌이 나가지고</div>
+                                    <div
+                                        class="bg-white p-3 md:p-4 rounded-r-2xl rounded-bl-2xl shadow-sm mt-1 text-black">
+                                        괜찮을거 같아요</div>
+                                    <div
+                                        class="bg-white p-3 md:p-4 rounded-r-2xl rounded-bl-2xl shadow-sm mt-1 text-black">
+                                        그런데</div>
+                                    <div
+                                        class="bg-white p-3 md:p-4 rounded-r-2xl rounded-bl-2xl shadow-sm mt-1 text-black">
+                                        <span class="border-b-2 border-[#FF0000] font-bold">다른 분이 홈페이지폼이</span>
+                                    </div>
+                                    <div
+                                        class="bg-white p-3 md:p-4 rounded-r-2xl rounded-bl-2xl shadow-sm mt-1 text-black">
+                                        <span class="border-b-2 border-[#FF0000] font-bold">너무 이쁘다고 하셔서</span>
+                                    </div>
+                                    <div
+                                        class="bg-white p-3 md:p-4 rounded-r-2xl rounded-bl-2xl shadow-sm mt-1 text-black">
+                                        다른 업체 대표님이</div>
+                                    <div
+                                        class="bg-white p-3 md:p-4 rounded-r-2xl rounded-bl-2xl shadow-sm mt-1 text-black">
+                                        <span class="border-b-2 border-[#FF0000] font-bold">구축해쥬신 분 꺼 다른 폼으로</span>
+                                    </div>
+                                    <div
+                                        class="bg-white p-3 md:p-4 rounded-r-2xl rounded-bl-2xl shadow-sm mt-1 text-black">
+                                        <span class="border-b-2 border-[#FF0000] font-bold">하고싶다하셔서 진행될거 같아요</span>
+                                    </div>
+                                    <div
+                                        class="bg-white p-3 md:p-4 rounded-r-2xl rounded-bl-2xl shadow-sm mt-1 text-black">
+                                        가능 할까요?</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex flex-col items-end gap-1.5 mt-4">
+                            <div
+                                class="bg-[#FEE500] p-3 md:p-4 rounded-l-2xl rounded-br-2xl shadow-sm text-black font-medium">
+                                ㅎㅎ 감사합니다 뭐 가능 안될 없죠 ㅎㅎ</div>
+                        </div>
+                    </div>
+
+                    <!-- Card 3: 떨고있는 어피치 (Dark Purple/Grey) -->
+                    <div class="new-review-card w-[225px] h-[400px] lg:w-[279px] lg:h-[496px] shrink-0 bg-[#7B6F9E] rounded-[30px] p-5 md:p-6 flex flex-col justify-between relative font-sans text-sm md:text-base"
+                        data-index="2">
+                        <div class="flex flex-col gap-4">
+                            <div class="flex gap-3">
+                                <div
+                                    class="w-10 h-10 md:w-12 md:h-12 rounded-[14px] bg-[#FFC0CB] overflow-hidden shrink-0">
+                                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Apeach"
+                                        class="w-full h-full" alt="Apeach">
+                                </div>
+                                <div class="flex flex-col gap-1.5 max-w-[85%]">
+                                    <span class="text-[12px] md:text-[14px] text-white/80 font-bold">떨고있는 어피치</span>
+                                    <div class="bg-white p-3 md:p-4 rounded-r-2xl rounded-bl-2xl shadow-sm text-black">
+                                        대표님! 안녕하세요ㅎㅎㅎ<br>
+                                        아이디 : *********<br>
+                                        비밀번호 : **********
+                                    </div>
+                                    <div
+                                        class="bg-white p-3 md:p-4 rounded-r-2xl rounded-bl-2xl shadow-sm mt-1 text-black">
+                                        <span class="border-b-2 border-[#FF0000] font-bold">템플릿 4번으로 하려고
+                                            합니다!<br>얼마나걸릴까요ㅎㅎ?</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex flex-col items-end gap-1.5 mt-auto">
+                            <div
+                                class="bg-[#FEE500] p-3 md:p-4 rounded-l-2xl rounded-br-2xl shadow-sm text-black font-medium text-right max-w-[85%]">
+                                안녕하세요 ㅎㅎ 아 <span class="border-b-2 border-[#FF0000]">또 하시나요</span> ㅎ<br>
+                                일단 오늘 제가 외부일이 많아서 ㅠ<br>
+                                저녁에나 가능할거 같습니다!
+                            </div>
+                            <div
+                                class="bg-[#FEE500] p-3 md:p-4 rounded-l-2xl rounded-br-2xl shadow-sm text-black font-medium text-right">
+                                추가작업은 없으신가요~?</div>
+                        </div>
+                    </div>
+
+                    <!-- Card 4: 기타치는 튜브 (Blue/Purple) -->
+                    <div class="new-review-card w-[225px] h-[400px] lg:w-[279px] lg:h-[496px] shrink-0 bg-[#5B5B9F] rounded-[30px] p-5 md:p-6 flex flex-col justify-between relative font-sans text-sm md:text-base"
+                        data-index="3">
+                        <div class="flex flex-col gap-4">
+                            <div class="flex gap-3">
+                                <div class="w-10 h-10 md:w-12 md:h-12 rounded-[14px] bg-white overflow-hidden shrink-0">
+                                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Tube"
+                                        class="w-full h-full" alt="Tube">
+                                </div>
+                                <div class="flex flex-col gap-1.5 max-w-[85%]">
+                                    <span class="text-[12px] md:text-[14px] text-white/80 font-bold">기타치는 튜브</span>
+                                    <div class="bg-white p-3 md:p-4 rounded-r-2xl rounded-bl-2xl shadow-sm text-black">
+                                        안녕하세요 사장님 기존에 거래했던<br>******입니다!
+                                    </div>
+                                    <div
+                                        class="bg-white p-3 md:p-4 rounded-r-2xl rounded-bl-2xl shadow-sm mt-1 text-black">
+                                        ******에 적용해주신 동일 디자인으로<br>
+                                        <span class="border-b-2 border-[#FF0000] font-bold">워드프레스 하나 더<br>진행하고 싶어
+                                            연락드렸습니다</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex flex-col items-end gap-1.5 mt-auto">
+                            <div
+                                class="bg-[#FEE500] p-3 md:p-4 rounded-l-2xl rounded-br-2xl shadow-sm text-black font-medium">
+                                안녕하세요 :)</div>
+                            <!-- Link Card Preview -->
+                            <div class="bg-white rounded-[14px] overflow-hidden w-[220px] shadow-sm mt-2">
+                                <div class="h-[120px] bg-gray-200 bg-cover bg-center"
+                                    style="background-image: url('https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60');">
+                                </div>
+                                <div class="p-3 text-xs bg-[#F5F6F8] text-black border-t border-gray-100">
+                                    <div class="font-bold truncate">노코드 홈페이지 1</div>
+                                    <div class="text-gray-500 truncate">십분의일, PTWD762878</div>
+                                    <div class="text-gray-400 text-[10px] mt-1">d.cafe24.com</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 1 Dupl -->
+                    <div class="new-review-card w-[225px] h-[400px] lg:w-[279px] lg:h-[496px] shrink-0 bg-[#EA949E] rounded-[30px] p-5 md:p-6 flex flex-col justify-between relative font-sans text-sm md:text-base"
+                        data-index="4">
+                        <div class="flex flex-col gap-4">
+                            <!-- Helper Profile -->
+                            <div class="flex gap-3">
+                                <div class="w-10 h-10 md:w-12 md:h-12 rounded-[14px] bg-black shrink-0"></div>
+                                <div class="flex flex-col gap-1.5 max-w-[85%]">
+                                    <span class="text-[12px] md:text-[14px] text-white/80 font-bold">000님</span>
+                                    <div class="bg-white p-3 md:p-4 rounded-r-2xl rounded-bl-2xl shadow-sm text-black">
+                                        안녕하세요 ㅎㅎ</div>
+                                    <div
+                                        class="bg-white p-3 md:p-4 rounded-r-2xl rounded-bl-2xl shadow-sm mt-1 text-black">
+                                        <span class="border-b-2 border-[#FF0000]">노코드 홈페이지 5 로 또 사려는데</span>
+                                    </div>
+                                    <div
+                                        class="bg-white p-3 md:p-4 rounded-r-2xl rounded-bl-2xl shadow-sm mt-1 text-black">
+                                        혹시 서브메뉴 안에 내용 틀은 다 똑같은건가용</div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Owner Reply -->
+                        <div class="flex flex-col items-end gap-1.5 mt-auto">
+                            <div
+                                class="bg-[#FEE500] p-3 md:p-4 rounded-l-2xl rounded-br-2xl shadow-sm text-black font-medium">
+                                넵 똑같습니당!</div>
+                        </div>
+                    </div>
+
+                    <!-- Card 2 Dupl -->
+                    <div class="new-review-card w-[225px] h-[400px] lg:w-[279px] lg:h-[496px] shrink-0 bg-[#9886BF] rounded-[30px] p-5 md:p-6 flex flex-col justify-between relative font-sans text-sm md:text-base"
+                        data-index="5">
+                        <div class="flex flex-col gap-4 overflow-y-auto scrollbar-hide">
+                            <div class="flex gap-3">
+                                <div
+                                    class="w-10 h-10 md:w-12 md:h-12 rounded-[14px] bg-white overflow-hidden shrink-0 sticky top-0">
+                                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Neo" class="w-full h-full"
+                                        alt="Neo">
+                                </div>
+                                <div class="flex flex-col gap-1.5 max-w-[85%]">
+                                    <span class="text-[12px] md:text-[14px] text-white/80 font-bold">말썽쟁이 네오</span>
+                                    <div class="bg-white p-3 md:p-4 rounded-r-2xl rounded-bl-2xl shadow-sm text-black">
+                                        근데 최종컨펌이 나가지고</div>
+                                    <div
+                                        class="bg-white p-3 md:p-4 rounded-r-2xl rounded-bl-2xl shadow-sm mt-1 text-black">
+                                        괜찮을거 같아요</div>
+                                    <div
+                                        class="bg-white p-3 md:p-4 rounded-r-2xl rounded-bl-2xl shadow-sm mt-1 text-black">
+                                        그런데</div>
+                                    <div
+                                        class="bg-white p-3 md:p-4 rounded-r-2xl rounded-bl-2xl shadow-sm mt-1 text-black">
+                                        <span class="border-b-2 border-[#FF0000] font-bold">다른 분이 홈페이지폼이</span>
+                                    </div>
+                                    <div
+                                        class="bg-white p-3 md:p-4 rounded-r-2xl rounded-bl-2xl shadow-sm mt-1 text-black">
+                                        <span class="border-b-2 border-[#FF0000] font-bold">너무 이쁘다고 하셔서</span>
+                                    </div>
+                                    <div
+                                        class="bg-white p-3 md:p-4 rounded-r-2xl rounded-bl-2xl shadow-sm mt-1 text-black">
+                                        다른 업체 대표님이</div>
+                                    <div
+                                        class="bg-white p-3 md:p-4 rounded-r-2xl rounded-bl-2xl shadow-sm mt-1 text-black">
+                                        <span class="border-b-2 border-[#FF0000] font-bold">구축해쥬신 분 꺼 다른 폼으로</span>
+                                    </div>
+                                    <div
+                                        class="bg-white p-3 md:p-4 rounded-r-2xl rounded-bl-2xl shadow-sm mt-1 text-black">
+                                        <span class="border-b-2 border-[#FF0000] font-bold">하고싶다하셔서 진행될거 같아요</span>
+                                    </div>
+                                    <div
+                                        class="bg-white p-3 md:p-4 rounded-r-2xl rounded-bl-2xl shadow-sm mt-1 text-black">
+                                        가능 할까요?</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex flex-col items-end gap-1.5 mt-4">
+                            <div
+                                class="bg-[#FEE500] p-3 md:p-4 rounded-l-2xl rounded-br-2xl shadow-sm text-black font-medium">
+                                ㅎㅎ 감사합니다 뭐 가능 안될 없죠 ㅎㅎ</div>
+                        </div>
+                    </div>
+
+                    <!-- Card 3 Dupl -->
+                    <div class="new-review-card w-[225px] h-[400px] lg:w-[279px] lg:h-[496px] shrink-0 bg-[#7B6F9E] rounded-[30px] p-5 md:p-6 flex flex-col justify-between relative font-sans text-sm md:text-base"
+                        data-index="6">
+                        <div class="flex flex-col gap-4">
+                            <div class="flex gap-3">
+                                <div
+                                    class="w-10 h-10 md:w-12 md:h-12 rounded-[14px] bg-[#FFC0CB] overflow-hidden shrink-0">
+                                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Apeach"
+                                        class="w-full h-full" alt="Apeach">
+                                </div>
+                                <div class="flex flex-col gap-1.5 max-w-[85%]">
+                                    <span class="text-[12px] md:text-[14px] text-white/80 font-bold">떨고있는 어피치</span>
+                                    <div class="bg-white p-3 md:p-4 rounded-r-2xl rounded-bl-2xl shadow-sm text-black">
+                                        대표님! 안녕하세요ㅎㅎㅎ<br>
+                                        아이디 : *********<br>
+                                        비밀번호 : **********
+                                    </div>
+                                    <div
+                                        class="bg-white p-3 md:p-4 rounded-r-2xl rounded-bl-2xl shadow-sm mt-1 text-black">
+                                        <span class="border-b-2 border-[#FF0000] font-bold">템플릿 4번으로 하려고
+                                            합니다!<br>얼마나걸릴까요ㅎㅎ?</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex flex-col items-end gap-1.5 mt-auto">
+                            <div
+                                class="bg-[#FEE500] p-3 md:p-4 rounded-l-2xl rounded-br-2xl shadow-sm text-black font-medium text-right max-w-[85%]">
+                                안녕하세요 ㅎㅎ 아 <span class="border-b-2 border-[#FF0000]">또 하시나요</span> ㅎ<br>
+                                일단 오늘 제가 외부일이 많아서 ㅠ<br>
+                                저녁에나 가능할거 같습니다!
+                            </div>
+                            <div
+                                class="bg-[#FEE500] p-3 md:p-4 rounded-l-2xl rounded-br-2xl shadow-sm text-black font-medium text-right">
+                                추가작업은 없으신가요~?</div>
+                        </div>
+                    </div>
+
+                    <!-- Card 4 Dupl -->
+                    <div class="new-review-card w-[225px] h-[400px] lg:w-[279px] lg:h-[496px] shrink-0 bg-[#5B5B9F] rounded-[30px] p-5 md:p-6 flex flex-col justify-between relative font-sans text-sm md:text-base"
+                        data-index="7">
+                        <div class="flex flex-col gap-4">
+                            <div class="flex gap-3">
+                                <div class="w-10 h-10 md:w-12 md:h-12 rounded-[14px] bg-white overflow-hidden shrink-0">
+                                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Tube"
+                                        class="w-full h-full" alt="Tube">
+                                </div>
+                                <div class="flex flex-col gap-1.5 max-w-[85%]">
+                                    <span class="text-[12px] md:text-[14px] text-white/80 font-bold">기타치는 튜브</span>
+                                    <div class="bg-white p-3 md:p-4 rounded-r-2xl rounded-bl-2xl shadow-sm text-black">
+                                        안녕하세요 사장님 기존에 거래했던<br>******입니다!
+                                    </div>
+                                    <div
+                                        class="bg-white p-3 md:p-4 rounded-r-2xl rounded-bl-2xl shadow-sm mt-1 text-black">
+                                        ******에 적용해주신 동일 디자인으로<br>
+                                        <span class="border-b-2 border-[#FF0000] font-bold">워드프레스 하나 더<br>진행하고 싶어
+                                            연락드렸습니다</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex flex-col items-end gap-1.5 mt-auto">
+                            <div
+                                class="bg-[#FEE500] p-3 md:p-4 rounded-l-2xl rounded-br-2xl shadow-sm text-black font-medium">
+                                안녕하세요 :)</div>
+                            <!-- Link Card Preview -->
+                            <div class="bg-white rounded-[14px] overflow-hidden w-[220px] shadow-sm mt-2">
+                                <div class="h-[120px] bg-gray-200 bg-cover bg-center"
+                                    style="background-image: url('https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60');">
+                                </div>
+                                <div class="p-3 text-xs bg-[#F5F6F8] text-black border-t border-gray-100">
+                                    <div class="font-bold truncate">노코드 홈페이지 1</div>
+                                    <div class="text-gray-500 truncate">십분의일, PTWD762878</div>
+                                    <div class="text-gray-400 text-[10px] mt-1">d.cafe24.com</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dots Pagination -->
+            <div class="flex justify-center gap-3 mt-8" id="carousel-dots-new">
+                <button class="w-[7.5px] h-[7.5px] rounded-full bg-white transition-all duration-300"></button>
+                <button class="w-[7.5px] h-[7.5px] rounded-full bg-white/30 transition-all duration-300"></button>
+                <button class="w-[7.5px] h-[7.5px] rounded-full bg-white/30 transition-all duration-300"></button>
+                <button class="w-[7.5px] h-[7.5px] rounded-full bg-white/30 transition-all duration-300"></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Script for Infinite Carousel (Responsive Sizing) -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const track = document.getElementById('new-carousel-track');
+            const dots = document.querySelectorAll('#carousel-dots-new button');
+            if (!track) return;
+
+            const gap = 20;
+            let itemWidth = 0;
+            let fullItemWidth = 0; // w + gap
+            let isMobile = false;
+
+            let autoPlayInterval;
+            let isDragging = false;
+            let startX = 0;
+            let currentTranslate = 0;
+            let prevTranslate = 0;
+            let isAnimating = false;
+
+            // All items
+            const cards = document.querySelectorAll('.new-review-card');
+
+            // Initialize dimensions
+            function updateDimensions() {
+                const containerWidth = track.parentElement.offsetWidth;
+
+                // Determine how many cards to show based on screen width
+                let visibleCount = 2;
+                if (window.innerWidth >= 900) {
+                    visibleCount = 4;
+                } else if (window.innerWidth >= 600) {
+                    visibleCount = 3;
+                } else {
+                    visibleCount = 2;
+                }
+
+                // Calculate item width to fit 'visibleCount' items perfectly in the container
+                // Formula: (ContainerWidth - TotalGaps) / VisibleCount
+                const totalGapSpace = gap * (visibleCount - 1);
+                const availableSpace = Math.max(0, containerWidth - totalGapSpace);
+                itemWidth = availableSpace / visibleCount;
+
+                // Calculate height based on 9:16 aspect ratio
+                const itemHeight = itemWidth * (16 / 9);
+
+                fullItemWidth = itemWidth + gap;
+
+                // Apply calculated width AND height to all cards
+                cards.forEach(card => {
+                    card.style.width = `${itemWidth}px`;
+                    card.style.minWidth = `${itemWidth}px`;
+                    card.style.height = `${itemHeight}px`; // Maintain 9:16 ratio
+                });
+
+                // Reset position on resize
+                track.style.transition = 'none';
+                track.style.transform = `translateX(0px)`;
+                currentTranslate = 0;
+
+                updateDots();
+            }
+
+            // Initial setup
+            setTimeout(updateDimensions, 100);
+            window.addEventListener('resize', updateDimensions);
+
+            // Auto Play
+            function startAutoPlay() {
+                stopAutoPlay();
+                autoPlayInterval = setInterval(() => {
+                    if (!isDragging && !isAnimating) {
+                        slideNext();
+                    }
+                }, 3000); // 3 seconds
+            }
+
+            function stopAutoPlay() {
+                clearInterval(autoPlayInterval);
+            }
+
+            // Logic to slide next (Animate left -> rotate first to last)
+            function slideNext() {
+                if (isAnimating) return;
+                isAnimating = true;
+
+                // Immediate dot update
+                if (track.children.length > 1) {
+                    const nextIndex = track.children[1].getAttribute('data-index');
+                    updateDots(nextIndex);
+                }
+
+                track.style.transition = 'transform 0.5s ease-out';
+                track.style.transform = `translateX(${-fullItemWidth}px)`;
+                currentTranslate = -fullItemWidth;
+
+                // Wait for transition, then rotate
+                setTimeout(() => {
+                    track.style.transition = 'none';
+                    track.appendChild(track.firstElementChild); // Move first to last
+                    track.style.transform = `translateX(0px)`;
+                    currentTranslate = 0;
+                    isAnimating = false;
+                }, 500);
+            }
+
+            // Logic to slide prev (Rotate last to first -> Animate right)
+            function slidePrev() {
+                if (isAnimating) return;
+                isAnimating = true;
+
+                // Pre-move last to first, offset by -fullItemWidth
+                track.style.transition = 'none';
+                track.prepend(track.lastElementChild);
+
+                // Immediate dot update
+                if (track.firstElementChild) {
+                    const nextIndex = track.firstElementChild.getAttribute('data-index');
+                    updateDots(nextIndex);
+                }
+
+                track.style.transform = `translateX(${-fullItemWidth}px)`;
+                currentTranslate = -fullItemWidth;
+
+                // Force reflow
+                void track.offsetWidth;
+
+                // Animate to 0
+                track.style.transition = 'transform 0.5s ease-out';
+                track.style.transform = `translateX(0px)`;
+                currentTranslate = 0;
+
+                setTimeout(() => {
+                    isAnimating = false;
+                }, 500);
+            }
+
+            // Drag / Swipe Logic
+            function getPositionX(event) {
+                return event.type.includes('mouse') ? event.pageX : event.touches[0].clientX;
+            }
+
+            let dragDiff = 0;
+
+            track.onmousedown = (e) => {
+                if (isAnimating) return;
+                isDragging = true;
+                startX = e.pageX;
+                track.style.transition = 'none';
+                track.style.cursor = 'grabbing';
+                stopAutoPlay();
+            };
+            track.ontouchstart = (e) => {
+                if (isAnimating) return;
+                isDragging = true;
+                startX = e.touches[0].clientX;
+                track.style.transition = 'none';
+                stopAutoPlay();
+            };
+
+            track.onmousemove = (e) => {
+                if (!isDragging) return;
+                e.preventDefault();
+                const x = e.pageX;
+                dragDiff = x - startX;
+                track.style.transform = `translateX(${dragDiff}px)`;
+            };
+            track.ontouchmove = (e) => {
+                if (!isDragging) return;
+                const x = e.touches[0].clientX;
+                dragDiff = x - startX;
+                track.style.transform = `translateX(${dragDiff}px)`;
+            };
+
+            const endDrag = () => {
+                if (!isDragging) return;
+                isDragging = false;
+                track.style.cursor = 'grab';
+
+                const threshold = fullItemWidth * 0.2;
+
+                if (dragDiff < -threshold) {
+                    slideNextFromDrag(dragDiff);
+                } else if (dragDiff > threshold) {
+                    slidePrevFromDrag(dragDiff);
+                } else {
+                    track.style.transition = 'transform 0.3s ease-out';
+                    track.style.transform = `translateX(0px)`;
+                    startAutoPlay();
+                }
+                dragDiff = 0;
+            };
+
+            track.onmouseup = endDrag;
+            track.onmouseleave = endDrag;
+            track.ontouchend = endDrag;
+
+            function slideNextFromDrag(currentOffset) {
+                isAnimating = true;
+
+                if (track.children.length > 1) {
+                    const nextIndex = track.children[1].getAttribute('data-index');
+                    updateDots(nextIndex);
+                }
+
+                track.style.transition = 'transform 0.3s ease-out';
+                track.style.transform = `translateX(${-fullItemWidth}px)`;
+
+                setTimeout(() => {
+                    track.style.transition = 'none';
+                    track.appendChild(track.firstElementChild);
+                    track.style.transform = `translateX(0px)`;
+                    currentTranslate = 0;
+                    isAnimating = false;
+                    startAutoPlay();
+                }, 300);
+            }
+
+            function slidePrevFromDrag(currentOffset) {
+                isAnimating = true;
+
+                // For logic consistency slightly different from slidePrev as we don't assume pre-prepend in drag
+                // But simplified logic: we treat it as "snap to previous"
+                // The most robust way for "infinite" drag prev is actually complex. 
+                // Given the code structure, we'll mimic slidePrev behavior:
+
+                track.style.transition = 'none';
+                track.prepend(track.lastElementChild);
+
+                if (track.firstElementChild) {
+                    const nextIndex = track.firstElementChild.getAttribute('data-index');
+                    updateDots(nextIndex);
+                }
+
+                // We were at `currentOffset` (positive). Now we injected a card width.
+                // New position should logically be `currentOffset - fullItemWidth` to match visual?
+                // Visual check:
+                // User dragged +100px (right). They see whitespace.
+                // We inject card at front. Now track is shifted -288.
+                // We want to animate to 0.
+                // Start from -288 + 100 = -188.
+                const startPos = -fullItemWidth + currentOffset;
+                track.style.transform = `translateX(${startPos}px)`;
+
+                void track.offsetWidth;
+
+                track.style.transition = 'transform 0.3s ease-out';
+                track.style.transform = `translateX(0px)`;
+
+                setTimeout(() => {
+                    isAnimating = false;
+                    startAutoPlay();
+                }, 300);
+            }
+
+            function updateDots(indexOverride) {
+                let activeIndex = indexOverride;
+
+                if (activeIndex === undefined || activeIndex === null) {
+                    const firstCard = track.firstElementChild;
+                    if (!firstCard) return;
+                    activeIndex = firstCard.getAttribute('data-index');
+                }
+
+                const index = parseInt(activeIndex || '0');
+                const realIndex = index % 4; // Map 8 cards to 4 dots
+
+                dots.forEach((dot, idx) => {
+                    if (idx === realIndex) {
+                        dot.className = "w-[7.5px] h-[7.5px] rounded-full bg-white transition-all duration-300";
+                    } else {
+                        dot.className = "w-[7.5px] h-[7.5px] rounded-full bg-white/30 transition-all duration-300";
+                    }
+                });
+                startAutoPlay();
+            }
+        });
+    </script>
+
+
+    <!-- NEW Customized Why Choose Us Section (4-Level Fluid + Original Responsive Logic) -->
+    <section class="py-[80px] px-0 bg-black overflow-hidden">
+        <!-- Level 2: Child Container (Responsive Margin) -->
+        <div class="mx-[10px] md:mx-[25px]">
+
+            <!-- Level 3: Headline Grandchild -->
+            <div class="mb-[80px] text-center reveal">
+                <h2 class="text-[28px] leading-[36px] md:text-[56px] md:leading-[73px] font-black font-['Pretendard']">
+                    <span class="text-white block">왜 딴 데 말고</span>
+                    <span class="text-white block">
+                        <span class="text-[#00D4EA]">십분의일을 선택</span>해야 하나요?
+                    </span>
+                </h2>
+            </div>
+
+            <!-- Level 3: Cards Container Grandchild -->
+            <div class="flex flex-col gap-[80px]">
+
+                <!-- Row 1 -->
+                <div
+                    class="grid md:grid-cols-[1fr_auto_1fr] gap-x-[40px] gap-y-0 px-0 md:px-[4.16vw] items-stretch reveal">
+
+                    <!-- Left Card -->
+                    <div class="flex-1 flex justify-center">
+                        <div
+                            class="bg-black border border-white/60 rounded-2xl py-[50px] px-[40px] w-full max-w-none md:max-w-[400px] flex flex-col items-center justify-center text-center">
+                            <div class="text-gray-500 pb-[20px]">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto opacity-50 w-[72px] h-[72px]"
+                                    viewBox="0 0 24 24" fill="currentColor">
+                                    <path fill-rule="evenodd"
+                                        d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-1.72 6.97a.75.75 0 10-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 101.06 1.06L12 13.06l1.72 1.72a.75.75 0 101.06-1.06L13.06 12l1.72-1.72a.75.75 0 10-1.06-1.06L12 10.94l-1.72-1.72z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                            <p
+                                class="text-white font-bold text-[20px] leading-[30px] md:text-[24px] md:leading-[36px] break-keep font-['Pretendard']">
+                                "큰
+                                돈 쓰는데 홈페이지 이상하게 나오면 어떻게 하지?"</p>
+                        </div>
+                    </div>
+
+                    <!-- VS -->
+                    <div class="flex items-center justify-center py-[20px] md:py-0 px-0 md:px-[1.385vw]">
+                        <span
+                            class="text-[#ACACAC] font-medium text-[36px] md:text-[2.5vw] leading-none font-['Pretendard']">VS</span>
+                    </div>
+
+                    <!-- Right Card -->
+                    <div class="flex-1 flex justify-center">
+                        <div
+                            class="bg-black border-8 border-[#00D4EA] rounded-2xl py-[50px] px-[40px] w-full max-w-none md:max-w-[400px] flex flex-col items-center justify-center text-center shadow-[0_0_30px_rgba(0,212,234,0.15)]">
+                            <div class="text-[#00D4EA] pb-[20px]">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto w-[72px] h-[72px]"
+                                    viewBox="0 0 24 24" fill="currentColor">
+                                    <path fill-rule="evenodd"
+                                        d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                            <p
+                                class="text-white font-bold text-[20px] leading-[30px] md:text-[24px] md:font-black md:leading-snug break-keep">
+                                이미 눈에 보이는 확실한 결과물</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Row 2 -->
+                <div class="grid md:grid-cols-[1fr_auto_1fr] gap-x-[40px] gap-y-0 px-0 md:px-[4.16vw] items-stretch reveal"
+                    style="animation-delay: 0.1s">
+                    <div class="flex-1 flex justify-center">
+                        <div
+                            class="bg-black border border-white/60 rounded-2xl py-[50px] px-[40px] w-full max-w-none md:max-w-[400px] flex flex-col items-center justify-center text-center">
+                            <div class="text-gray-500 pb-[20px]">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto opacity-50 w-[72px] h-[72px]"
+                                    viewBox="0 0 24 24" fill="currentColor">
+                                    <path fill-rule="evenodd"
+                                        d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-1.72 6.97a.75.75 0 10-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 101.06 1.06L12 13.06l1.72 1.72a.75.75 0 101.06-1.06L13.06 12l1.72-1.72a.75.75 0 10-1.06-1.06L12 10.94l-1.72-1.72z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                            <p
+                                class="text-white font-bold text-[20px] leading-[30px] md:text-[24px] md:leading-[36px] break-keep font-['Pretendard']">
+                                "일정 늘어지고 오래걸리는거 아냐?"</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-center py-[20px] md:py-0 px-[1.385vw]">
+                        <span
+                            class="text-[#ACACAC] font-medium text-[36px] md:text-[2.5vw] leading-none font-['Pretendard']">VS</span>
+                    </div>
+                    <div class="flex-1 flex justify-center">
+                        <div
+                            class="bg-black border-8 border-[#00D4EA] rounded-2xl py-[50px] px-[40px] w-full max-w-none md:max-w-[400px] flex flex-col items-center justify-center text-center shadow-[0_0_30px_rgba(0,212,234,0.15)]">
+                            <div class="text-[#00D4EA] pb-[20px]">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto w-[72px] h-[72px]"
+                                    viewBox="0 0 24 24" fill="currentColor">
+                                    <path fill-rule="evenodd"
+                                        d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                            <p
+                                class="text-white font-bold text-[20px] leading-[30px] md:text-[24px] md:font-black md:leading-snug break-keep">
+                                하루 안에 완성되는<br>홈페이지 템플릿
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Row 3 -->
+                <div class="grid md:grid-cols-[1fr_auto_1fr] gap-x-[40px] gap-y-0 px-0 md:px-[4.16vw] items-stretch reveal"
+                    style="animation-delay: 0.2s">
+                    <div class="flex-1 flex justify-center">
+                        <div
+                            class="bg-black border border-white/60 rounded-2xl py-[50px] px-[40px] w-full max-w-none md:max-w-[400px] flex flex-col items-center justify-center text-center">
+                            <div class="text-gray-500 pb-[20px]">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto opacity-50 w-[72px] h-[72px]"
+                                    viewBox="0 0 24 24" fill="currentColor">
+                                    <path fill-rule="evenodd"
+                                        d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-1.72 6.97a.75.75 0 10-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 101.06 1.06L12 13.06l1.72 1.72a.75.75 0 101.06-1.06L13.06 12l1.72-1.72a.75.75 0 10-1.06-1.06L12 10.94l-1.72-1.72z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                            <p
+                                class="text-white font-bold text-[20px] leading-[30px] md:text-[24px] md:leading-[36px] break-keep font-['Pretendard']">
+                                "뭐
+                                조금 수정할 때 마다<br>업체한테 요청해야하나?"</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-center py-[20px] md:py-0 px-[1.385vw]">
+                        <span
+                            class="text-[#ACACAC] font-medium text-[36px] md:text-[2.5vw] leading-none font-['Pretendard']">VS</span>
+                    </div>
+                    <div class="flex-1 flex justify-center">
+                        <div
+                            class="bg-black border-8 border-[#00D4EA] rounded-2xl py-[50px] px-[40px] w-full max-w-none md:max-w-[400px] flex flex-col items-center justify-center text-center shadow-[0_0_30px_rgba(0,212,234,0.15)]">
+                            <div class="text-[#00D4EA] pb-[20px]">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto w-[72px] h-[72px]"
+                                    viewBox="0 0 24 24" fill="currentColor">
+                                    <path fill-rule="evenodd"
+                                        d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                            <p
+                                class="text-white font-bold text-[20px] leading-[30px] md:text-[24px] md:font-black md:leading-snug break-keep">
+                                문구와 이미지를 마음껏 수정할 수 있는
+                                메뉴얼 제공</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Row 4 -->
+                <div class="grid md:grid-cols-[1fr_auto_1fr] gap-x-[40px] gap-y-0 px-0 md:px-[4.16vw] items-stretch reveal"
+                    style="animation-delay: 0.3s">
+                    <div class="flex-1 flex justify-center">
+                        <div
+                            class="bg-black border border-white/60 rounded-2xl py-[50px] px-[40px] w-full max-w-none md:max-w-[400px] flex flex-col items-center justify-center text-center">
+                            <div class="text-gray-500 pb-[20px]">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto opacity-50 w-[72px] h-[72px]"
+                                    viewBox="0 0 24 24" fill="currentColor">
+                                    <path fill-rule="evenodd"
+                                        d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-1.72 6.97a.75.75 0 10-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 101.06 1.06L12 13.06l1.72 1.72a.75.75 0 101.06-1.06L13.06 12l1.72-1.72a.75.75 0 10-1.06-1.06L12 10.94l-1.72-1.72z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                            <p
+                                class="text-white font-bold text-[20px] leading-[30px] md:text-[24px] md:leading-[36px] break-keep font-['Pretendard']">
+                                "몇
+                                년 동안 매달<br>유지비 내야하는거 아냐?"</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-center py-[20px] md:py-0 px-[1.385vw]">
+                        <span
+                            class="text-[#ACACAC] font-medium text-[36px] md:text-[2.5vw] leading-none font-['Pretendard']">VS</span>
+                    </div>
+                    <div class="flex-1 flex justify-center">
+                        <div
+                            class="bg-black border-8 border-[#00D4EA] rounded-2xl py-[50px] px-[40px] w-full max-w-none md:max-w-[400px] flex flex-col items-center justify-center text-center shadow-[0_0_30px_rgba(0,212,234,0.15)]">
+                            <div class="text-[#00D4EA] pb-[20px]">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto w-[72px] h-[72px]"
+                                    viewBox="0 0 24 24" fill="currentColor">
+                                    <path fill-rule="evenodd"
+                                        d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                            <p
+                                class="text-white font-bold text-[20px] leading-[30px] md:text-[24px] md:font-black md:leading-snug break-keep">
+                                십분의일에 내야하는 유지비 0원</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- 9 & 9.5. Unified Process & Usage Guide Section (4-Level Fluid Structure) -->
+    <section class="py-[80px] md:py-[120px] px-0 bg-black relative z-20" id="process-section">
+        <!-- Level 2: Child Container (Responsive Margin) -->
+        <div class="mx-[10px] md:mx-[25px]">
+
+            <!-- Level 3: Headline Grandchild -->
+            <div class="mb-[20px] md:mb-[50px] text-center">
+                <h2 class="text-[28px] leading-[36px] md:text-[56px] md:leading-[73px] font-black font-['Pretendard']">
+                    <span class="text-white block">빠르고 간단한</span>
+                    <span class="text-[#00D4EA] block">진행 과정</span>
+                </h2>
+            </div>
+
+            <!-- Level 3: Grid Grandchild -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-y-[24px] md:gap-[40px]">
+
+                <!-- Card 1 (Great-Grandchild) -->
+                <div
+                    class="bg-black border border-white/20 rounded-[28px] py-[26px] px-[30px] text-left hover:border-[#00D4EA] hover:bg-white/[0.03] transition-all duration-300 group min-h-[280px] flex flex-col justify-start h-full">
+                    <div class="mb-[10px] text-[#00D4EA]">
+                        <i data-lucide="folder" class="w-10 h-10"></i>
+                    </div>
+                    <h3
+                        class="text-[20px] leading-[26px] md:text-[28px] md:leading-[36px] font-bold text-white mb-4 font-['Pretendard']">
+                        1. 홈페이지 고르기
+                    </h3>
+                    <p
+                        class="text-[#ADADAD] group-hover:text-white text-[15px] leading-[26px] md:text-[16px] md:leading-[28px] font-medium transition-colors duration-300 break-keep font-['Pretendard']">
+                        10개 홈페이지 중 마음에 드는 홈페이지 하나를 골라 주세요.
+                    </p>
+                </div>
+
+                <!-- Card 2 -->
+                <div
+                    class="bg-black border border-white/20 rounded-[28px] py-[26px] px-[30px] text-left hover:border-[#00D4EA] hover:bg-white/[0.03] transition-all duration-300 group min-h-[280px] flex flex-col justify-start h-full">
+                    <div class="mb-[10px] text-[#00D4EA]">
+                        <i data-lucide="database" class="w-10 h-10"></i>
+                    </div>
+                    <h3
+                        class="text-[20px] leading-[26px] md:text-[28px] md:leading-[36px] font-bold text-white mb-4 font-['Pretendard']">
+                        2. 호스팅 구매</h3>
+                    <p
+                        class="text-[#ADADAD] group-hover:text-white text-[15px] leading-[26px] md:text-[16px] md:leading-[28px] font-medium transition-colors duration-300 break-keep font-['Pretendard']">
+                        홈페이지가 들어갈 호스팅이 필요합니다. 저희가 드리는 메뉴얼을 따라서 구매하시면 됩니다.
+                    </p>
+                </div>
+
+                <!-- Card 3 -->
+                <div
+                    class="bg-black border border-white/20 rounded-[28px] py-[26px] px-[30px] text-left hover:border-[#00D4EA] hover:bg-white/[0.03] transition-all duration-300 group min-h-[280px] flex flex-col justify-start h-full">
+                    <div class="mb-[10px] text-[#00D4EA]">
+                        <i data-lucide="briefcase" class="w-10 h-10"></i>
+                    </div>
+                    <h3
+                        class="text-[20px] leading-[26px] md:text-[28px] md:leading-[36px] font-bold text-white mb-4 font-['Pretendard']">
+                        3. 템플릿 구매</h3>
+                    <p
+                        class="text-[#ADADAD] group-hover:text-white text-[15px] leading-[26px] md:text-[16px] md:leading-[28px] font-medium transition-colors duration-300 break-keep font-['Pretendard']">
+                        템플릿 디자인을 구매합니다. 카드결제, 세금계산서 모두 가능합니다.
+                    </p>
+                </div>
+
+                <!-- Card 4 -->
+                <div
+                    class="bg-black border border-white/20 rounded-[28px] py-[26px] px-[30px] text-left hover:border-[#00D4EA] hover:bg-white/[0.03] transition-all duration-300 group min-h-[280px] flex flex-col justify-start h-full">
+                    <div class="mb-[10px] text-[#00D4EA]">
+                        <i data-lucide="wrench" class="w-10 h-10"></i>
+                    </div>
+                    <h3
+                        class="text-[20px] leading-[26px] md:text-[28px] md:leading-[36px] font-bold text-white mb-4 font-['Pretendard']">
+                        4. 홈페이지 제작</h3>
+                    <p
+                        class="text-[#ADADAD] group-hover:text-white text-[15px] leading-[26px] md:text-[16px] md:leading-[28px] font-medium transition-colors duration-300 break-keep font-['Pretendard']">
+                        문의된 것을 토대로 제작에 들어갑니다. 그대로 복사형은 하루 안에 작업이 완료됩니다.
+                    </p>
+                </div>
+
+                <!-- Card 5 -->
+                <div
+                    class="bg-black border border-white/20 rounded-[28px] py-[26px] px-[30px] text-left hover:border-[#00D4EA] hover:bg-white/[0.03] transition-all duration-300 group min-h-[280px] flex flex-col justify-start h-full">
+                    <div class="mb-[10px] text-[#00D4EA]">
+                        <i data-lucide="message-circle" class="w-10 h-10"></i>
+                    </div>
+                    <h3
+                        class="text-[20px] leading-[26px] md:text-[28px] md:leading-[36px] font-bold text-white mb-4 font-['Pretendard']">
+                        5. (추가작업 시)피드백
+                        및 수정</h3>
+                    <p
+                        class="text-[#ADADAD] group-hover:text-white text-[15px] leading-[26px] md:text-[16px] md:leading-[28px] font-medium transition-colors duration-300 break-keep font-['Pretendard']">
+                        추가 작업이 있을 경우 완성된 홈페이지를 보여드리고 피드백을 받습니다. 피드백을 토대로 수정 작업 후 완료됩니다.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 10. PREMIUM TICKER SECTION (Refined Dual Row) -->
+    <section
+        class="py-[40px] bg-black overflow-hidden relative z-10 w-full select-none flex flex-col gap-[10px] border-none">
+
+        <!-- Row 1: Moves Left (Right -> Left) -->
+        <div class="relative w-full flex whitespace-nowrap overflow-hidden">
+            <!-- Track 1 -->
+            <div class="animate-marquee flex whitespace-nowrap will-change-transform">
+                <span
+                    class="text-[clamp(48px,9.375vw,120px)] leading-[clamp(48px,9.375vw,120px)] font-bold text-white px-[10px] font-['Pretendard']">십분의일
+                    홈페이지</span>
+                <span
+                    class="text-[clamp(48px,9.375vw,120px)] leading-[clamp(48px,9.375vw,120px)] font-bold text-white px-[10px] font-['Pretendard']">십분의일
+                    홈페이지</span>
+            </div>
+            <!-- Track 2 (Seamless clone) -->
+            <div class="animate-marquee2 absolute top-0 left-0 flex whitespace-nowrap will-change-transform">
+                <span
+                    class="text-[clamp(48px,9.375vw,120px)] leading-[clamp(48px,9.375vw,120px)] font-bold text-white px-[10px] font-['Pretendard']">십분의일
+                    홈페이지</span>
+                <span
+                    class="text-[clamp(48px,9.375vw,120px)] leading-[clamp(48px,9.375vw,120px)] font-bold text-white px-[10px] font-['Pretendard']">십분의일
+                    홈페이지</span>
+            </div>
+        </div>
+
+        <!-- Row 2: Moves Right (Left -> Right) -->
+        <div class="relative w-full flex whitespace-nowrap overflow-hidden">
+            <!-- Track 1 -->
+            <div class="animate-marquee-reverse flex whitespace-nowrap will-change-transform">
+                <span
+                    class="text-[clamp(48px,9.375vw,120px)] leading-[clamp(48px,9.375vw,120px)] font-bold text-transparent px-[10px] font-['Pretendard']"
+                    style="-webkit-text-stroke: 1.5px rgba(255,255,255,0.7);">십분의일 홈페이지</span>
+                <span
+                    class="text-[clamp(48px,9.375vw,120px)] leading-[clamp(48px,9.375vw,120px)] font-bold text-transparent px-[10px] font-['Pretendard']"
+                    style="-webkit-text-stroke: 1.5px rgba(255,255,255,0.7);">십분의일 홈페이지</span>
+            </div>
+            <!-- Track 2 (Seamless clone) -->
+            <div class="animate-marquee2-reverse absolute top-0 left-0 flex whitespace-nowrap will-change-transform">
+                <span
+                    class="text-[clamp(48px,9.375vw,120px)] leading-[clamp(48px,9.375vw,120px)] font-bold text-transparent px-[10px] font-['Pretendard']"
+                    style="-webkit-text-stroke: 1.5px rgba(255,255,255,0.7);">십분의일 홈페이지</span>
+                <span
+                    class="text-[clamp(48px,9.375vw,120px)] leading-[clamp(48px,9.375vw,120px)] font-bold text-transparent px-[10px] font-['Pretendard']"
+                    style="-webkit-text-stroke: 1.5px rgba(255,255,255,0.7);">십분의일 홈페이지</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="pricing" class="py-[80px] md:py-[120px] px-0 bg-black overflow-hidden main_container">
+        <!-- Main Container -->
+        <div class="mx-[10px] md:mx-[25px] max-w-[1280px] md:mx-auto">
+
+            <!-- 1. Header Area (Service + Headline) -->
+            <div class="text-center mb-[20px] md:mb-[50px]">
+                <div class="mb-[12px] md:mb-[16px]">
+                    <span
+                        class="inline-block font-['Pretendard'] font-bold text-[18px] leading-[18px] md:text-[28px] md:leading-[28px] text-[#00E5F9]">Service</span>
+                </div>
+                <h2
+                    class="font-['Pretendard'] font-bold text-[28px] leading-[36px] md:text-[56px] md:leading-[73px] text-white break-keep">
+                    충분히 고려 후 구매해 주세요.
+                </h2>
+            </div>
+
+            <!-- 2. Cards Area -->
+            <!-- PC: Flex Row (50:50), Gap 30px -->
+            <!-- Mobile: Flex Col (Stack), Gap 60px -->
+            <div class="flex flex-col md:flex-row gap-y-[20px] md:gap-x-[40px]">
+
+                <!-- Left Card: Basic -->
+                <div
+                    class="w-full md:w-1/2 bg-[#00BCD4] rounded-[40px] p-[20px] md:p-[40px] flex flex-col relative group h-auto">
+                    <!-- Internal Content Box with Margin 10px (Yellow Area) -->
+                    <div class="mx-[10px] flex flex-col h-full flex-1">
+
+                        <!-- Top Content -->
+                        <div class="flex-1 flex flex-col">
+                            <div
+                                class="font-['Pretendard'] font-bold text-[20px] leading-[28px] md:text-[24px] md:leading-[34px] text-[rgba(255,255,255,0.75)] mb-2">
+                                Basic
+                            </div>
+                            <div
+                                class="font-['Pretendard'] font-bold text-[32px] leading-[42px] md:text-[56px] md:leading-[73px] text-white mb-2 break-keep">
+                                그대로 복사</div>
+                            <div class="text-right mt-0 mb-[40px]">
+                                <span
+                                    class="font-['Pretendard'] font-medium text-[26px] leading-[26px] md:text-[32px] md:leading-[32px] text-white">330,000원</span>
+                            </div>
+
+                            <!-- 4. List Container (Boxed) -->
+                            <div class="bg-white/10 border border-white/20 rounded-[20px] p-[16px]">
+                                <ul class="">
+                                    <li class="flex items-start text-white mb-[8px]">
+                                        <div
+                                            class="bg-white rounded-full w-5 h-5 flex items-center justify-center shrink-0 mr-3 mt-0.5">
+                                            <i data-lucide="check" class="w-3 h-3 text-[#00BCD4] stroke-[4]"></i>
+                                        </div>
+                                        <span
+                                            class="text-[15px] leading-[26px] md:text-[16px] md:leading-[28px] font-medium">템플릿에서
+                                            문구와 이미지만 수정할
+                                            경우</span>
+                                    </li>
+                                    <li class="flex items-start text-white mb-[8px]">
+                                        <div
+                                            class="bg-white rounded-full w-5 h-5 flex items-center justify-center shrink-0 mr-3 mt-0.5">
+                                            <i data-lucide="check" class="w-3 h-3 text-[#00BCD4] stroke-[4]"></i>
+                                        </div>
+                                        <span
+                                            class="text-[15px] leading-[26px] md:text-[16px] md:leading-[28px] font-medium">1일
+                                            이내 복사 완료(영업일 기준)</span>
+                                    </li>
+                                    <li class="flex items-start text-white mb-[8px]">
+                                        <div
+                                            class="bg-white rounded-full w-5 h-5 flex items-center justify-center shrink-0 mr-3 mt-0.5">
+                                            <i data-lucide="check" class="w-3 h-3 text-[#00BCD4] stroke-[4]"></i>
+                                        </div>
+                                        <span
+                                            class="text-[15px] leading-[26px] md:text-[16px] md:leading-[28px] font-medium">수정
+                                            메뉴얼 제공</span>
+                                    </li>
+                                    <li class="flex items-start text-white mb-[8px]">
+                                        <div
+                                            class="bg-white rounded-full w-5 h-5 flex items-center justify-center shrink-0 mr-3 mt-0.5">
+                                            <i data-lucide="check" class="w-3 h-3 text-[#00BCD4] stroke-[4]"></i>
+                                        </div>
+                                        <span
+                                            class="text-[15px] leading-[26px] md:text-[16px] md:leading-[28px] font-medium">질문용
+                                            오픈카톡 연결</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Bottom Button (Natural Flow) -->
+                        <div class="mt-auto pt-[20px]">
+                            <a href="contact.html"
+                                class="block w-full bg-white hover:bg-white/90 rounded-[20px] py-[14px] px-[28px] text-center text-black font-bold text-[16px] leading-[16px] transition-all">
+                                바로 구매하기 >
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Card: Premium -->
+                <div
+                    class="w-full md:w-1/2 bg-white rounded-[40px] p-[20px] md:p-[40px] flex flex-col relative group h-auto">
+                    <!-- Internal Content Box with Margin 10px (Yellow Area) -->
+                    <div class="mx-[10px] flex flex-col h-full flex-1">
+
+                        <!-- Top Content -->
+                        <div class="flex-1 flex flex-col">
+                            <div
+                                class="font-['Pretendard'] font-bold text-[20px] leading-[28px] md:text-[24px] md:leading-[34px] text-[rgba(0,0,0,0.75)] mb-2">
+                                Premium</div>
+                            <div
+                                class="font-['Pretendard'] font-bold text-[32px] leading-[42px] md:text-[56px] md:leading-[73px] text-[rgb(17,17,17)] mb-2 break-keep">
+                                복사 + 추가 작업</div>
+                            <div class="text-right mt-0 mb-[40px]">
+                                <span
+                                    class="font-['Pretendard'] font-medium text-[26px] leading-[26px] md:text-[32px] md:leading-[32px] text-black">490,000원</span>
+                            </div>
+
+                            <!-- 4. List Container (Boxed) -->
+                            <div class="bg-[#F8F9FA] rounded-[20px] p-[16px]">
+                                <ul class="">
+                                    <li class="flex items-start text-[#555555] mb-[8px]">
+                                        <div
+                                            class="bg-[#999999] rounded-full w-5 h-5 flex items-center justify-center shrink-0 mr-3 mt-0.5">
+                                            <i data-lucide="check" class="w-3 h-3 text-white stroke-[4]"></i>
+                                        </div>
+                                        <span
+                                            class="text-[15px] leading-[26px] md:text-[16px] md:leading-[28px] font-medium text-[#333333]">템플릿에
+                                            없는 기능이나
+                                            디자인
+                                            추가</span>
+                                    </li>
+                                    <li class="flex items-start text-[#555555] mb-[8px]">
+                                        <div
+                                            class="bg-[#999999] rounded-full w-5 h-5 flex items-center justify-center shrink-0 mr-3 mt-0.5">
+                                            <i data-lucide="check" class="w-3 h-3 text-white stroke-[4]"></i>
+                                        </div>
+                                        <span
+                                            class="text-[15px] leading-[26px] md:text-[16px] md:leading-[28px] font-medium text-[#333333]">상담
+                                            후 맞춤
+                                            견적</span>
+                                    </li>
+                                    <li class="flex items-start text-[#555555] mb-[8px]">
+                                        <div
+                                            class="bg-[#999999] rounded-full w-5 h-5 flex items-center justify-center shrink-0 mr-3 mt-0.5">
+                                            <i data-lucide="check" class="w-3 h-3 text-white stroke-[4]"></i>
+                                        </div>
+                                        <span
+                                            class="text-[15px] leading-[26px] md:text-[16px] md:leading-[28px] font-medium text-[#333333]">*현재는
+                                            간단한 추가
+                                            작업만
+                                            받습니다.</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Bottom Button (Natural Flow) -->
+                        <div class="mt-auto pt-[20px]">
+                            <a href="contact.html"
+                                class="block w-full bg-[#EEEEEE] hover:bg-[#E0E0E0] rounded-[20px] py-[14px] px-[28px] text-center text-black font-bold text-[16px] leading-[16px] transition-all">
+                                바로 구매하기 >
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <section id="faq" class="py-[80px] md:py-[120px] px-[10px] bg-black text-center">
+        <!-- Child Container (Wrapper) -->
+        <div class="mx-[25px] max-w-[1280px] md:mx-auto">
+
+            <!-- Container 1: Label -->
+            <div class="mb-[12px] md:mb-[20px] reveal">
+                <span
+                    class="block text-[#00E5F9] font-['Pretendard'] font-bold text-[18px] leading-[18px] md:text-[28px] md:leading-[28px]">FAQ</span>
+            </div>
+
+            <!-- Container 2: Headline -->
+            <div class="mb-[20px] md:mb-[50px] reveal">
+                <h2
+                    class="text-[28px] leading-[36px] md:text-[56px] md:leading-[73px] font-['Pretendard'] font-bold md:font-black text-white break-keep">
+                    더
+                    궁금하신 점 있으신가요?</h2>
+            </div>
+
+            <!-- Container 3: Button -->
+            <div class="reveal">
+                <a href="contact.html"
+                    class="group relative overflow-hidden inline-flex items-center justify-center py-[20px] px-[40px] md:py-[20px] md:px-[40px] rounded-full bg-gradient-to-r from-[#00E5F9] to-[#2F54EB] text-white font-bold text-[18px] leading-[18px] md:text-[18px] md:leading-[18px] transform-gpu">
+                    <span class="inline-block transition-transform duration-300 group-hover:-translate-y-[300%]">자주 묻는
+                        질문</span>
+                    <span
+                        class="absolute top-0 left-0 w-full h-full flex items-center justify-center transition-transform duration-300 translate-y-full group-hover:translate-y-0">자주
+                        묻는 질문</span>
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 13. Footer -->
+
+    <footer class="new-footer">
+        <div class="max-w-[1280px] w-full mx-auto">
+            <div class="footer-top">
+                <div class="footer-left relative left-0 md:-left-5">
+                    <div class="f-section">
+                        <h4 style="margin-bottom: 0 !important; margin-top: 30px !important;">Address</h4>
+                        <p>서울특별시 00구 00동</p>
+                    </div>
+                    <div class="f-section">
+                        <h4 style="margin-bottom: 0 !important; margin-top: 30px !important;">Contact</h4>
+                        <p>T. 010 1234 1234<br>F. 010 1234 1234</p>
+                    </div>
+                </div>
+
+                <div class="footer-right">
+                    <div class="f-section">
+                        <h4 style="margin-bottom: 0 !important; margin-top: 30px !important;">십분의일</h4>
+                        <p>대표: 안상언<br>사업자등록번호: 000-00-00000<br>주소: 서울특별시 00구 00동</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="relative left-0 md:-left-5">
+                    <a href="#">개인정보처리방침</a>
+                </div>
+                <div>
+                    <span>One-tenth. All rights reserved.</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Custom Cursor -->
+    <div id="custom-cursor"
+        class="hidden md:block fixed w-4 h-4 bg-primary/30 rounded-full pointer-events-none z-[9999] top-0 left-0 -translate-x-1/2 -translate-y-1/2 transition-transform duration-75 ease-out will-change-transform">
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        // Custom Cursor Logic
+        const cursor = document.getElementById('custom-cursor');
+        let cursorScale = 1;
+
+        // Only activate on desktop (md breakpoint is usually 768px+)
+        if (window.matchMedia("(min-width: 768px)").matches) {
+            document.addEventListener('mousemove', (e) => {
+                // Apply translate and scale together
+                cursor.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0) translate(-50%, -50%) scale(${cursorScale})`;
+            });
+
+            // Add hover effects to interactive elements
+            // Select all links, buttons, and specific targets
+            const interactiveElements = document.querySelectorAll('a, button, .nav-link, input[type="submit"], input[type="button"]');
+
+            interactiveElements.forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    cursorScale = 3; // Doubled from 1.5 to 3.0
+                });
+                el.addEventListener('mouseleave', () => {
+                    cursorScale = 1;
+                });
+            });
+        }
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal, .reveal-draw').forEach(el => observer.observe(el));
+
+
+        // Template 02 Animation Loop
+        const t2Logo = document.getElementById('t2-logo');
+        const t2Hero = document.getElementById('t2-hero');
+        const t2Nav = document.getElementById('t2-nav');
+        const t2Stats = document.getElementById('t2-stats');
+        const t2Counters = document.querySelectorAll('.t2-counter');
+
+        function animateCount(el) {
+            const target = parseInt(el.getAttribute('data-target'));
+            const duration = 1500; // ms
+            const start = 0;
+            const startTime = performance.now();
+
+            function update(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+
+                // Ease out quart
+                const ease = 1 - Math.pow(1 - progress, 4);
+
+                const current = Math.floor(start + (target - start) * ease);
+                el.innerText = current.toLocaleString();
+
+                if (progress < 1) {
+                    requestAnimationFrame(update);
+                } else {
+                    el.innerText = target.toLocaleString();
+                }
+            }
+            requestAnimationFrame(update);
+        }
+
+        let t2Timeouts = [];
+
+        function runTemplate02Seq() {
+            if (!t2Logo) return;
+
+            // Clear previous timeouts immediately
+            t2Timeouts.forEach(t => clearTimeout(t));
+            t2Timeouts = [];
+
+            const elements = [t2Logo, t2Hero, t2Nav, t2Stats];
+
+            // 1. Instant Reset (Disable Transitions temporarily)
+            elements.forEach(el => {
+                el.style.transition = 'none';
+                el.classList.add('opacity-0');
+                // Re-add translate classes if they belong there
+                if (el.id === 't2-hero' || el.id === 't2-stats') {
+                    el.classList.add('translate-y-4');
+                }
+            });
+            t2Counters.forEach(el => el.innerText = '0');
+
+            // 2. Force Reflow (Flush CSS changes)
+            void t2Logo.offsetWidth;
+
+            // 3. Re-enable Transitions (Revert to CSS defined value)
+            elements.forEach(el => {
+                el.style.transition = '';
+            });
+
+            // 4. Sequence
+            t2Timeouts.push(setTimeout(() => {
+                // Logo
+                t2Logo.classList.remove('opacity-0');
+            }, 500));
+
+            t2Timeouts.push(setTimeout(() => {
+                // Hero Text
+                t2Hero.classList.remove('opacity-0', 'translate-y-4');
+            }, 1200));
+
+            t2Timeouts.push(setTimeout(() => {
+                // Header Nav
+                t2Nav.classList.remove('opacity-0');
+            }, 2000));
+
+            t2Timeouts.push(setTimeout(() => {
+                // Stats + Count
+                t2Stats.classList.remove('opacity-0', 'translate-y-4');
+                t2Counters.forEach(el => animateCount(el));
+            }, 2800));
+        }
+
+        // Start Loop
+        setTimeout(runTemplate02Seq, 500);
+        setInterval(runTemplate02Seq, 6000); // 6 seconds loop
+
+
+        // Template 08 Animation Loop (White Theme - Sequential Header)
+        const t8Logo = document.getElementById('t8-logo');
+        const t8Menu = document.getElementById('t8-menu');
+        const t8MenuItems = document.querySelectorAll('#t8-menu span');
+        const t8Cta = document.getElementById('t8-cta');
+        const t8Left = document.getElementById('t8-left');
+        const t8Right = document.getElementById('t8-right');
+
+        let t8Timeouts = [];
+
+        function runTemplate08Seq() {
+            if (!t8Logo) return;
+
+            // Clear timeouts
+            t8Timeouts.forEach(t => clearTimeout(t));
+            t8Timeouts = [];
+
+            // Group elements for reset (Include individual menu items)
+            const elements = [t8Logo, t8Cta, t8Left, t8Right, ...t8MenuItems];
+
+            // 1. Instant Reset
+            elements.forEach(el => {
+                if (!el) return;
+                el.style.transition = 'none';
+                el.classList.add('opacity-0');
+                if (el.id === 't8-left') el.classList.add('translate-y-8');
+                if (el.id === 't8-right') el.classList.add('-translate-x-12');
+            });
+
+            // 2. Reflow
+            void t8Logo.offsetWidth;
+
+            // 3. Re-enable Transitions
+            elements.forEach(el => {
+                if (!el) return;
+                el.style.transition = '';
+            });
+
+            // 4. Sequence
+            // Logo (0.5s)
+            t8Timeouts.push(setTimeout(() => {
+                t8Logo.classList.remove('opacity-0');
+            }, 500));
+
+            // Right Image (1.2s) - Slide Right
+            t8Timeouts.push(setTimeout(() => {
+                t8Right.classList.remove('opacity-0', '-translate-x-12');
+            }, 1200));
+
+            // Menu Items (Sequential from 1.2s)
+            t8MenuItems.forEach((item, index) => {
+                t8Timeouts.push(setTimeout(() => {
+                    item.classList.remove('opacity-0');
+                }, 1200 + (index * 150)));
+            });
+
+            // CTA Button (After menu items - roughly 1.8s)
+            t8Timeouts.push(setTimeout(() => {
+                t8Cta.classList.remove('opacity-0');
+            }, 1800));
+
+            // Left Text (2.2s - After Header completed)
+            t8Timeouts.push(setTimeout(() => {
+                t8Left.classList.remove('opacity-0', 'translate-y-8');
+            }, 2200));
+        }
+
+        setTimeout(runTemplate08Seq, 500);
+        setInterval(runTemplate08Seq, 6000);
+
+
+        // Template 07 Animation Loop (Creative Theme - Center Focus)
+        const t7Logo = document.getElementById('t7-logo');
+        const t7MenuItems = document.querySelectorAll('#t7-menu span');
+        const t7Cta = document.getElementById('t7-cta');
+        const t7Text = document.getElementById('t7-text');
+        const t7Scroll = document.getElementById('t7-scroll');
+
+        let t7Timeouts = [];
+
+        function runTemplate07Seq() {
+            if (!t7Logo) return;
+
+            // Clear timeouts
+            t7Timeouts.forEach(t => clearTimeout(t));
+            t7Timeouts = [];
+
+            // Group elements for reset
+            const elements = [t7Logo, t7Cta, t7Text, t7Scroll, ...t7MenuItems];
+
+            // 1. Instant Reset
+            elements.forEach(el => {
+                if (!el) return;
+                el.style.transition = 'none';
+                el.classList.add('opacity-0');
+                if (el.id === 't7-text') el.classList.add('translate-y-8');
+            });
+
+            // 2. Reflow
+            void t7Logo.offsetWidth;
+
+            // 3. Re-enable Transitions
+            elements.forEach(el => {
+                if (!el) return;
+                el.style.transition = '';
+            });
+
+            // 4. Sequence
+            // Logo (0.5s)
+            t7Timeouts.push(setTimeout(() => {
+                t7Logo.classList.remove('opacity-0');
+            }, 500));
+
+            // Center Text + Scroll Spinner (1.2s - as requested "Logo -> Text")
+            t7Timeouts.push(setTimeout(() => {
+                t7Text.classList.remove('opacity-0', 'translate-y-8');
+                t7Scroll.classList.remove('opacity-0');
+            }, 1200));
+
+            // Menu Items (Sequential from 1.8s - after Text)
+            t7MenuItems.forEach((item, index) => {
+                t7Timeouts.push(setTimeout(() => {
+                    item.classList.remove('opacity-0');
+                }, 1800 + (index * 150)));
+            });
+
+            // CTA Button (After menu items - roughly 2.4s)
+            t7Timeouts.push(setTimeout(() => {
+                t7Cta.classList.remove('opacity-0');
+            }, 2400));
+        }
+
+        setTimeout(runTemplate07Seq, 500);
+        setInterval(runTemplate07Seq, 7000); // 7s loop
+
+
+        // --- Showcase Elevator Scroll Animation ---
+        if (document.getElementById('showcase-elevator')) {
+            gsap.to("#showcase-elevator", {
+                y: (i, target) => -(target.offsetHeight - document.getElementById('showcase-headline-fixed').offsetHeight),
+                ease: "none",
+                scrollTrigger: {
+                    trigger: "#showcase",
+                    start: "top center",
+                    end: "bottom center",
+                    scrub: true
+                }
+            });
+        }
+
+
+
+    </script>
+    <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,785 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>십분의일 | 프리미엄 웹사이트 솔루션</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Urbanist:wght@700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" as="style" crossorigin
+        href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <link rel="stylesheet" href="style_mobile_menu.css">
+    <link rel="stylesheet" href="footer.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#00E5F9',
+                        dark: '#050505',
+                        'dark-card': '#0A0A0A',
+                    },
+                    fontFamily: {
+                        sans: ['Pretendard Variable', 'Pretendard', 'sans-serif'],
+                        serif: ['Times New Roman', 'serif'],
+                        montserrat: ['Montserrat', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-up': 'fadeUp 0.8s cubic-bezier(0.2, 1, 0.3, 1) forwards',
+                    },
+                    keyframes: {
+                        fadeUp: {
+                            'from': { opacity: '0', transform: 'translateY(20px)' },
+                            'to': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html,
+        body {
+            background-color: #000;
+            color: white;
+            -webkit-font-smoothing: antialiased;
+            /* overflow-x: hidden;  <-- Removed to fix sticky positioning */
+            width: 100%;
+        }
+
+
+
+
+        @keyframes customFadeInOnly {
+            0% {
+                opacity: 0;
+                transform: none;
+            }
+
+            100% {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        @keyframes smoothFadeUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-right {
+            animation: customFadeInOnly 0.1s ease-out forwards !important;
+            opacity: 0;
+        }
+
+        .animate-fade-up {
+            animation: smoothFadeUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+            opacity: 0;
+        }
+
+        @media (max-width: 768px) {
+
+            header .animate-fade-right,
+            header .animate-fade-up {
+                animation: none !important;
+                opacity: 1 !important;
+                transform: none !important;
+                transition: none !important;
+            }
+        }
+
+        /* Timeline Specific Styles */
+        .timeline-line {
+            width: 2px;
+            background-color: #00E5F9;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+        }
+
+        .timeline-dot {
+            width: 12px;
+            height: 12px;
+            background-color: #00E5F9;
+            border-radius: 50%;
+            position: absolute;
+            left: -5px;
+            z-index: 10;
+        }
+
+        /* Sticky Year Typography and Alignment */
+        .year-wrapper {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        @media (min-width: 768px) {
+            .year-wrapper {
+                flex-direction: row;
+                gap: 40px;
+            }
+        }
+
+        .sticky-col {
+            position: relative;
+            width: 80px;
+            flex-shrink: 0;
+        }
+
+        .sticky-element {
+            position: sticky;
+            top: 30vh;
+            height: fit-content;
+        }
+
+        .year-text-20 {
+            font-size: 64px;
+            font-weight: 800;
+            color: #000;
+            line-height: 1;
+            width: 100%;
+            text-align: right;
+        }
+
+        .year-text-suffix {
+            font-size: 64px;
+            font-weight: 800;
+            color: #00E5F9;
+            line-height: 1;
+            width: 100%;
+            text-align: left;
+        }
+
+        @media (max-width: 768px) {
+            .sticky-col {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+
+            .sticky-element {
+                position: relative;
+                top: 0;
+                display: flex;
+                justify-content: center;
+                gap: 4px;
+            }
+
+            .year-text-20,
+            .year-text-suffix {
+                width: auto;
+                font-size: 48px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- HEADER -->
+    <header id="main-header" class="fixed w-full z-50 transition-all duration-300 px-[10px] md:px-0">
+        <div
+            class="w-auto mx-[10.25px] md:w-full md:mx-auto md:px-[70px] flex justify-between items-center h-[64px] md:h-[92px] relative">
+            <!-- Logo -->
+            <a href="index.html" class="group relative flex items-center animate-fade-right my-[20px] pr-[20px]"
+                style="animation-delay: 0s; animation-fill-mode: both;">
+                <span
+                    class="font-serif text-3xl text-white italic tracking-tighter leading-none flex items-center h-full">
+                    1<span class="text-white/30 mx-0.5">/</span>10
+                </span>
+            </a>
+
+            <!-- Mobile Menu Toggles -->
+            <div class="flex md:hidden items-center gap-3 animate-fade-up transform -translate-x-[75px] h-[64px]"
+                style="animation-delay: 0.1s; animation-fill-mode: both;">
+                <a href="contact.html"
+                    class="bg-primary text-white text-[13px] leading-none font-bold px-[14px] py-[8px] rounded-full hover:bg-primary/90 transition-all whitespace-nowrap h-[34px] flex items-center justify-center">
+                    3초안에 문의하기
+                </a>
+                <button id="mobile-menu-toggle" class="text-white focus:outline-none flex items-center justify-center">
+                    <svg class="w-[24px] h-[24px]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Desktop Nav (Fully Restored from greeting.html) -->
+            <nav class="hidden md:flex items-center h-[92px]">
+                <!-- Dropdown 1: 회사소개 -->
+                <div class="group relative h-[92px] flex items-center animate-fade-up px-[12px]"
+                    style="animation-delay: 0.12s; animation-fill-mode: both;">
+                    <a href="greeting.html"
+                        class="nav-link group text-[17px] font-sans font-medium text-white hover:text-primary inline-flex items-center">
+                        <div class="relative overflow-hidden mr-[10px]" style="height: 24px !important;">
+                            <div class="flex flex-col transition-transform duration-300 group-hover:-translate-y-6">
+                                <span class="flex items-center" style="height: 24px !important;">회사소개</span>
+                                <span class="flex items-center text-primary"
+                                    style="height: 24px !important;">회사소개</span>
+                            </div>
+                        </div>
+                    </a>
+                    <div
+                        class="absolute top-full left-1/2 -translate-x-1/2 w-40 bg-white rounded-lg shadow-2xl overflow-hidden invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all duration-200 border-t-[3px] border-primary translate-y-2 group-hover:translate-y-0">
+                        <ul class="py-2 text-black text-[14px] font-medium">
+                            <li><a href="greeting.html"
+                                    class="block px-5 py-2 hover:bg-gray-50 hover:text-primary transition-colors duration-300">인사말</a>
+                            </li>
+                            <li><a href="history.html"
+                                    class="block px-5 py-2 hover:bg-gray-50 hover:text-primary transition-colors duration-300">연혁</a>
+                            </li>
+                            <li><a href="location.html"
+                                    class="block px-5 py-2 hover:bg-gray-50 hover:text-primary transition-colors duration-300">오시는
+                                    길</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Dropdown 2: 사업분야 -->
+                <div class="group relative h-[92px] flex items-center animate-fade-up px-[12px]"
+                    style="animation-delay: 0.24s; animation-fill-mode: both;">
+                    <a href="#"
+                        class="nav-link group text-[17px] font-sans font-medium text-white hover:text-primary inline-flex items-center">
+                        <div class="relative overflow-hidden mr-[10px]" style="height: 24px !important;">
+                            <div class="flex flex-col transition-transform duration-300 group-hover:-translate-y-6">
+                                <span class="flex items-center" style="height: 24px !important;">사업분야</span>
+                                <span class="flex items-center text-primary"
+                                    style="height: 24px !important;">사업분야</span>
+                            </div>
+                        </div>
+                    </a>
+                    <div
+                        class="absolute top-full left-1/2 -translate-x-1/2 w-44 bg-white rounded-lg shadow-2xl overflow-hidden invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all duration-200 border-t-[3px] border-primary translate-y-2 group-hover:translate-y-0">
+                        <ul class="py-2 text-black text-[14px] font-medium">
+                            <li><a href="business_design1.html"
+                                    class="block px-5 py-2 hover:bg-gray-50 hover:text-primary transition-colors duration-300">사업분야
+                                    디자인 1</a></li>
+                            <li><a href="business_design2.html"
+                                    class="block px-5 py-2 hover:bg-gray-50 hover:text-primary transition-colors duration-300">사업분야
+                                    디자인 2</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Dropdown 3: 제품소개 -->
+                <div class="group relative h-[92px] flex items-center animate-fade-up px-[12px]"
+                    style="animation-delay: 0.36s; animation-fill-mode: both;">
+                    <a href="#"
+                        class="nav-link group text-[17px] font-sans font-medium text-white hover:text-primary inline-flex items-center">
+                        <div class="relative overflow-hidden mr-[10px]" style="height: 24px !important;">
+                            <div class="flex flex-col transition-transform duration-300 group-hover:-translate-y-6">
+                                <span class="flex items-center" style="height: 24px !important;">제품소개</span>
+                                <span class="flex items-center text-primary"
+                                    style="height: 24px !important;">제품소개</span>
+                            </div>
+                        </div>
+                    </a>
+                    <div
+                        class="absolute top-full left-1/2 -translate-x-1/2 w-40 bg-white rounded-lg shadow-2xl overflow-hidden invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all duration-200 border-t-[3px] border-primary translate-y-2 group-hover:translate-y-0">
+                        <ul class="py-2 text-black text-[14px] font-medium">
+                            <li><a href="products.html"
+                                    class="block px-5 py-2 hover:bg-gray-50 hover:text-primary transition-colors duration-300">제품소개</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Dropdown 4: 고객지원 -->
+                <div class="group relative h-[92px] flex items-center animate-fade-up px-[12px]"
+                    style="animation-delay: 0.48s; animation-fill-mode: both;">
+                    <a href="notice.html"
+                        class="nav-link group text-[17px] font-sans font-medium text-white hover:text-primary inline-flex items-center">
+                        <div class="relative overflow-hidden mr-[10px]" style="height: 24px !important;">
+                            <div class="flex flex-col transition-transform duration-300 group-hover:-translate-y-6">
+                                <span class="flex items-center" style="height: 24px !important;">고객지원</span>
+                                <span class="flex items-center text-primary"
+                                    style="height: 24px !important;">고객지원</span>
+                            </div>
+                        </div>
+                    </a>
+                    <div
+                        class="absolute top-full left-1/2 -translate-x-1/2 w-40 bg-white rounded-lg shadow-2xl overflow-hidden invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all duration-200 border-t-[3px] border-primary translate-y-2 group-hover:translate-y-0">
+                        <ul class="py-2 text-black text-[14px] font-medium">
+                            <li><a href="notice.html"
+                                    class="block px-5 py-2 hover:bg-gray-50 hover:text-primary transition-colors duration-300">공지사항</a>
+                            </li>
+                            <li><a href="news.html"
+                                    class="block px-5 py-2 hover:bg-gray-50 hover:text-primary transition-colors duration-300">뉴스</a>
+                            </li>
+                            <li><a href="faq.html"
+                                    class="block px-5 py-2 hover:bg-gray-50 hover:text-primary transition-colors duration-300">자주묻는질문</a>
+                            </li>
+                            <li><a href="contact.html"
+                                    class="block px-5 py-2 hover:bg-gray-50 hover:text-primary transition-colors duration-300">문의하기</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- CTA Button -->
+                <div class="h-[92px] flex items-center ml-[25px]">
+                    <a href="contact.html"
+                        class="group relative overflow-hidden bg-primary px-[26px] py-[14px] border border-white/10 rounded-full text-[16px] font-sans font-bold transition-all hover:scale-105 animate-fade-up flex items-center justify-center"
+                        style="animation-delay: 0.6s; animation-fill-mode: both;">
+                        <div class="relative overflow-hidden" style="height: 16px !important;">
+                            <span
+                                class="block flex items-center transition-transform duration-300 group-hover:-translate-y-full text-white text-center w-full leading-[16px]"
+                                style="height: 16px !important;">3초만에
+                                문의하기</span>
+                            <span
+                                class="absolute inset-0 flex items-center justify-center transition-transform duration-300 translate-y-full group-hover:translate-y-0 text-white font-bold w-full leading-[16px]"
+                                style="height: 16px !important;">3초만에
+                                문의하기</span>
+                        </div>
+                    </a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- MOBILE MENU -->
+    <div id="mobile-menu"
+        class="fixed top-0 right-0 h-full w-full max-w-[430px] bg-white z-[60] transform translate-x-full transition-transform duration-300 md:hidden shadow-[-10px_0_30px_rgba(0,0,0,0.1)]">
+        <div class="flex flex-col h-full py-[10px] px-4">
+            <div class="flex justify-between items-center h-14 border-b border-gray-100 mb-4">
+                <span class="font-serif text-3xl text-black italic tracking-tighter">1/10</span>
+                <button id="mobile-menu-close" class="text-black p-2"><svg class="w-6 h-6" fill="none"
+                        stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12" />
+                    </svg></button>
+            </div>
+            <nav class="flex flex-col gap-4 text-black font-bold">
+                <a href="greeting.html" class="py-2 border-b border-gray-50">회사소개</a>
+                <a href="business_design1.html" class="py-2 border-b border-gray-50">사업분야</a>
+                <a href="products.html" class="py-2 border-b border-gray-50">제품소개</a>
+                <a href="notice.html" class="py-2 border-b border-gray-50">고객지원</a>
+            </nav>
+        </div>
+    </div>
+
+    <!-- SUB VISUAL -->
+    <section class="relative w-full h-[340px] flex flex-col justify-center overflow-hidden">
+        <div class="absolute inset-0 z-0"><img src="sub_visual_bg_final.png" alt="BG"
+                class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-black/50"></div>
+        </div>
+        <div class="relative z-10 container mx-auto px-[20px] md:px-[70px] pt-[92px] text-center">
+            <span class="block text-[#E6E6E6] font-bold text-[18px] mb-2">About Us</span>
+            <h2 class="text-[48px] font-bold text-white mb-6">회사소개</h2>
+            <div class="flex justify-center gap-2 text-[#CFCFCF] font-semibold text-[16px]">
+                <span>홈</span>·<span>회사소개</span>·<span>연혁</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- MAIN CONTENT -->
+    <main class="w-full bg-white transition-colors duration-500 min-h-screen">
+        <!-- HISTORY INTRO -->
+        <section class="w-full bg-white px-0 md:px-[10px] pt-[60px] pb-0 md:pt-[120px] md:pb-[80px]">
+            <div
+                class="max-w-[1280px] mx-[10px] px-[10px] xl:mx-auto py-[60px] md:py-[100px] relative rounded-[20px] overflow-hidden flex flex-col items-center justify-center text-center bg-gray-900 min-h-[300px]">
+                <div class="absolute inset-0 z-0">
+                    <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80"
+                        class="w-full h-full object-cover opacity-50">
+                </div>
+                <div class="relative z-10 flex flex-col items-center gap-6 px-4">
+                    <h2
+                        class="text-white font-bold font-pretendard text-[24px] md:text-[36px] leading-[1.3] md:leading-[47px] break-keep">
+                        십분의일은 변화와 혁신으로 끊임없이 달려갑니다.
+                    </h2>
+                    <p
+                        class="text-white font-medium font-pretendard text-[15px] md:text-[16px] leading-[24px] md:leading-[28px] break-keep">
+                        트랜디한 프리미엄 홈페이지 템플릿을 제작하여<br class="hidden md:block">저렴한 가격에 높은 퀄리티의 홈페이지를 제공합니다.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- TIMELINE SECTION -->
+        <section id="timeline-trigger-area" class="w-full bg-white pt-[60px] pb-[80px] md:py-[80px] px-[10px] relative">
+
+            <!-- MASTER GRID CONTAINER -->
+            <!-- Adjusted column width to 120px (Doubled) -->
+            <!-- Removed px-[10px], added mx-[25px] as requested. (Using mx-[25px] xl:mx-auto for responsiveness) -->
+            <div
+                class="max-w-[1250px] mx-[10px] md:mx-[25px] xl:mx-auto grid grid-cols-[46px_minmax(0,1fr)] md:grid-cols-[155px_minmax(0,1fr)] relative gap-0">
+
+                <!-- [COL 1] GLOBAL '20' TRACK -->
+                <div class="block relative pt-[20px] h-full pb-[150px]">
+                    <div class="sticky top-[32vh] text-right pr-0 w-full z-30">
+                        <div
+                            class="year-text-20 font-montserrat font-bold text-[#111111] text-[28px] md:text-[48px] leading-[36px] md:leading-[62px] inline-block">
+                            20</div>
+                    </div>
+                </div>
+
+                <!-- [COL 2] YEAR SECTIONS (Suffixes + Content) -->
+                <div class="flex flex-col">
+
+                    <!-- 2024 SECTION -->
+                    <!-- Inner Grid: Suffix (120px) | Content (Rest) -->
+                    <div class="year-section grid grid-cols-[46px_minmax(0,1fr)] md:grid-cols-[155px_minmax(0,1fr)] mb-[0px] min-h-[100vh] pt-[20px] pb-[150px]"
+                        data-year="24">
+
+                        <!-- Suffix Sticky Area -->
+                        <div class="block relative h-full">
+                            <div class="sticky top-[32vh] text-left pl-0 -ml-[2px] w-full z-30">
+                                <div
+                                    class="year-text-suffix font-montserrat font-bold text-primary text-[28px] md:text-[48px] leading-[36px] md:leading-[62px] inline-block">
+                                    24</div>
+                            </div>
+                        </div>
+
+
+
+                        <!-- Content Area -->
+                        <div class="relative pl-[20px] md:pl-[30px] pb-0">
+                            <!-- Visual Guide Line -->
+                            <!-- Adjusted left position slightly for new col width -->
+                            <div
+                                class="timeline-line bg-primary w-[2px] absolute top-[15px] bottom-[60px] left-[20px] md:left-[10px]">
+                            </div>
+
+                            <!-- Items -->
+                            <div class="space-y-[50px] pt-[10px]">
+                                <div class="relative pl-[30px]">
+                                    <div
+                                        class="timeline-dot bg-primary w-[14px] h-[14px] rounded-full absolute -left-[9px] md:-left-[29px] top-[3px] z-10 border-[3px] border-white shadow-sm box-content">
+                                    </div>
+                                    <h3
+                                        class="text-[20px] md:text-[28px] font-bold text-[#111111] mb-2 leading-[26px] md:leading-[36px] font-pretendard">
+                                        12월</h3>
+                                    <p
+                                        class="text-[15px] md:text-[16px] font-medium text-[#888888] leading-[26px] md:leading-[28px] font-pretendard">
+                                        올해의
+                                        마무리와 성과 달성<br>새로운 도약을 위한 준비 완료</p>
+                                </div>
+                                <div class="relative pl-[30px]">
+                                    <div
+                                        class="timeline-dot bg-primary w-[14px] h-[14px] rounded-full absolute -left-[9px] md:-left-[29px] top-[3px] z-10 border-[3px] border-white shadow-sm box-content">
+                                    </div>
+                                    <h3
+                                        class="text-[20px] md:text-[28px] font-bold text-[#111111] mb-2 leading-[26px] md:leading-[36px] font-pretendard">
+                                        10월</h3>
+                                    <p
+                                        class="text-[15px] md:text-[16px] font-medium text-[#888888] leading-[26px] md:leading-[28px] font-pretendard">
+                                        주요
+                                        프로젝트 런칭 및 서비스 안정화<br>사용자 피드백 기반 업데이트</p>
+                                </div>
+                                <div class="relative pl-[30px]">
+                                    <div
+                                        class="timeline-dot bg-primary w-[14px] h-[14px] rounded-full absolute -left-[9px] md:-left-[29px] top-[3px] z-10 border-[3px] border-white shadow-sm box-content">
+                                    </div>
+                                    <h3
+                                        class="text-[20px] md:text-[28px] font-bold text-[#111111] mb-2 leading-[26px] md:leading-[36px] font-pretendard">
+                                        8월</h3>
+                                    <p
+                                        class="text-[15px] md:text-[16px] font-medium text-[#888888] leading-[26px] md:leading-[28px] font-pretendard">
+                                        여름
+                                        시즌 프로모션 진행<br>신규 파트너십 체결</p>
+                                </div>
+                                <div class="relative pl-[30px]">
+                                    <div
+                                        class="timeline-dot bg-primary w-[14px] h-[14px] rounded-full absolute -left-[9px] md:-left-[29px] top-[3px] z-10 border-[3px] border-white shadow-sm box-content">
+                                    </div>
+                                    <h3
+                                        class="text-[20px] md:text-[28px] font-bold text-[#111111] mb-2 leading-[26px] md:leading-[36px] font-pretendard">
+                                        6월</h3>
+                                    <p
+                                        class="text-[15px] md:text-[16px] font-medium text-[#888888] leading-[26px] md:leading-[28px] font-pretendard">
+                                        상반기
+                                        결산 및 워크샵<br>팀 빌딩 활동 강화</p>
+                                </div>
+                                <div class="relative pl-[30px]">
+                                    <div
+                                        class="timeline-dot bg-primary w-[14px] h-[14px] rounded-full absolute -left-[9px] md:-left-[29px] top-[3px] z-10 border-[3px] border-white shadow-sm box-content">
+                                    </div>
+                                    <h3
+                                        class="text-[20px] md:text-[28px] font-bold text-[#111111] mb-2 leading-[26px] md:leading-[36px] font-pretendard">
+                                        4월</h3>
+                                    <p
+                                        class="text-[15px] md:text-[16px] font-medium text-[#888888] leading-[26px] md:leading-[28px] font-pretendard">
+                                        봄
+                                        맞이
+                                        대규모 업데이트<br>UI/UX 전면 개편</p>
+                                </div>
+                                <div class="relative pl-[30px]">
+                                    <div
+                                        class="timeline-dot bg-primary w-[14px] h-[14px] rounded-full absolute -left-[9px] md:-left-[29px] top-[3px] z-10 border-[3px] border-white shadow-sm box-content">
+                                    </div>
+                                    <h3
+                                        class="text-[20px] md:text-[28px] font-bold text-[#111111] mb-2 leading-[26px] md:leading-[36px] font-pretendard">
+                                        1월</h3>
+                                    <p
+                                        class="text-[15px] md:text-[16px] font-medium text-[#888888] leading-[26px] md:leading-[28px] font-pretendard">
+                                        신년
+                                        사업 계획 발표<br>전사적 목표 공유</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2023 SECTION -->
+                    <div class="year-section grid grid-cols-[46px_minmax(0,1fr)] md:grid-cols-[155px_minmax(0,1fr)] mb-[0px] min-h-[100vh] pt-[20px] pb-[150px]"
+                        data-year="23">
+                        <div class="block relative">
+                            <div class="sticky top-[32vh] text-left pl-0 -ml-[2px] w-full z-30">
+                                <div
+                                    class="year-text-suffix font-montserrat font-bold text-primary text-[28px] md:text-[48px] leading-[36px] md:leading-[62px] inline-block">
+                                    23</div>
+                            </div>
+                        </div>
+
+                        <div class="relative pl-[20px] md:pl-[30px] pb-0">
+                            <div
+                                class="timeline-line bg-primary w-[2px] absolute top-[15px] bottom-[60px] left-[20px] md:left-[10px]">
+                            </div>
+                            <div class="space-y-[50px] pt-[10px]">
+                                <div class="relative pl-[30px]">
+                                    <div
+                                        class="timeline-dot bg-primary w-[14px] h-[14px] rounded-full absolute -left-[9px] md:-left-[29px] top-[3px] z-10 border-[3px] border-white shadow-sm box-content">
+                                    </div>
+                                    <h3
+                                        class="text-[20px] md:text-[28px] font-bold text-[#111111] mb-2 leading-[26px] md:leading-[36px] font-pretendard">
+                                        12월</h3>
+                                    <p
+                                        class="text-[15px] md:text-[16px] font-medium text-[#888888] leading-[26px] md:leading-[28px] font-pretendard">
+                                        연말
+                                        시상식 수상<br>글로벌 진출 초석 마련</p>
+                                </div>
+                                <div class="relative pl-[30px]">
+                                    <div
+                                        class="timeline-dot bg-primary w-[14px] h-[14px] rounded-full absolute -left-[9px] md:-left-[29px] top-[3px] z-10 border-[3px] border-white shadow-sm box-content">
+                                    </div>
+                                    <h3
+                                        class="text-[20px] md:text-[28px] font-bold text-[#111111] mb-2 leading-[26px] md:leading-[36px] font-pretendard">
+                                        10월</h3>
+                                    <p
+                                        class="text-[15px] md:text-[16px] font-medium text-[#888888] leading-[26px] md:leading-[28px] font-pretendard">
+                                        전략적
+                                        제휴 체결<br>신규 마켓 확장</p>
+                                </div>
+                                <div class="relative pl-[30px]">
+                                    <div
+                                        class="timeline-dot bg-primary w-[14px] h-[14px] rounded-full absolute -left-[9px] md:-left-[29px] top-[3px] z-10 border-[3px] border-white shadow-sm box-content">
+                                    </div>
+                                    <h3
+                                        class="text-[20px] md:text-[28px] font-bold text-[#111111] mb-2 leading-[26px] md:leading-[36px] font-pretendard">
+                                        7월</h3>
+                                    <p
+                                        class="text-[15px] md:text-[16px] font-medium text-[#888888] leading-[26px] md:leading-[28px] font-pretendard">
+                                        서비스
+                                        고도화 작업<br>사용자 편의성 개편</p>
+                                </div>
+                                <div class="relative pl-[30px]">
+                                    <div
+                                        class="timeline-dot bg-primary w-[14px] h-[14px] rounded-full absolute -left-[9px] md:-left-[29px] top-[3px] z-10 border-[3px] border-white shadow-sm box-content">
+                                    </div>
+                                    <h3
+                                        class="text-[20px] md:text-[28px] font-bold text-[#111111] mb-2 leading-[26px] md:leading-[36px] font-pretendard">
+                                        5월</h3>
+                                    <p
+                                        class="text-[15px] md:text-[16px] font-medium text-[#888888] leading-[26px] md:leading-[28px] font-pretendard">
+                                        창립
+                                        5주년 기념 행사<br>새로운 비전 선포</p>
+                                </div>
+                                <div class="relative pl-[30px]">
+                                    <div
+                                        class="timeline-dot bg-primary w-[14px] h-[14px] rounded-full absolute -left-[9px] md:-left-[29px] top-[3px] z-10 border-[3px] border-white shadow-sm box-content">
+                                    </div>
+                                    <h3
+                                        class="text-[20px] md:text-[28px] font-bold text-[#111111] mb-2 leading-[26px] md:leading-[36px] font-pretendard">
+                                        3월</h3>
+                                    <p
+                                        class="text-[15px] md:text-[16px] font-medium text-[#888888] leading-[26px] md:leading-[28px] font-pretendard">
+                                        1분기
+                                        성과 달성<br>우수 직원 포상</p>
+                                </div>
+                                <div class="relative pl-[30px]">
+                                    <div
+                                        class="timeline-dot bg-primary w-[14px] h-[14px] rounded-full absolute -left-[9px] md:-left-[29px] top-[3px] z-10 border-[3px] border-white shadow-sm box-content">
+                                    </div>
+                                    <h3
+                                        class="text-[20px] md:text-[28px] font-bold text-[#111111] mb-2 leading-[26px] md:leading-[36px] font-pretendard">
+                                        1월</h3>
+                                    <p
+                                        class="text-[15px] md:text-[16px] font-medium text-[#888888] leading-[26px] md:leading-[28px] font-pretendard">
+                                        신규
+                                        브랜드 런칭<br>서비스 리브랜딩</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2022 SECTION -->
+                    <div class="year-section grid grid-cols-[46px_minmax(0,1fr)] md:grid-cols-[155px_minmax(0,1fr)] min-h-0 pt-[20px] pb-[150px]"
+                        data-year="22">
+                        <div class="block relative">
+                            <div class="sticky top-[32vh] text-left pl-0 -ml-[2px] w-full z-30">
+                                <div
+                                    class="year-text-suffix font-montserrat font-bold text-primary text-[28px] md:text-[48px] leading-[36px] md:leading-[62px] inline-block">
+                                    22</div>
+                            </div>
+                        </div>
+
+                        <div class="relative pl-[20px] md:pl-[30px] pb-0">
+                            <div
+                                class="timeline-line bg-primary w-[2px] absolute top-[15px] bottom-[60px] left-[20px] md:left-[10px]">
+                            </div>
+                            <div class="space-y-[50px] pt-[10px]">
+                                <div class="relative pl-[30px]">
+                                    <div
+                                        class="timeline-dot bg-primary w-[14px] h-[14px] rounded-full absolute -left-[9px] md:-left-[29px] top-[3px] z-10 border-[3px] border-white shadow-sm box-content">
+                                    </div>
+                                    <h3
+                                        class="text-[20px] md:text-[28px] font-bold text-[#111111] mb-2 leading-[26px] md:leading-[36px] font-pretendard">
+                                        12월</h3>
+                                    <p
+                                        class="text-[15px] md:text-[16px] font-medium text-[#888888] leading-[26px] md:leading-[28px] font-pretendard">
+                                        초기
+                                        투자 유치 성공<br>서비스 베타 오픈</p>
+                                </div>
+                                <div class="relative pl-[30px]">
+                                    <div
+                                        class="timeline-dot bg-primary w-[14px] h-[14px] rounded-full absolute -left-[9px] md:-left-[29px] top-[3px] z-10 border-[3px] border-white shadow-sm box-content">
+                                    </div>
+                                    <h3
+                                        class="text-[20px] md:text-[28px] font-bold text-[#111111] mb-2 leading-[26px] md:leading-[36px] font-pretendard">
+                                        10월</h3>
+                                    <p
+                                        class="text-[15px] md:text-[16px] font-medium text-[#888888] leading-[26px] md:leading-[28px] font-pretendard">
+                                        베타
+                                        서비스 사용자 모집<br>핵심 기능 검증</p>
+                                </div>
+                                <div class="relative pl-[30px]">
+                                    <div
+                                        class="timeline-dot bg-primary w-[14px] h-[14px] rounded-full absolute -left-[9px] md:-left-[29px] top-[3px] z-10 border-[3px] border-white shadow-sm box-content">
+                                    </div>
+                                    <h3
+                                        class="text-[20px] md:text-[28px] font-bold text-[#111111] mb-2 leading-[26px] md:leading-[36px] font-pretendard">
+                                        8월</h3>
+                                    <p
+                                        class="text-[15px] md:text-[16px] font-medium text-[#888888] leading-[26px] md:leading-[28px] font-pretendard">
+                                        법인
+                                        설립<br>초기 팀 구성 완료</p>
+                                </div>
+                                <div class="relative pl-[30px]">
+                                    <div
+                                        class="timeline-dot bg-primary w-[14px] h-[14px] rounded-full absolute -left-[9px] md:-left-[29px] top-[3px] z-10 border-[3px] border-white shadow-sm box-content">
+                                    </div>
+                                    <h3
+                                        class="text-[20px] md:text-[28px] font-bold text-[#111111] mb-2 leading-[26px] md:leading-[36px] font-pretendard">
+                                        5월</h3>
+                                    <p
+                                        class="text-[15px] md:text-[16px] font-medium text-[#888888] leading-[26px] md:leading-[28px] font-pretendard">
+                                        아이디어
+                                        구체화 및 시장 조사<br>프로토타입 개발 착수</p>
+                                </div>
+                                <div class="relative pl-[30px]">
+                                    <div
+                                        class="timeline-dot bg-primary w-[14px] h-[14px] rounded-full absolute -left-[9px] md:-left-[29px] top-[3px] z-10 border-[3px] border-white shadow-sm box-content">
+                                    </div>
+                                    <h3
+                                        class="text-[20px] md:text-[28px] font-bold text-[#111111] mb-2 leading-[26px] md:leading-[36px] font-pretendard">
+                                        2월</h3>
+                                    <p
+                                        class="text-[15px] md:text-[16px] font-medium text-[#888888] leading-[26px] md:leading-[28px] font-pretendard">
+                                        비즈니스
+                                        모델 수립<br>창업 멤버 확정</p>
+                                </div>
+                                <div class="relative pl-[30px]">
+                                    <div
+                                        class="timeline-dot bg-primary w-[14px] h-[14px] rounded-full absolute -left-[9px] md:-left-[29px] top-[3px] z-10 border-[3px] border-white shadow-sm box-content">
+                                    </div>
+                                    <h3
+                                        class="text-[20px] md:text-[28px] font-bold text-[#111111] mb-2 leading-[26px] md:leading-[36px] font-pretendard">
+                                        1월</h3>
+                                    <p class="text-[#666] text-[15px] md:text-[16px] leading-[1.6] font-pretendard">프로젝트
+                                        기획 및 팀 빌딩 시작<br>사업자 등록 완료</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="new-footer">
+        <div class="max-w-[1280px] w-full mx-auto">
+            <div class="footer-top">
+                <div class="footer-left relative left-0 md:-left-5">
+                    <div class="f-section">
+                        <h4 style="margin-bottom: 0 !important; margin-top: 30px !important;">Address</h4>
+                        <p>서울특별시 00구 00동</p>
+                    </div>
+                    <div class="f-section">
+                        <h4 style="margin-bottom: 0 !important; margin-top: 30px !important;">Contact</h4>
+                        <p>T. 010 1234 1234<br>F. 010 1234 1234</p>
+                    </div>
+                </div>
+                <div class="footer-right">
+                    <div class="f-section">
+                        <h4 style="margin-bottom: 0 !important; margin-top: 30px !important;">십분의일</h4>
+                        <p>대표: 안상언<br>사업자등록번호: 000-00-00000<br>주소: 서울특별시 00구 00동</p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="relative left-0 md:-left-5"><a href="#">개인정보처리방침</a></div>
+                <div><span>One-tenth. All rights reserved.</span></div>
+            </div>
+        </div>
+    </footer>
+    <!-- GSAP Premium Animation Script (Removed swapping logic as CSS Sticky handles it now) -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            gsap.registerPlugin(ScrollTrigger);
+
+            // GSAP SWAP SUFFIX: Change 24 -> 23 -> 22 as each section hits the viewport
+            const yearSections = document.querySelectorAll('.year-section');
+            const suffixElement = document.getElementById('active-suffix');
+            const mobileSuffixElement = document.getElementById('mobile-suffix');
+
+            yearSections.forEach((section) => {
+                const yearSuffix = section.getAttribute('data-year');
+
+                ScrollTrigger.create({
+                    trigger: section,
+                    start: "top 35%", // Trigger slightly before it hits the sticky text
+                    end: "bottom 35%",
+                    onEnter: () => {
+                        suffixElement.textContent = yearSuffix;
+                        if (mobileSuffixElement) mobileSuffixElement.textContent = yearSuffix;
+                        gsap.fromTo([suffixElement, mobileSuffixElement], { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" });
+                    },
+                    onEnterBack: () => {
+                        suffixElement.textContent = yearSuffix;
+                        if (mobileSuffixElement) mobileSuffixElement.textContent = yearSuffix;
+                        gsap.fromTo([suffixElement, mobileSuffixElement], { opacity: 0, y: -10 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" });
+                    }
+                });
+            });
+        });
+    </script>
+    <script src="script.js"></script>
+</body>
+
+</html>

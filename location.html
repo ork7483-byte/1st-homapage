@@ -1,0 +1,514 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>십분의일 | 프리미엄 웹사이트 솔루션</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Urbanist:wght@700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" as="style" crossorigin
+        href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <link rel="stylesheet" href="style_mobile_menu.css">
+    <link rel="stylesheet" href="footer.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#00E5F9',
+                        dark: '#050505',
+                        'dark-card': '#0A0A0A',
+                    },
+                    fontFamily: {
+                        sans: ['Pretendard Variable', 'Pretendard', 'sans-serif'],
+                        serif: ['Times New Roman', 'serif'],
+                        montserrat: ['Montserrat', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-up': 'fadeUp 0.8s cubic-bezier(0.2, 1, 0.3, 1) forwards',
+                    },
+                    keyframes: {
+                        fadeUp: {
+                            'from': { opacity: '0', transform: 'translateY(20px)' },
+                            'to': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html,
+        body {
+            background-color: #000;
+            color: white;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+            width: 100%;
+        }
+
+
+
+        @keyframes customFadeInOnly {
+            0% {
+                opacity: 0;
+                transform: none;
+            }
+
+            100% {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        @keyframes smoothFadeUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-right {
+            animation: customFadeInOnly 0.1s ease-out forwards !important;
+            opacity: 0;
+        }
+
+        .animate-fade-up {
+            animation: smoothFadeUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+            opacity: 0;
+        }
+
+        @media (max-width: 768px) {
+
+            header .animate-fade-right,
+            header .animate-fade-up {
+                animation: none !important;
+                opacity: 1 !important;
+                transform: none !important;
+                transition: none !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- HEADER -->
+    <header id="main-header" class="fixed w-full z-50 transition-all duration-300 px-[10px] md:px-0">
+        <div
+            class="w-auto mx-[10.25px] md:w-full md:mx-auto md:px-[70px] flex justify-between items-center h-[64px] md:h-[92px] relative">
+            <a href="index.html" class="group relative flex items-center animate-fade-right my-[20px] pr-[20px]"
+                style="animation-delay: 0s; animation-fill-mode: both;">
+                <span
+                    class="font-serif text-3xl text-white italic tracking-tighter leading-none flex items-center h-full">
+                    1<span class="text-white/30 mx-0.5">/</span>10
+                </span>
+            </a>
+            <div class="flex md:hidden items-center gap-3 animate-fade-up transform -translate-x-[75px] h-[64px]"
+                style="animation-delay: 0.1s; animation-fill-mode: both;">
+                <a href="contact.html"
+                    class="bg-primary text-white text-[13px] leading-none font-bold px-[14px] py-[8px] rounded-full hover:bg-primary/90 transition-all whitespace-nowrap h-[34px] flex items-center justify-center">3초안에
+                    문의하기</a>
+                <button id="mobile-menu-toggle" class="text-white focus:outline-none flex items-center justify-center">
+                    <svg class="w-[24px] h-[24px]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+            </div>
+            <nav class="hidden md:flex items-center h-[92px]">
+                <div class="group relative h-[92px] flex items-center animate-fade-up px-[12px]"
+                    style="animation-delay: 0.12s; animation-fill-mode: both;">
+                    <a href="greeting.html"
+                        class="nav-link group text-[17px] font-sans font-medium text-white hover:text-primary inline-flex items-center">
+                        <div class="relative overflow-hidden mr-[10px]" style="height: 24px !important;">
+                            <div class="flex flex-col transition-transform duration-300 group-hover:-translate-y-6">
+                                <span class="flex items-center" style="height: 24px !important;">회사소개</span><span
+                                    class="flex items-center text-primary" style="height: 24px !important;">회사소개</span>
+                            </div>
+                        </div>
+                    </a>
+                    <div
+                        class="absolute top-full left-1/2 -translate-x-1/2 w-40 bg-white rounded-lg shadow-2xl overflow-hidden invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all duration-200 border-t-[3px] border-primary translate-y-2 group-hover:translate-y-0">
+                        <ul class="py-2 text-black text-[14px] font-medium">
+                            <li><a href="greeting.html"
+                                    class="block px-5 py-2 hover:bg-gray-50 hover:text-primary transition-colors duration-300">인사말</a>
+                            </li>
+                            <li><a href="history.html"
+                                    class="block px-5 py-2 hover:bg-gray-50 hover:text-primary transition-colors duration-300">연혁</a>
+                            </li>
+                            <li><a href="location.html"
+                                    class="block px-5 py-2 hover:bg-gray-50 hover:text-primary transition-colors duration-300">오시는
+                                    길</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="group relative h-[92px] flex items-center animate-fade-up px-[12px]"
+                    style="animation-delay: 0.24s; animation-fill-mode: both;">
+                    <a href="#"
+                        class="nav-link group text-[17px] font-sans font-medium text-white hover:text-primary inline-flex items-center">
+                        <div class="relative overflow-hidden mr-[10px]" style="height: 24px !important;">
+                            <div class="flex flex-col transition-transform duration-300 group-hover:-translate-y-6">
+                                <span class="flex items-center" style="height: 24px !important;">사업분야</span><span
+                                    class="flex items-center text-primary" style="height: 24px !important;">사업분야</span>
+                            </div>
+                        </div>
+                    </a>
+                    <div
+                        class="absolute top-full left-1/2 -translate-x-1/2 w-44 bg-white rounded-lg shadow-2xl overflow-hidden invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all duration-200 border-t-[3px] border-primary translate-y-2 group-hover:translate-y-0">
+                        <ul class="py-2 text-black text-[14px] font-medium">
+                            <li><a href="business_design1.html"
+                                    class="block px-5 py-2 hover:bg-gray-50 hover:text-primary transition-colors duration-300">사업분야
+                                    디자인 1</a></li>
+                            <li><a href="business_design2.html"
+                                    class="block px-5 py-2 hover:bg-gray-50 hover:text-primary transition-colors duration-300">사업분야
+                                    디자인 2</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="group relative h-[92px] flex items-center animate-fade-up px-[12px]"
+                    style="animation-delay: 0.36s; animation-fill-mode: both;">
+                    <a href="#"
+                        class="nav-link group text-[17px] font-sans font-medium text-white hover:text-primary inline-flex items-center">
+                        <div class="relative overflow-hidden mr-[10px]" style="height: 24px !important;">
+                            <div class="flex flex-col transition-transform duration-300 group-hover:-translate-y-6">
+                                <span class="flex items-center" style="height: 24px !important;">제품소개</span><span
+                                    class="flex items-center text-primary" style="height: 24px !important;">제품소개</span>
+                            </div>
+                        </div>
+                    </a>
+                    <div
+                        class="absolute top-full left-1/2 -translate-x-1/2 w-40 bg-white rounded-lg shadow-2xl overflow-hidden invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all duration-200 border-t-[3px] border-primary translate-y-2 group-hover:translate-y-0">
+                        <ul class="py-2 text-black text-[14px] font-medium">
+                            <li><a href="products.html"
+                                    class="block px-5 py-2 hover:bg-gray-50 hover:text-primary transition-colors duration-300">제품소개</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="group relative h-[92px] flex items-center animate-fade-up px-[12px]"
+                    style="animation-delay: 0.48s; animation-fill-mode: both;">
+                    <a href="notice.html"
+                        class="nav-link group text-[17px] font-sans font-medium text-white hover:text-primary inline-flex items-center">
+                        <div class="relative overflow-hidden mr-[10px]" style="height: 24px !important;">
+                            <div class="flex flex-col transition-transform duration-300 group-hover:-translate-y-6">
+                                <span class="flex items-center" style="height: 24px !important;">고객지원</span><span
+                                    class="flex items-center text-primary" style="height: 24px !important;">고객지원</span>
+                            </div>
+                        </div>
+                    </a>
+                    <div
+                        class="absolute top-full left-1/2 -translate-x-1/2 w-40 bg-white rounded-lg shadow-2xl overflow-hidden invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all duration-200 border-t-[3px] border-primary translate-y-2 group-hover:translate-y-0">
+                        <ul class="py-2 text-black text-[14px] font-medium">
+                            <li><a href="notice.html"
+                                    class="block px-5 py-2 hover:bg-gray-50 hover:text-primary transition-colors duration-300">공지사항</a>
+                            </li>
+                            <li><a href="news.html"
+                                    class="block px-5 py-2 hover:bg-gray-50 hover:text-primary transition-colors duration-300">뉴스</a>
+                            </li>
+                            <li><a href="faq.html"
+                                    class="block px-5 py-2 hover:bg-gray-50 hover:text-primary transition-colors duration-300">자주묻는질문</a>
+                            </li>
+                            <li><a href="contact.html"
+                                    class="block px-5 py-2 hover:bg-gray-50 hover:text-primary transition-colors duration-300">문의하기</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="h-[92px] flex items-center ml-[25px]">
+                    <a href="contact.html"
+                        class="group relative overflow-hidden bg-primary px-[26px] py-[14px] border border-white/10 rounded-full text-[16px] font-sans font-bold transition-all hover:scale-105 animate-fade-up flex items-center justify-center"
+                        style="animation-delay: 0.6s; animation-fill-mode: both;">
+                        <div class="relative overflow-hidden" style="height: 16px !important;"><span
+                                class="block flex items-center transition-transform duration-300 group-hover:-translate-y-full text-white text-center w-full leading-[16px]"
+                                style="height: 16px !important;">3초만에 문의하기</span><span
+                                class="absolute inset-0 flex items-center justify-center transition-transform duration-300 translate-y-full group-hover:translate-y-0 text-white font-bold w-full leading-[16px]"
+                                style="height: 16px !important;">3초만에 문의하기</span></div>
+                    </a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- MOBILE MENU -->
+    <div id="mobile-menu"
+        class="fixed top-0 right-0 h-full w-full max-w-[430px] bg-white z-[60] transform translate-x-full transition-transform duration-300 md:hidden shadow-[-10px_0_30px_rgba(0,0,0,0.1)]">
+        <div class="flex flex-col h-full py-[10px]">
+            <div class="flex justify-between items-center mb-[10px] px-[10px] h-14">
+                <a href="index.html"
+                    class="font-serif text-3xl text-black italic tracking-tighter ml-[5px] leading-none flex items-center h-full">1<span
+                        class="text-black/30 mx-0.5">/</span>10</a>
+                <button id="mobile-menu-close"
+                    class="text-black focus:outline-none p-2 -mr-[2px] h-full flex items-center"><svg
+                        class="w-[24px] h-[24px]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12" />
+                    </svg></button>
+            </div>
+            <nav class="flex flex-col text-black text-[16px] font-bold overflow-y-auto scrollbar-hide">
+                <div class="mobile-menu-item-group border-b border-gray-100">
+                    <div class="flex justify-between items-center py-[15px] cursor-pointer mobile-menu-trigger"><span
+                            class="text-[16px]">회사소개</span><span
+                            class="text-gray-300 text-xl font-light transition-all duration-300 menu-icon w-6 h-6 flex items-center justify-center">+</span>
+                    </div>
+                    <div class="mobile-submenu hidden flex flex-col"><a href="greeting.html">인사말</a><a
+                            href="history.html">연혁</a><a href="location.html">오시는 길</a></div>
+                </div>
+                <div class="mobile-menu-item-group border-b border-gray-100">
+                    <div class="flex justify-between items-center py-[15px] cursor-pointer mobile-menu-trigger"><span
+                            class="text-[16px]">사업분야</span><span
+                            class="text-gray-300 text-xl font-light transition-all duration-300 menu-icon w-6 h-6 flex items-center justify-center">+</span>
+                    </div>
+                    <div class="mobile-submenu hidden flex flex-col"><a href="business_design1.html">사업분야 디자인 1</a><a
+                            href="business_design2.html">사업분야 디자인 2</a></div>
+                </div>
+                <div class="mobile-menu-item-group border-b border-gray-100">
+                    <div class="flex justify-between items-center py-[15px] cursor-pointer mobile-menu-trigger"><span
+                            class="text-[16px]">제품소개</span><span
+                            class="text-gray-300 text-xl font-light transition-all duration-300 menu-icon w-6 h-6 flex items-center justify-center">+</span>
+                    </div>
+                    <div class="mobile-submenu hidden flex flex-col"><a href="products.html">제품소개</a></div>
+                </div>
+                <div class="mobile-menu-item-group border-b border-gray-100">
+                    <div class="flex justify-between items-center py-[15px] cursor-pointer mobile-menu-trigger"><span
+                            class="text-[16px]">고객지원</span><span
+                            class="text-gray-300 text-xl font-light transition-all duration-300 menu-icon w-6 h-6 flex items-center justify-center">+</span>
+                    </div>
+                    <div class="mobile-submenu hidden flex flex-col"><a href="notice.html">공지사항</a><a
+                            href="news.html">뉴스</a><a href="faq.html">자주묻는질문</a><a href="contact.html">문의하기</a></div>
+                </div>
+            </nav>
+            <div class="mt-auto pb-4 px-4"><a href="contact.html"
+                    class="w-full bg-primary text-white text-[16px] font-bold py-4 rounded-full flex items-center justify-center shadow-lg shadow-primary/20 transition-all active:scale-95">3초안에
+                    문의하기</a></div>
+        </div>
+    </div>
+
+    <!-- SUB VISUAL -->
+    <section class="relative w-full h-[340px] flex flex-col justify-center overflow-hidden">
+        <div class="absolute inset-0 z-0"><img src="sub_visual_bg_final.png" alt="BG"
+                class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-black/50"></div>
+        </div>
+        <div class="relative z-10 container mx-auto px-[20px] md:px-[70px] pt-[92px] text-center">
+            <span class="block text-[#E6E6E6] font-bold text-[18px] mb-2 animate-fade-right">About Us</span>
+            <h2 class="text-[48px] font-bold text-white mb-6 animate-fade-up" style="animation-delay: 0.1s;">회사소개</h2>
+            <div class="flex justify-center gap-2 text-[#CFCFCF] font-semibold text-[16px] animate-fade-up"
+                style="animation-delay: 0.2s;"><span>홈</span>·<span>회사소개</span>·<span>오시는 길</span></div>
+        </div>
+    </section>
+
+    <!-- MAIN CONTENT AREA -->
+    <!-- Requests: Padding Side 10px, Top 120px, Bottom 80px -->
+    <main class="w-full bg-white transition-colors duration-500 min-h-screen font-pretendard text-black">
+        <section class="px-0 md:px-[10px] py-[60px] md:pt-[120px] md:pb-[80px]">
+            <!-- Child Container: Margin Side 10px, Max Width 1200px Centered -->
+            <div class="max-w-[1280px] px-[10px] md:px-[25px] mx-[10px] xl:mx-auto flex flex-col gap-[30px] md:gap-12">
+
+                <!-- 1. Title Area -->
+                <div class="w-full text-left">
+                    <h2
+                        class="text-[28px] md:text-[48px] font-bold text-[#111111] leading-[36px] md:leading-[62px] tracking-tight">
+                        오시는길</h2>
+                </div>
+
+                <!-- 2. Map Area with Loading State -->
+                <div
+                    class="relative w-full h-[400px] md:h-[500px] rounded-[10px] overflow-hidden shadow-sm border border-gray-100 bg-gray-50 flex items-center justify-center">
+
+                    <!-- Loading Spinner (Visible until iframe loads) -->
+                    <div id="map-loader"
+                        class="absolute inset-0 z-20 flex flex-col items-center justify-center bg-gray-50 transition-opacity duration-500">
+                        <div
+                            class="w-10 h-10 border-4 border-primary/20 border-t-primary rounded-full animate-spin mb-4">
+                        </div>
+                        <p class="text-[14px] text-gray-400 font-medium">지도를 불러오고 있습니다...</p>
+                    </div>
+
+                    <!-- Google Map iframe -->
+                    <iframe id="map-iframe"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3162.926!2d126.9746!3d37.5562!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357ca29494626123%3A0x247585df54b73b22!2z7ISc7Jqs7Iuc7LKt!5e0!3m2!1sko!2skr!4v1705310000000!5m2!1sko!2skr"
+                        width="100%" height="100%" style="border:0;" allowfullscreen="" loading="eager"
+                        referrerpolicy="no-referrer-when-downgrade" class="opacity-0 transition-opacity duration-700"
+                        onload="this.classList.replace('opacity-0', 'opacity-100'); document.getElementById('map-loader').style.opacity='0'; setTimeout(() => document.getElementById('map-loader').remove(), 500);">
+                    </iframe>
+
+                    <!-- Custom Info Box (Overlay) -->
+                    <div
+                        class="absolute top-4 left-4 md:top-6 md:left-6 bg-white shadow-xl z-10 rounded-sm border border-gray-100/50">
+                        <!-- Mobile Version (Simpler - as per image) -->
+                        <div class="block md:hidden px-4 py-3 min-w-[140px]">
+                            <h4 class="font-bold text-[16px] text-black mb-1">강남역</h4>
+                            <a href="#" class="text-[13px] text-[#4285F4] font-medium hover:underline">큰 지도 보기</a>
+                        </div>
+
+                        <!-- Desktop Version (Detailed) -->
+                        <div class="hidden md:block p-5 w-[280px]">
+                            <h4 class="font-bold text-[18px] text-black mb-1">강남역</h4>
+                            <p class="text-[13px] text-gray-500 mb-2">서울특별시</p>
+                            <div class="flex items-center gap-1 mb-4">
+                                <span class="text-[14px] font-bold text-gray-800">4.6</span>
+                                <div class="flex text-yellow-400 text-[12px]">★★★★★</div>
+                                <span class="text-[12px] text-blue-500 ml-1">리뷰 27개</span>
+                            </div>
+                            <div class="flex justify-between items-center border-t border-gray-100 pt-3">
+                                <span class="text-[12px] text-blue-600 font-semibold cursor-pointer hover:underline">큰
+                                    지도 보기</span>
+                                <span
+                                    class="text-[12px] text-blue-600 font-semibold cursor-pointer flex items-center gap-1 hover:underline">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <polygon points="3 11 22 2 13 21 11 13 3 11" />
+                                    </svg>
+                                    길찾기
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. Bottom Info Section (2 columns) -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-20">
+                    <!-- Left Column: 회사정보 -->
+                    <div class="flex flex-col gap-6">
+                        <h3
+                            class="text-[24px] md:text-[28px] font-bold text-[#111111] leading-[31px] md:leading-[36px] border-b border-gray-100 pb-4">
+                            회사정보</h3>
+                        <div class="flex flex-col">
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 flex items-center justify-center text-gray-300">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <rect x="4" y="2" width="16" height="20" rx="2" ry="2" />
+                                        <line x1="9" y1="22" x2="9" y2="2" />
+                                        <line x1="15" y1="22" x2="15" y2="2" />
+                                        <line x1="4" y1="6" x2="20" y2="6" />
+                                        <line x1="4" y1="10" x2="20" y2="10" />
+                                        <line x1="4" y1="14" x2="20" y2="14" />
+                                        <line x1="4" y1="18" x2="20" y2="18" />
+                                    </svg>
+                                </div>
+                                <p
+                                    class="text-[18px] md:text-[20px] font-[600] text-black leading-[32px] md:leading-[35px]">
+                                    012345 00시 00동 00빌딩 00호</p>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 flex items-center justify-center text-gray-300">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <path
+                                            d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                                    </svg>
+                                </div>
+                                <p
+                                    class="text-[18px] md:text-[20px] font-[600] text-black leading-[32px] md:leading-[35px]">
+                                    02-123-4567</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: 교통안내 -->
+                    <div class="flex flex-col gap-6">
+                        <h3
+                            class="text-[24px] md:text-[28px] font-bold text-[#111111] leading-[31px] md:leading-[36px] border-b border-gray-100 pb-4">
+                            교통안내</h3>
+                        <div class="flex flex-col">
+                            <div class="flex items-start gap-4">
+                                <div class="w-10 h-10 shrink-0 flex items-center justify-center text-gray-300">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <rect x="4" y="3" width="16" height="15" rx="2" />
+                                        <path d="M4 11h16" />
+                                        <path d="M8 15h.01" />
+                                        <path d="M16 15h.01" />
+                                        <path d="m6 18-2 3" />
+                                        <path d="m18 18 2 3" />
+                                    </svg>
+                                </div>
+                                <p
+                                    class="text-[18px] md:text-[20px] font-[600] text-black leading-[32px] md:leading-[35px]">
+                                    지하철 2호선 00역 2번 출구 00방면 도보
+                                    10분</p>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div class="w-10 h-10 shrink-0 flex items-center justify-center text-gray-300">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <path d="M8 6V4c0-1.1.9-2 2-2h4c1.1 0 2 .9 2 2v2" />
+                                        <rect x="2" y="6" width="20" height="12" rx="2" />
+                                        <path d="M12 18v3" />
+                                        <path d="M7 18v3" />
+                                        <path d="M17 18v3" />
+                                        <path d="M2 13h20" />
+                                        <path d="M5 10v2" />
+                                        <path d="M19 10v2" />
+                                    </svg>
+                                </div>
+                                <p
+                                    class="text-[18px] md:text-[20px] font-[600] text-black leading-[32px] md:leading-[35px]">
+                                    일반 37 /
+                                    112 / 115-1 / 131 / 201 00사거리 하차 고속 1001, 1002 00아파트 하차</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="new-footer">
+        <div class="max-w-[1280px] w-full mx-auto">
+            <div class="footer-top">
+                <div class="footer-left relative left-0 md:-left-5">
+                    <div class="f-section">
+                        <h4 style="margin-bottom: 0 !important; margin-top: 30px !important;">Address</h4>
+                        <p>서울특별시 00구 00동</p>
+                    </div>
+                    <div class="f-section">
+                        <h4 style="margin-bottom: 0 !important; margin-top: 30px !important;">Contact</h4>
+                        <p>T. 010 1234 1234<br>F. 010 1234 1234</p>
+                    </div>
+                </div>
+                <div class="footer-right">
+                    <div class="f-section">
+                        <h4 style="margin-bottom: 0 !important; margin-top: 30px !important;">십분의일</h4>
+                        <p>대표: 안상언<br>사업자등록번호: 000-00-00000<br>주소: 서울특별시 00구 00동</p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="relative left-0 md:-left-5"><a href="#">개인정보처리방침</a></div>
+                <div><span>One-tenth. All rights reserved.</span></div>
+            </div>
+        </div>
+    </footer>
+    <script src="script.js"></script>
+    <script>
+        // Force Lucide icons to render if needed (though using SVGs directly for stability)
+        document.addEventListener('DOMContentLoaded', () => {
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+        });
+    </script>
+</body>
+
+</html>

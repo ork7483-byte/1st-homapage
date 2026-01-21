@@ -1,0 +1,82 @@
+/* Business Design 2 Responsive Styles */
+
+/* Tablet Breakpoint (max-width: 1024px) */
+@media screen and (max-width: 1024px) {
+
+    /* Reduce side padding for container mostly handled by global, 
+       but ensure flex gap scales down */
+    .service-top-v2 {
+        gap: 30px !important;
+        /* 60px -> 30px */
+    }
+
+    /* Adjust fixed width of description column to be flexible */
+    .service-desc-col {
+        flex: 1 !important;
+        /* Allow it to shrink */
+        min-width: 0 !important;
+        /* Prevent overflow */
+    }
+
+    /* Adjust font sizes slightly */
+    .service-title-col h3 {
+        font-size: 36px !important;
+        line-height: 1.3 !important;
+    }
+}
+
+/* Mobile Breakpoint (max-width: 768px) */
+@media screen and (max-width: 768px) {
+
+    /* Stack content vertically */
+    .service-top-v2 {
+        flex-direction: column !important;
+        gap: 20px !important;
+        margin-bottom: 30px !important;
+    }
+
+    /* Reset widths for full width on mobile */
+    .service-title-col,
+    .service-desc-col {
+        width: 100% !important;
+        flex: auto !important;
+        padding-top: 0 !important;
+        margin-top: 0 !important;
+        /* Reset the negative margin utilized for desktop alignment */
+        margin-left: 0 !important;
+    }
+
+    /* Adjust vertical spacing / padding for sections */
+    #service-premium,
+    #service-more {
+        padding-top: 60px !important;
+        padding-bottom: 60px !important;
+    }
+
+    /* Typography adjustments for mobile */
+    .service-label {
+        font-size: 14px !important;
+        margin-bottom: 10px !important;
+    }
+
+    .service-title-col h3 {
+        font-size: 28px !important;
+        line-height: 1.3 !important;
+        white-space: normal !important;
+        /* Allow wrapping on small screens */
+    }
+
+    .service-desc-col p {
+        font-size: 16px !important;
+        line-height: 1.6 !important;
+        text-align: left !important;
+    }
+
+    /* Image adjustment */
+    .service-image-v2 img {
+        aspect-ratio: 16 / 10 !important;
+        /* Slightly taller aspect ratio for mobile visibility */
+        transform: scale(1) !important;
+        /* Reset zoom if needed or keep it subtle */
+    }
+}
